@@ -1,0 +1,141 @@
+# AI 三档策略 — 配置宏（仅改 config/*.json，无 UI/识别/点击）
+# 配套：module/proalas/ai_planner/strategy_preset.py → executor.apply_commands
+#
+# ── 指令格式（commands 数组，按顺序执行）────────────────────────────
+#
+# 1) op: set          写入 config 字段（点分路径 = Alas 任务树）
+#    path:  Task.SubTask.Field     例 Event.StopCondition.OilLimit
+#    value: true | false | 123 | "text"
+#    note:  （可选）给人看的说明，执行器忽略
+#
+# 2) op: task_delay   推迟/提前某任务 Scheduler.NextRun
+#    task:  顶层任务名               例 Daily / Event / OpsiExplore / Hard
+#    minute: 180                     相对现在 +N 分钟（与 target 二选一）
+#    target: "2026-06-23 14:00:00"   绝对时间
+#    note:  （可选）
+#
+# 3) op: plan_upsert  写 PlanSchedule.json 备忘（不直接改 Scheduler）
+#    date:   YYYY-MM-DD 或 auto（宏展开为当天）
+#    action: run | pause | wake | sleep
+#    note:   备忘文字
+#
+# path 须在 command_schema._SET_PREFIX_WHITELIST 内；禁止改 Alas.Emulator.* 等。
+# 后续您只需在对应 preset 的 commands: 下追加 - op: set ... 即可。
+#
+# ── 粘贴模板 ────────────────────────────────────────────────────────
+#   - op: set
+#     path: <Task>.<字段>.<子字段>
+#     value: <值>
+#     note: <中文说明>
+
+version: 1
+
+presets:
+  conservative:
+    label: 保守
+    description: |
+      Pro 档可选。稳资源、练级+低耗；PT 封顶 10w 与激进相同。
+      见 迁移文档/策略内容.md §2。
+    commands:
+      # --- 策略标记（必写，WebUI/AI 可读）---
+      - op: set
+        path: ProalasAiPlanner.ProalasAiPlanner.Strategy
+        value: conservative
+        note: 写入当前策略档位
+
+      # --- 活动 / 出击参数（示例，可改数值）---
+      - op: set
+        path: EventGeneral.EventGeneral.PtLimit
+        value: 100000
+        note: 活动 PT 封顶 10w（三档共用）
+      - op: set
+        path: Event.StopCondition.OilLimit
+        value: 6000
+        note: 活动偏低耗
+      - op: set
+        path: Main.StopCondition.OilLimit
+        value: 10000
+      - op: set
+        path: Main2.StopCondition.OilLimit
+        value: 10000
+
+      # --- 任务 Scheduler 节奏（示例）---
+      - op: task_delay
+        task: OpsiExplore
+        minute: 180
+        note: 大世界推迟，防卡死；下半月再手动/AI 缩短
+      - op: task_delay
+        task: Hard
+        minute: 240
+        note: Hard 拉长间隔
+
+      # --- TODO：粘贴您确认的路径（保守专属）---
+      # - op: set
+      #   path: ProalasFleetStrength.TeamScope
+      #   value: "3,4"
+      #   note: 只更换 34 队练级
+      # - op: set
+      #   path: Main.Scheduler.Enable
+      #   value: true
+      #   note: 维持主线节奏
+
+  aggressive:
+    label: 激进
+    description: |
+      Pro 档可选。更积极调度、抽卡/推图/装备（功能 2～4 就绪后）；PT 封顶仍为 10w。
+      见 迁移文档/策略内容.md §3。
+    commands:
+      - op: set
+        path: ProalasAiPlanner.ProalasAiPlanner.Strategy
+        value: aggressive
+        note: 写入当前策略档位
+
+      - op: set
+        path: EventGeneral.EventGeneral.PtLimit
+        value: 100000
+        note: 活动 PT 封顶 10w（与保守相同）
+      - op: set
+        path: Event.StopCondition.OilLimit
+        value: 6000
+
+      - op: task_delay
+        task: Daily
+        minute: 15
+        note: 每日任务压缩间隔
+      - op: task_delay
+        task: OpsiExplore
+        minute: 20
+      - op: task_delay
+        task: Event
+        minute: 15
+        note: 活动优先
+
+      # --- TODO：粘贴路径（激进专属）---
+      # - op: set
+      #   path: ProalasFleetStrength.TeamScope
+      #   value: "5,6"
+      #   note: 只更换 56 队低耗
+      # - op: set
+      #   path: Main.Scheduler.Enable
+      #   value: false
+      #   note: 取消练级（示例，请按实际任务名改）
+
+  innovative:
+    label: 创新·人工
+    description: |
+      Pro+ 套餐（+20）：非第三种机器人格。含 Pro 全部能力 + 可切换 conservative/aggressive 宏 + 人工调参/客服。
+      Strategy=innovative 仅作账户标记；默认不写自动混合规则。AutoApply 建议关闭，由客服或用户选宏。
+      详见 迁移文档/策略内容.md §4。
+    commands:
+      - op: set
+        path: ProalasAiPlanner.ProalasAiPlanner.Strategy
+        value: innovative
+        note: Pro+ 账户标记（实际跑 conservative/aggressive 宏由人工或用户指定）
+      - op: set
+        path: ProalasAiPlanner.ProalasAiPlanner.AutoApply
+        value: false
+        note: Pro+ 默认不自动 apply，避免未经人工确认的 bulk 改 config
+      - op: plan_upsert
+        date: auto
+        action: run
+        note: Pro+ 创新·人工档已开通，首次策略由客服确认

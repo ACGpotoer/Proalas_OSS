@@ -309,15 +309,10 @@
       "ServerUpdate": "00:00"
     },
     "GemsFarming": {
-      "ChangeFlagship": "ship",
       "CommonCV": "any",
       "ChangeVanguard": "ship",
       "CommonDD": "any",
       "CommissionLimit": true
-    },
-    "EquipmentCode": {
-      "ExportToConfig": true,
-      "Config": "DD: null\nbogue: null\nhermes: null\nlangley: null\nranger: null"
     },
     "Campaign": {
       "Name": "12-4",
@@ -347,25 +342,6 @@
       "Fleet2Mode": "combat_auto",
       "Fleet2Step": 2,
       "FleetOrder": "fleet1_all_fleet2_standby"
-    },
-    "Submarine": {
-      "Fleet": 0,
-      "Mode": "do_not_use",
-      "AutoSearchMode": "sub_standby",
-      "DistanceToBoss": "use_open_ocean_support"
-    },
-    "Emotion": {
-      "Mode": "calculate_ignore",
-      "Fleet1Value": 119,
-      "Fleet1Record": "2020-01-01 00:00:00",
-      "Fleet1Control": "prevent_red_face",
-      "Fleet1Recover": "not_in_dormitory",
-      "Fleet1Oath": false,
-      "Fleet2Value": 119,
-      "Fleet2Record": "2020-01-01 00:00:00",
-      "Fleet2Control": "prevent_red_face",
-      "Fleet2Recover": "not_in_dormitory",
-      "Fleet2Oath": false
     },
     "Storage": {
       "Storage": {}
@@ -638,7 +614,7 @@
       "AmbushEvade": true
     },
     "Coalition": {
-      "Mode": "tc3",
+      "Mode": "hard",
       "Fleet": "single"
     },
     "StopCondition": {
@@ -693,7 +669,7 @@
     },
     "Campaign": {
       "Name": "D3",
-      "Event": "war_archives_20240725_cn",
+      "Event": "campaign_main",
       "Mode": "normal",
       "UseClearMode": true,
       "UseFleetLock": true,
@@ -1339,8 +1315,7 @@
     },
     "Meowfficer": {
       "BuyAmount": 1,
-      "FortChoreMeowfficer": true,
-      "OverflowCoins": -1
+      "FortChoreMeowfficer": true
     },
     "MeowfficerTrain": {
       "Enable": false,
@@ -1977,6 +1952,409 @@
   "GameManager": {
     "GameManager": {
       "AutoRestart": true
+    },
+    "Storage": {
+      "Storage": {}
+    }
+  },
+  "ProalasAutoBreak": {
+    "Scheduler": {
+      "Enable": false,
+      "NextRun": "2020-01-01 00:00:00",
+      "Command": "ProalasAutoBreak",
+      "SuccessInterval": 1440,
+      "FailureInterval": 120,
+      "ServerUpdate": "00:00"
+    },
+    "ProalasAutoBreak": {
+      "ShipRarity": "all",
+      "ShipsPerRun": 2,
+      "RunIntervalDays": 1,
+      "ProAlasRoot": null
+    },
+    "Storage": {
+      "Storage": {}
+    }
+  },
+  "ProalasAutoEquip": {
+    "Scheduler": {
+      "Enable": false,
+      "NextRun": "2020-01-01 00:00:00",
+      "Command": "ProalasAutoEquip",
+      "SuccessInterval": 1440,
+      "FailureInterval": 120,
+      "ServerUpdate": "00:00"
+    },
+    "ProalasAutoEquip": {
+      "EquipQuality": "purple",
+      "ReplaceSurplusPurple": true,
+      "AllowCraft": false,
+      "CraftCoinLimit": 300000,
+      "WarehouseReserve": 10,
+      "TeamNo": 3
+    },
+    "Storage": {
+      "Storage": {}
+    }
+  },
+  "ProalasAutoEventShop": {
+    "Scheduler": {
+      "Enable": false,
+      "NextRun": "2020-01-01 00:00:00",
+      "Command": "ProalasAutoEventShop",
+      "SuccessInterval": 1440,
+      "FailureInterval": 120,
+      "ServerUpdate": "00:00"
+    },
+    "ProalasAutoEventShop": {
+      "ShopCount": 1,
+      "PriorityMode": "ur_first",
+      "CustomPriority": "2UR>UR>SSR_BOX>SSR_CAT>SSR_BOAT>XIN2>XIN1>SR_CAT>OTHER",
+      "TokenUrItem": "—",
+      "TokenPt": "—"
+    },
+    "Storage": {
+      "Storage": {}
+    }
+  },
+  "ProalasAutoExpBook": {
+    "Scheduler": {
+      "Enable": false,
+      "NextRun": "2020-01-01 00:00:00",
+      "Command": "ProalasAutoExpBook",
+      "SuccessInterval": 1440,
+      "FailureInterval": 120,
+      "ServerUpdate": "00:00"
+    },
+    "ProalasAutoExpBook": {
+      "ShipRarity": "all",
+      "FeedRoundsPerRun": 1,
+      "RunIntervalDays": 7
+    },
+    "Storage": {
+      "Storage": {}
+    }
+  },
+  "ProalasAutoFleetChange": {
+    "Scheduler": {
+      "Enable": false,
+      "NextRun": "2020-01-01 00:00:00",
+      "Command": "ProalasAutoFleetChange",
+      "SuccessInterval": 1440,
+      "FailureInterval": 120,
+      "ServerUpdate": "00:00"
+    },
+    "ProalasAutoFleetChange": {
+      "Team1Type": "push",
+      "Team1Quality": "none",
+      "Team2Type": "push",
+      "Team2Quality": "none",
+      "Team3Type": "level",
+      "Team3Quality": "none",
+      "Team4Type": "level",
+      "Team4Quality": "none",
+      "Team5Type": "low_cost",
+      "Team5Quality": "none",
+      "Team6Type": "low_cost",
+      "Team6Quality": "none",
+      "EventTeam1Enable": false,
+      "EventTeam2Enable": false,
+      "RunIntervalDays": 7,
+      "LevelTeamFaction": "all"
+    },
+    "Storage": {
+      "Storage": {}
+    }
+  },
+  "ProalasCollector": {
+    "Scheduler": {
+      "Enable": false,
+      "NextRun": "2020-01-01 00:00:00",
+      "Command": "ProalasCollector",
+      "SuccessInterval": 360,
+      "FailureInterval": 120,
+      "ServerUpdate": "00:00"
+    },
+    "ProalasCollector": {
+      "ReadOilCoin": true,
+      "ReadEventPt": true,
+      "ReadBuildCube": true,
+      "ReadBoatDock": true,
+      "ReadBoatRate": true,
+      "WriteUserData": true,
+      "UserDataPath": null
+    },
+    "Storage": {
+      "Storage": {}
+    }
+  },
+  "ProalasFleetStrength": {
+    "Scheduler": {
+      "Enable": false,
+      "NextRun": "2020-01-01 00:00:00",
+      "Command": "ProalasFleetStrength",
+      "SuccessInterval": 1440,
+      "FailureInterval": 120,
+      "ServerUpdate": "00:00"
+    },
+    "ProalasFleetStrength": {
+      "TeamScope": "all",
+      "ProAlasRoot": null
+    },
+    "Storage": {
+      "Storage": {}
+    }
+  },
+  "ProalasResourceStats": {
+    "Scheduler": {
+      "Enable": false,
+      "NextRun": "2020-01-01 00:00:00",
+      "Command": "ProalasResourceStats",
+      "SuccessInterval": 1440,
+      "FailureInterval": 120,
+      "ServerUpdate": "00:00"
+    },
+    "ProalasResourceStats": {
+      "UserDataPath": null,
+      "AlasLogPath": "./log",
+      "ChartOil": true,
+      "ChartMoney": true,
+      "ChartCube": true,
+      "ChartActPt": true,
+      "ChartRmb": true,
+      "ChartBoatRate": true,
+      "ChartBoatMax": false
+    },
+    "Storage": {
+      "Storage": {}
+    }
+  },
+  "ProalasSmartDispatch": {
+    "ProalasSmartDispatch": {
+      "EnableSmartDispatch": false,
+      "PreferRmb": true,
+      "PreferMoney": false
+    },
+    "Storage": {
+      "Storage": {}
+    }
+  },
+  "ProalasScreenMonitor": {
+    "Scheduler": {
+      "Enable": true,
+      "NextRun": "2020-01-01 00:00:00",
+      "Command": "ProalasScreenMonitor",
+      "SuccessInterval": 5,
+      "FailureInterval": 5,
+      "ServerUpdate": "00:00"
+    },
+    "ProalasScreenMonitor": {
+      "KeepCount": 10
+    },
+    "Storage": {
+      "Storage": {}
+    }
+  },
+  "ProalasTimerPlan": {
+    "Scheduler": {
+      "Enable": false,
+      "NextRun": "2020-01-01 00:00:00",
+      "Command": "ProalasTimerPlan",
+      "SuccessInterval": 1440,
+      "FailureInterval": 120,
+      "ServerUpdate": "00:00"
+    },
+    "ProalasTimerPlan": {
+      "ExtraExclude": null
+    },
+    "Storage": {
+      "Storage": {}
+    }
+  },
+  "ProalasPlanCalendar": {
+    "Scheduler": {
+      "Enable": false,
+      "NextRun": "2020-01-01 00:00:00",
+      "Command": "ProalasPlanCalendar",
+      "SuccessInterval": 0,
+      "FailureInterval": 120,
+      "ServerUpdate": "00:00"
+    },
+    "ProalasPlanCalendar": {
+      "EnableAi": false,
+      "SyncActivityOnRun": true
+    },
+    "Storage": {
+      "Storage": {}
+    }
+  },
+  "ProalasActivitySync": {
+    "Scheduler": {
+      "Enable": false,
+      "NextRun": "2020-01-01 00:00:00",
+      "Command": "ProalasActivitySync",
+      "SuccessInterval": 1440,
+      "FailureInterval": 120,
+      "ServerUpdate": "00:00"
+    },
+    "ProalasActivitySync": {
+      "AllowManifestFallback": true,
+      "SyncGatewayEnable": true,
+      "SyncGatewayUrl": "http://192.168.2.107:22301",
+      "SyncGatewayToken": "test",
+      "PullPlanSchedule": true
+    },
+    "Storage": {
+      "Storage": {}
+    }
+  },
+  "ProalasOpsiSchedule": {
+    "Scheduler": {
+      "Enable": false,
+      "NextRun": "2020-01-01 00:00:00",
+      "Command": "ProalasOpsiSchedule",
+      "SuccessInterval": 1440,
+      "FailureInterval": 120,
+      "ServerUpdate": "00:00"
+    },
+    "ProalasOpsiSchedule": {
+      "AdaptThreshold": 400,
+      "DeferMeowAndHazard1": false,
+      "ShopUnlockDay": 20
+    },
+    "Storage": {
+      "Storage": {}
+    }
+  },
+  "ProalasGachaCheck": {
+    "Scheduler": {
+      "Enable": false,
+      "NextRun": "2020-01-01 00:00:00",
+      "Command": "ProalasGachaCheck",
+      "SuccessInterval": 720,
+      "FailureInterval": 120,
+      "ServerUpdate": "00:00"
+    },
+    "ProalasGachaCheck": {
+      "BootstrapNullTemplate": false
+    },
+    "Storage": {
+      "Storage": {}
+    }
+  },
+  "ProalasCollectionFill": {
+    "Scheduler": {
+      "Enable": false,
+      "NextRun": "2020-01-01 00:00:00",
+      "Command": "ProalasCollectionFill",
+      "SuccessInterval": 0,
+      "FailureInterval": 120,
+      "ServerUpdate": "00:00"
+    },
+    "ProalasCollectionFill": {
+      "Enable": true,
+      "BuildEnable": true,
+      "FarmEnable": false,
+      "ResearchEnable": true,
+      "ResearchIntervalDays": 7,
+      "AutoGachaEnable": false,
+      "CubeReserveMin": 500,
+      "CubeMaxPerRun": 6,
+      "CubeDailyMax": 20
+    },
+    "Storage": {
+      "Storage": {}
+    }
+  },
+  "ProalasEventFormatFix": {
+    "Scheduler": {
+      "Enable": false,
+      "NextRun": "2020-01-01 00:00:00",
+      "Command": "ProalasEventFormatFix",
+      "SuccessInterval": 720,
+      "FailureInterval": 120,
+      "ServerUpdate": "00:00"
+    },
+    "ProalasEventFormatFix": {
+      "EnableFix": true,
+      "Template": "T-HT",
+      "TargetTask": "Event",
+      "StopStage": null,
+      "ForceThreeStar": false,
+      "AllCleared": false,
+      "AutoHardFleet": true
+    },
+    "Storage": {
+      "Storage": {}
+    }
+  },
+  "ProalasAiPlanner": {
+    "Scheduler": {
+      "Enable": true,
+      "NextRun": "2020-01-01 00:00:00",
+      "Command": "ProalasAiPlanner",
+      "SuccessInterval": 720,
+      "FailureInterval": 120,
+      "ServerUpdate": "00:00"
+    },
+    "ProalasAiPlanner": {
+      "Strategy": "conservative",
+      "AutoApply": true,
+      "CustomEventMain": false
+    },
+    "Storage": {
+      "Storage": {}
+    }
+  },
+  "ProalasAccount": {
+    "Scheduler": {
+      "Enable": false,
+      "NextRun": "2020-01-01 00:00:00",
+      "Command": "ProalasAccount",
+      "SuccessInterval": 0,
+      "FailureInterval": 120,
+      "ServerUpdate": "00:00"
+    },
+    "ProalasAccount": {
+      "PlanType": "normal",
+      "ExpireAt": "2099-12-31 23:59:59",
+      "RenewalUrl": null
+    },
+    "Storage": {
+      "Storage": {}
+    }
+  },
+  "ProalasBoatMessage": {
+    "Scheduler": {
+      "Enable": false,
+      "NextRun": "2020-01-01 00:00:00",
+      "Command": "ProalasBoatMessage",
+      "SuccessInterval": 1440,
+      "FailureInterval": 120,
+      "ServerUpdate": "00:00"
+    },
+    "ProalasBoatMessage": {
+      "UserDataPath": null
+    },
+    "Storage": {
+      "Storage": {}
+    }
+  },
+  "ProalasGetExpUseExp": {
+    "Scheduler": {
+      "Enable": false,
+      "NextRun": "2020-01-01 00:00:00",
+      "Command": "ProalasGetExpUseExp",
+      "SuccessInterval": 1440,
+      "FailureInterval": 120,
+      "ServerUpdate": "00:00"
+    },
+    "ProalasGetExpUseExp": {
+      "ExpBookType": "default",
+      "MaxGetPerDay": 1,
+      "RunUseExp": true,
+      "UseExpThreshold": 2000,
+      "ProAlasRoot": null
     },
     "Storage": {
       "Storage": {}

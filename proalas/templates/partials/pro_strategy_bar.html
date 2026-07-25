@@ -1,0 +1,28 @@
+<div class="pro-strategy-bar" aria-label="自动规划策略选择">
+  <div class="pro-strategy-shell">
+    <div class="pro-strategy-buttons" role="group" aria-label="自动规划策略选择">
+      {% set modes = [
+        ('conservative', '保守'),
+        ('aggressive', '激进'),
+        ('innovative', '创新')
+      ] %}
+      {% for mode, label in modes %}
+      <button
+        type="button"
+        class="pro-strategy-btn pro-strategy-btn--{{ mode }}{% if plan_enabled and plan_mode == mode %} pro-strategy-btn--active{% endif %}"
+        data-plan-mode="{{ mode }}"
+        data-plan-label="{{ label }}"
+        data-plan-desc="编写中"
+        hx-post="{{ url_for('pro.set_plan_strategy') }}"
+        hx-vals='{"mode": "{{ mode }}"}'
+        hx-swap="none"
+        aria-pressed="{{ 'true' if plan_enabled and plan_mode == mode else 'false' }}"
+        aria-label="自动规划策略选择：{{ label }}"
+      >
+        <span class="pro-strategy-btn-tag">自动规划策略选择</span>
+        <span class="pro-strategy-btn-label">{{ label }}</span>
+      </button>
+      {% endfor %}
+    </div>
+  </div>
+</div>

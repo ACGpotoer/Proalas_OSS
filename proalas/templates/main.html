@@ -1,0 +1,161 @@
+{% extends "base.html" %}
+{% block title %}ProAlas — {{ device_id }}{% endblock %}
+{% block body_class %}page-app{% endblock %}
+{% block body %}
+<div class="app-shell" id="app-shell">
+  <aside class="app-sidebar" id="app-sidebar" aria-label="主导航">
+    <div class="sidebar-top">
+      <div class="sidebar-brand" aria-hidden="true">P</div>
+      <div class="sidebar-meta">
+        <span class="sidebar-product">ProAlas</span>
+        <span class="sidebar-device">{{ device_id }}</span>
+      </div>
+      <button
+        type="button"
+        class="sidebar-toggle"
+        id="sidebar-toggle"
+        aria-label="折叠侧栏"
+        aria-expanded="true"
+        title="折叠侧栏"
+      >
+        <span class="sidebar-toggle-icon" aria-hidden="true">‹</span>
+      </button>
+    </div>
+    <nav class="sidebar-nav" aria-label="页面">
+      <button
+        type="button"
+        class="sidebar-nav-item active"
+        data-pane="pro"
+        data-title="ProAlas 概览"
+        data-subtitle="状态摘要；完整功能在「Alas 原版」左侧菜单 ProAlas 分组"
+        data-url="{{ pane_pro_url }}"
+      >
+        <span class="nav-icon" aria-hidden="true">◆</span>
+        <span class="nav-label">ProAlas</span>
+      </button>
+      <button
+        type="button"
+        class="sidebar-nav-item"
+        data-pane="original"
+        data-title="Alas 原版"
+        data-subtitle="完整 WebUI；左侧菜单里有 ProAlas 功能分组"
+        data-url="{{ pane_original_url }}"
+      >
+        <span class="nav-icon" aria-hidden="true">⚙</span>
+        <span class="nav-label">Alas 原版</span>
+      </button>
+    </nav>
+    <div class="sidebar-footer">
+      <a class="sidebar-nav-item sidebar-nav-item--link" href="{{ url_for('auth.logout') }}">
+        <span class="nav-icon" aria-hidden="true">⎋</span>
+        <span class="nav-label">退出登录</span>
+      </a>
+    </div>
+  </aside>
+  <div class="app-main">
+    <header class="app-header app-header--compact">
+      <div class="app-header-start">
+        <h1 class="app-title" id="app-title">ProAlas 概览 · {{ device_id }}</h1>
+        <p class="app-subtitle muted" id="app-subtitle">状态摘要；完整功能在「Alas 原版」左侧菜单 ProAlas 分组</p>
+      </div>
+      <div class="app-header-end">
+        {% if pwd_ok %}
+        <span class="app-flash app-flash--ok">密码已设置</span>
+        {% elif pwd_err == 'short' %}
+        <span class="app-flash app-flash--err">密码至少 4 位</span>
+        {% elif pwd_err == 'mismatch' %}
+        <span class="app-flash app-flash--err">两次密码不一致</span>
+        {% elif pwd_err == 'locked' %}
+        <span class="app-flash app-flash--err">密码不可修改</span>
+        {% endif %}
+        {% if needs_password_setup %}
+        <form class="header-password-form header-password-form--setup" method="post" action="{{ url_for('main.change_password') }}">
+          <span class="header-password-label">首次请设置密码（可跳过，直接用空密码登录）</span>
+          <input type="password" name="new_password" placeholder="新密码（至少4位）" autocomplete="new-password" minlength="4" required />
+          <input type="password" name="confirm_password" placeholder="确认密码" autocomplete="new-password" minlength="4" required />
+          <button type="submit" class="btn-primary">设置密码</button>
+        </form>
+        {% elif password_locked %}
+        <p class="header-password-locked muted">密码已锁定；可删 dap_data/proalas.db 后重启以清空本地密码。</p>
+        {% endif %}
+        {% if announcement %}
+        <button
+          type="button"
+          class="btn-ghost app-announcement-btn"
+          id="announcement-open-btn"
+          title="查看更新公告"
+        >
+          更新公告
+          {% if announcement.version and announcement.version != '0' %}
+          <span class="app-announcement-btn-ver">v{{ announcement.version }}</span>
+          {% endif %}
+        </button>
+        {% endif %}
+        {% include "_theme_select.html" %}
+      </div>
+    </header>
+    <div
+      id="main-pane"
+      class="main-pane"
+      hx-get="{{ pane_pro_url }}"
+      hx-trigger="load"
+      hx-swap="innerHTML"
+    ></div>
+  </div>
+</div>
+
+{% if announcement %}
+<div
+  id="announcement-modal"
+  class="announcement-modal"
+  role="dialog"
+  aria-modal="true"
+  aria-labelledby="announcement-title"
+  data-version="{{ announcement.version }}"
+  hidden
+>
+  <div class="announcement-backdrop" data-close-announcement></div>
+  <div class="announcement-panel">
+    <header class="announcement-header">
+      <h2 id="announcement-title">{{ announcement.title }}</h2>
+      <span class="announcement-version">v{{ announcement.version }}</span>
+    </header>
+    <div class="announcement-body">{{ announcement.html | safe }}</div>
+    <footer class="announcement-footer">
+      <button type="button" class="btn-primary" id="announcement-dismiss">我知道了</button>
+    </footer>
+  </div>
+</div>
+<script>
+(function () {
+  var modal = document.getElementById("announcement-modal");
+  var openBtn = document.getElementById("announcement-open-btn");
+  if (!modal) return;
+  var ver = modal.getAttribute("data-version") || "0";
+  var key = "proalas_announcement_" + ver;
+
+  function open() {
+    modal.hidden = false;
+  }
+  function close() {
+    localStorage.setItem(key, "1");
+    modal.hidden = true;
+  }
+
+  if (openBtn) openBtn.addEventListener("click", open);
+  document.getElementById("announcement-dismiss").addEventListener("click", close);
+  modal.querySelectorAll("[data-close-announcement]").forEach(function (el) {
+    el.addEventListener("click", close);
+  });
+  document.addEventListener("keydown", function (e) {
+    if (e.key === "Escape" && !modal.hidden) close();
+  });
+
+  // 新版本首次进入自动弹出；关闭后仍可通过顶栏「更新公告」再看
+  if (localStorage.getItem(key) !== "1") {
+    open();
+  }
+})();
+</script>
+{% endif %}
+{% endblock %}

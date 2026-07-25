@@ -17,6 +17,7 @@ class ManualConfig:
     > Reward
     > ShopFrequent > ShopOnce > Shipyard > Freebies
     > PrivateQuarters
+    > ProalasScreenMonitor > ProalasTimerPlan > ProalasActivitySync > ProalasGachaCheck > ProalasEventFormatFix > ProalasSpecialEvent > ProalasBoatMessage > ProalasAutoBreak > ProalasAutoEquip > ProalasAutoEventShop > ProalasAutoExpBook > ProalasGetExpUseExp > ProalasCollector > ProalasFleetStrength > ProalasAutoFleetChange
     > OpsiExplore
     > Minigame > Awaken
     > OpsiAshBeacon
@@ -121,7 +122,7 @@ class ManualConfig:
     MAP_CHAPTER_SWITCH_20241219_SPEX = False
     # Since event_20241219_cn chapter B unlocks event startup
     # which means chapter AB are continuous
-    STAGE_INCREASE_AB = True
+    STAGE_INCREASE_AB = False
     # Insert anything to STAGE_INCREASE
     STAGE_INCREASE_CUSTOM = ''
     MAP_HAS_CLEAR_PERCENTAGE = True

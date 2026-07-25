@@ -1,4 +1,4 @@
-# --------------------
+﻿# --------------------
 # Define argument group of tasks.
 # --------------------
 
@@ -58,12 +58,9 @@ Farm:
     GemsFarming:
       - Scheduler
       - GemsFarming
-      - EquipmentCode
       - Campaign
       - StopCondition
       - Fleet
-      - Submarine
-      - Emotion
 
 # ==================== Event ====================
 
@@ -346,3 +343,75 @@ Tool:
       - AzurLaneUncensored
     GameManager:
       - GameManager
+
+# ==================== ProAlas ====================
+
+Proalas:
+  menu: 'collapse'
+  page: 'setting'
+  tasks:
+    ProalasAutoBreak:
+      - Scheduler
+      - ProalasAutoBreak
+    ProalasAutoEquip:
+      - Scheduler
+      - ProalasAutoEquip
+    ProalasAutoEventShop:
+      - Scheduler
+      - ProalasAutoEventShop
+    ProalasAutoExpBook:
+      - Scheduler
+      - ProalasAutoExpBook
+    ProalasAutoFleetChange:
+      - Scheduler
+      - ProalasAutoFleetChange
+    ProalasCollector:
+      - Scheduler
+      - ProalasCollector
+    ProalasFleetStrength:
+      - Scheduler
+      - ProalasFleetStrength
+    ProalasResourceStats:
+      - Scheduler
+      - ProalasResourceStats
+    ProalasSmartDispatch:
+      - ProalasSmartDispatch
+    ProalasScreenMonitor:
+      - Scheduler
+      - ProalasScreenMonitor
+    ProalasTimerPlan:
+      - Scheduler
+      - ProalasTimerPlan
+    ProalasPlanCalendar:
+      - Scheduler
+      - ProalasPlanCalendar
+    ProalasActivitySync:
+      - Scheduler
+      - ProalasActivitySync
+    ProalasOpsiSchedule:
+      - Scheduler
+      - ProalasOpsiSchedule
+    ProalasGachaCheck:
+      - Scheduler
+      - ProalasGachaCheck
+    ProalasCollectionFill:
+      - Scheduler
+      - ProalasCollectionFill
+    ProalasEventFormatFix:
+      - Scheduler
+      - ProalasEventFormatFix
+    ProalasSpecialEvent:
+      - Scheduler
+      - ProalasSpecialEvent
+    ProalasAiPlanner:
+      - Scheduler
+      - ProalasAiPlanner
+    ProalasAccount:
+      - Scheduler
+      - ProalasAccount
+    ProalasBoatMessage:
+      - Scheduler
+      - ProalasBoatMessage
+    ProalasGetExpUseExp:
+      - Scheduler
+      - ProalasGetExpUseExp

@@ -1,5 +1,6 @@
 import argparse
 import json
+import os
 import queue
 import threading
 import time
@@ -41,6 +42,7 @@ from pywebio.session import download, go_app, info, local, register_thread, run_
 
 import module.webui.lang as lang
 from module.config.config import AzurLaneConfig, Function
+from module.config.config_updater import ConfigUpdater
 from module.config.deep import deep_get, deep_iter, deep_set
 from module.config.env import IS_ON_PHONE_CLOUD
 from module.config.server import to_server
@@ -96,6 +98,20 @@ patch_mimetype()
 fix_py37_subprocess_communicate()
 task_handler = TaskHandler()
 
+_PROALAS_CUSTOM_TASK_PAGES = frozenset({
+    'ProalasResourceStats',
+    'ProalasSmartDispatch',
+    'ProalasAutoEquip',
+    'ProalasAutoExpBook',
+    'ProalasAutoFleetChange',
+    'ProalasAccount',
+    'ProalasScreenMonitor',
+    'ProalasTimerPlan',
+    'ProalasPlanCalendar',
+    'ProalasCollectionFill',
+    'ProalasAiPlanner',
+})
+
 
 class AlasGUI(Frame):
     ALAS_MENU: Dict[str, Dict[str, List[str]]]
@@ -104,8 +120,30 @@ class AlasGUI(Frame):
 
     def initial(self) -> None:
         self.ALAS_MENU = read_file(filepath_args("menu", self.alas_mod))
-        self.ALAS_ARGS = read_file(filepath_args("args", self.alas_mod))
+        self.ALAS_ARGS = ConfigUpdater.refresh_webui_event_args(
+            read_file(filepath_args("args", self.alas_mod))
+        )
         self._init_alas_config_watcher()
+
+    def _menu_tasks(self, tasks: List[str]) -> List[str]:
+        """Skip tasks removed from args.json but still cached in menu or browser."""
+        from module.proalas.feature_gate import MENU_HIDDEN_TASKS
+
+        tasks = [t for t in tasks if t not in MENU_HIDDEN_TASKS]
+        return [task for task in tasks if task in self.ALAS_ARGS]
+
+    def _require_task_args(self, task: str) -> bool:
+        if task in self.ALAS_ARGS:
+            return True
+        logger.warning('Task `%s` is missing from args.json (menu/args out of sync)', task)
+        toast(
+            '该任务已从 Alas 配置中移除，请完全关闭 Alas 后重新打开。',
+            duration=5,
+            position='right',
+            color='warning',
+        )
+        self.alas_overview()
+        return False
 
     def __init__(self) -> None:
         super().__init__()
@@ -261,9 +299,10 @@ class AlasGUI(Frame):
                         ],
                         onclick=_onclick,
                     ).style(f"--menu-{task}--")
-                    for task in task_data.get("tasks", [])
+                    for task in self._menu_tasks(task_data.get("tasks", []))
                 ]
-                put_collapse(title=t(f"Menu.{menu}.name"), content=task_btn_list)
+                if task_btn_list:
+                    put_collapse(title=t(f"Menu.{menu}.name"), content=task_btn_list)
             else:
                 title = t(f"Menu.{menu}.name")
                 put_html(
@@ -273,7 +312,7 @@ class AlasGUI(Frame):
                     '<span class="hr-task-group-line"></span>'
                     '</div>'
                 )
-                for task in task_data.get("tasks", []):
+                for task in self._menu_tasks(task_data.get("tasks", [])):
                     put_buttons(
                         [
                             {
@@ -287,28 +326,193 @@ class AlasGUI(Frame):
 
         self.alas_overview()
 
+    def _proalas_feature_locked(self, task: str) -> bool:
+        """Pro 专属任务对 Normal 套餐显示锁定页并隐藏配置项。"""
+        from module.proalas.feature_gate import check_feature, is_pro_only_task
+        from module.webui.proalas_pages import render_feature_locked_panel
+
+        if not is_pro_only_task(task):
+            return False
+
+        lock_cfg = load_config(self.alas_name)
+        allowed, reason = check_feature(lock_cfg, task)
+        if allowed:
+            return False
+
+        with use_scope('groups'):
+            render_feature_locked_panel(task, reason, self.alas_name, lock_cfg)
+        return True
+
     @use_scope("content", clear=True)
     def alas_set_group(self, task: str) -> None:
         """
         Set arg groups from dict
         """
+        if not self._require_task_args(task):
+            return
         self.init_menu(name=task)
         self.set_title(t(f"Task.{task}.name"))
 
         put_scope("_groups", [put_none(), put_scope("groups"), put_scope("navigator")])
 
+        proalas_locked = self._proalas_feature_locked(task)
+
         task_help: str = t(f"Task.{task}.help")
-        if task_help:
+        if task_help and task not in _PROALAS_CUSTOM_TASK_PAGES and not proalas_locked:
             put_scope(
                 "group__info",
                 scope="groups",
                 content=[put_text(task_help).style("font-size: 1rem")],
             )
 
-        config = self.alas_config.read_file(self.alas_name)
-        for group, arg_dict in deep_iter(self.ALAS_ARGS[task], depth=1):
-            if self.set_group(group, arg_dict, config, task):
-                self.set_navigator(group)
+        if not proalas_locked and task == 'ProalasResourceStats':
+            from module.webui.proalas_pages import (
+                render_resource_stats_config_panel,
+                render_resource_stats_dashboard,
+            )
+
+            chart_cfg = load_config(self.alas_name)
+            chart_cfg.bind('ProalasResourceStats')
+            with use_scope('groups'):
+                render_resource_stats_dashboard(chart_cfg, self.alas_name)
+                render_resource_stats_config_panel(
+                    chart_cfg, self.ALAS_ARGS.get(task, {}), device_id=self.alas_name,
+                )
+
+        if not proalas_locked and task == 'ProalasAutoEquip':
+            from module.webui.proalas_pages import render_auto_equip_panel
+
+            equip_cfg = load_config(self.alas_name)
+            equip_cfg.bind('ProalasAutoEquip')
+            with use_scope('groups'):
+                render_auto_equip_panel(equip_cfg, self.ALAS_ARGS.get(task, {}))
+
+        if not proalas_locked and task == 'ProalasAutoExpBook':
+            from module.webui.proalas_pages import render_auto_exp_book_panel
+
+            exp_cfg = load_config(self.alas_name)
+            exp_cfg.bind('ProalasAutoExpBook')
+            with use_scope('groups'):
+                render_auto_exp_book_panel(exp_cfg, self.ALAS_ARGS.get(task, {}))
+
+        if not proalas_locked and task == 'ProalasSmartDispatch':
+            from module.webui.proalas_pages import render_smart_dispatch_panel
+
+            dispatch_cfg = load_config(self.alas_name)
+            dispatch_cfg.bind('ProalasSmartDispatch')
+            with use_scope('groups'):
+                render_smart_dispatch_panel(dispatch_cfg, self.ALAS_ARGS.get(task, {}))
+
+        if not proalas_locked and task == 'ProalasAutoFleetChange':
+            from module.webui.proalas_pages import render_auto_fleet_change_panel
+
+            fleet_cfg = load_config(self.alas_name)
+            fleet_cfg.bind('ProalasAutoFleetChange')
+            with use_scope('groups'):
+                render_auto_fleet_change_panel(fleet_cfg, self.ALAS_ARGS.get(task, {}))
+
+        if task == 'ProalasAccount':
+            from module.webui.proalas_pages import render_account_plan_panel
+
+            account_cfg = load_config(self.alas_name)
+            account_cfg.bind('ProalasAccount')
+            with use_scope('groups'):
+                render_account_plan_panel(account_cfg, self.ALAS_ARGS.get(task, {}), self.alas_name)
+
+        if not proalas_locked and task == 'ProalasTimerPlan':
+            from module.webui.proalas_pages import render_timer_plan_panel
+
+            timer_cfg = load_config(self.alas_name)
+            timer_cfg.bind('ProalasTimerPlan')
+            with use_scope('groups'):
+                render_timer_plan_panel(
+                    self.alas_name,
+                    timer_cfg,
+                    self.ALAS_ARGS.get('ProalasTimerPlan', {}),
+                    activity_args=self.ALAS_ARGS.get('ProalasActivitySync', {}),
+                    gacha_args=self.ALAS_ARGS.get('ProalasGachaCheck', {}),
+                    fill_args=self.ALAS_ARGS.get('ProalasCollectionFill', {}),
+                )
+
+        if not proalas_locked and task == 'ProalasPlanCalendar':
+            from module.webui.proalas_pages import render_plan_calendar_panel
+
+            plan_cfg = load_config(self.alas_name)
+            plan_cfg.bind('ProalasPlanCalendar')
+            with use_scope('groups'):
+                render_plan_calendar_panel(
+                    self.alas_name,
+                    enable_ai=bool(getattr(plan_cfg, 'ProalasPlanCalendar_EnableAi', False)),
+                )
+
+        if not proalas_locked and task == 'ProalasCollectionFill':
+            from module.webui.proalas_pages import render_collection_fill_panel
+
+            fill_cfg = load_config(self.alas_name)
+            fill_cfg.bind('ProalasCollectionFill')
+            with use_scope('groups'):
+                render_collection_fill_panel(
+                    self.alas_name,
+                    fill_cfg,
+                    self.ALAS_ARGS.get('ProalasCollectionFill', {}),
+                )
+
+        if not proalas_locked and task == 'ProalasAiPlanner':
+            from module.webui.proalas_pages import render_ai_planner_panel
+
+            planner_cfg = load_config(self.alas_name)
+            planner_cfg.bind('ProalasAiPlanner')
+            with use_scope('groups'):
+                render_ai_planner_panel(
+                    self.alas_name,
+                    planner_cfg,
+                    self.ALAS_ARGS.get('ProalasAiPlanner', {}),
+                )
+
+        if not proalas_locked:
+            config = self.alas_config.read_file(self.alas_name)
+            for group, arg_dict in deep_iter(self.ALAS_ARGS[task], depth=1):
+                if task in (
+                    'ProalasSmartDispatch',
+                    'ProalasAutoFleetChange',
+                    'ProalasAutoEquip',
+                    'ProalasAutoExpBook',
+                    'ProalasAccount',
+                    'ProalasTimerPlan',
+                    'ProalasPlanCalendar',
+                    'ProalasAiPlanner',
+                    'ProalasResourceStats',
+                ) and group[0] == task:
+                    continue
+                if task == 'ProalasTimerPlan' and group[0] == 'Scheduler':
+                    continue
+                if task == 'ProalasAccount' and group[0] == 'Scheduler':
+                    continue
+                if task == 'ProalasCollectionFill' and group[0] == 'Scheduler':
+                    continue
+                if task == 'ProalasCollectionFill' and group[0] == 'ProalasCollectionFill':
+                    # 总/子开关 + 自动抽卡；限额字段 hide
+                    _cf_show = {
+                        'Enable', 'BuildEnable', 'FarmEnable', 'ResearchEnable',
+                        'ResearchIntervalDays', 'AutoGachaEnable',
+                    }
+                    filtered = {
+                        k: v for k, v in arg_dict.items()
+                        if k in _cf_show or (isinstance(v, dict) and v.get('display') != 'hide')
+                    }
+                    if not filtered:
+                        continue
+                    arg_dict = filtered
+                if task == 'ProalasAiPlanner' and group[0] == 'Scheduler':
+                    continue
+                if self.set_group(group, arg_dict, config, task):
+                    self.set_navigator(group)
+
+        if not proalas_locked and task == 'ProalasScreenMonitor':
+            from module.webui.proalas_pages import render_account_screen_monitor
+
+            with use_scope('groups'):
+                render_account_screen_monitor(self.alas_name)
 
     @use_scope("groups")
     def set_group(self, group, arg_dict, config, task):
@@ -348,16 +552,23 @@ class AlasGUI(Frame):
             server_options = output_kwargs.get(f"option_{server}")
             if output_kwargs["widget_type"] == "select" and isinstance(server_options, list) and server_options:
                 options = server_options
+            is_campaign_event = group_name == "Campaign" and arg_name == "Event"
+            if is_campaign_event and value and value not in options:
+                options = list(options) + [value]
             output_kwargs["options"] = options
             if (
                 task == "GemsFarming"
-                and group_name == "Campaign"
-                and arg_name == "Event"
+                and is_campaign_event
                 and output_kwargs["widget_type"] == "select"
                 and len(options) == 1
             ):
                 continue
-            if output_kwargs["widget_type"] == "select" and len(options) == 1:
+            # 仅一项且在 option_bold 时 Alas 原逻辑会改成只读 state；活动必须保留下拉框
+            if (
+                output_kwargs["widget_type"] == "select"
+                and len(options) == 1
+                and not is_campaign_event
+            ):
                 only_option = options[0]
                 if only_option in output_kwargs.get("option_bold", []):
                     output_kwargs["widget_type"] = "state"
@@ -539,9 +750,21 @@ class AlasGUI(Frame):
             config = config_updater.read_file(config_name)
             n = datetime.now()
             for p, v in deep_iter(config, depth=3):
-                if p[-1].endswith('un') and not isinstance(v, bool):
+                # 仅清理 Scheduler 日期；endswith('un') 会误伤 ShipsPerRun 等整数字段
+                if p[-1] not in ('NextRun', 'LastRun'):
+                    continue
+                if isinstance(v, datetime):
                     if (v - n).days >= 31:
                         deep_set(config, p, '')
+                elif isinstance(v, str) and v.strip():
+                    for fmt in ('%Y-%m-%d %H:%M:%S', '%Y-%m-%d %H:%M'):
+                        try:
+                            parsed = datetime.strptime(v.strip(), fmt)
+                            if (parsed - n).days >= 31:
+                                deep_set(config, p, '')
+                            break
+                        except ValueError:
+                            continue
             for k, v in modified.copy().items():
                 valuetype = deep_get(self.ALAS_ARGS, k + ".valuetype")
                 v = parse_pin_value(v, valuetype)
@@ -639,6 +862,8 @@ class AlasGUI(Frame):
 
     @use_scope("content", clear=True)
     def alas_daemon_overview(self, task: str) -> None:
+        if not self._require_task_args(task):
+            return
         self.init_menu(name=task)
         self.set_title(t(f"Task.{task}.name"))
 
@@ -1532,10 +1757,13 @@ def app():
             return
         app_manage()
 
+    from module.proalas.screen_paths import img_root
+
     app = asgi_app(
         applications=[index, manage],
         cdn=cdn,
         static_dir=None,
+        img_dir=str(img_root()),
         debug=True,
         on_startup=[
             startup,

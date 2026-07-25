@@ -1,4 +1,4 @@
-# --------------------
+﻿# --------------------
 # Define non-modifiable values
 # --------------------
 
@@ -44,23 +44,6 @@ GemsFarming:
       display: display
       value: fleet1_all_fleet2_standby
       option: [ fleet1_all_fleet2_standby, fleet1_standby_fleet2_all ]
-  Emotion:
-    Mode: calculate_ignore
-    Fleet1Control: prevent_red_face
-    Fleet1Recover: not_in_dormitory
-    Fleet1Oath: false
-    Fleet2Value: 119
-    Fleet2Record: 2020-01-01 00:00:00
-    Fleet2Control: prevent_red_face
-    Fleet2Recover: not_in_dormitory
-    Fleet2Oath: false
-  Submarine:
-    Mode:
-      display: display
-      value: do_not_use
-      option: [ do_not_use, hunt_only ]
-    AutoSearchMode: sub_standby
-    DistanceToBoss: use_open_ocean_support
 
 # ==================== Event ====================
 
@@ -233,9 +216,9 @@ Coalition:
     UseAutoSearch: false
     Use2xBook: false
     AmbushEvade: true
-  Coalition:
-    Mode:
-      option: [ tc1, tc2, tc3, ex ]
+#  Coalition:
+#    Mode:
+#      option: [ easy, normal, hard, ex ]
   StopCondition:
     MapAchievement: non_stop
     StageIncrease: false
@@ -448,6 +431,168 @@ OpsiHazard1Leveling:
     ServerUpdate: 00:00, 12:00
   OpsiFleet:
     Submarine: false
+
+# ==================== ProAlas ====================
+
+ProalasCollector:
+  Scheduler:
+    SuccessInterval: 360
+    FailureInterval: 120
+    ServerUpdate: 00:00
+  ReadOilCoin: true
+  ReadEventPt: true
+  ReadBuildCube: true
+  ReadBoatDock: true
+  ReadBoatRate: true
+  WriteUserData: true
+ProalasBoatMessage:
+  Scheduler:
+    Enable: false
+    SuccessInterval: 1440
+    FailureInterval: 120
+    ServerUpdate: 00:00
+ProalasGetExpUseExp:
+  Scheduler:
+    Enable: false
+    SuccessInterval: 1440
+    FailureInterval: 120
+    ServerUpdate: 00:00
+ProalasFleetStrength:
+  Scheduler:
+    SuccessInterval: 1440
+    FailureInterval: 120
+    ServerUpdate: 00:00
+ProalasAutoBreak:
+  Scheduler:
+    SuccessInterval: 1440
+    FailureInterval: 120
+    ServerUpdate: 00:00
+ProalasOpsiSchedule:
+  Scheduler:
+    SuccessInterval: 1440
+    FailureInterval: 120
+    ServerUpdate: 00:00
+ProalasAutoEquip:
+  Scheduler:
+    SuccessInterval: 1440
+    FailureInterval: 120
+    ServerUpdate: 00:00
+ProalasAutoEventShop:
+  Scheduler:
+    SuccessInterval: 1440
+    FailureInterval: 120
+    ServerUpdate: 00:00
+ProalasAutoExpBook:
+  Scheduler:
+    SuccessInterval: 1440
+    FailureInterval: 120
+    ServerUpdate: 00:00
+ProalasAutoFleetChange:
+  Scheduler:
+    SuccessInterval: 1440
+    FailureInterval: 120
+    ServerUpdate: 00:00
+  ProalasAutoFleetChange:
+    Team1Quality:
+      display: hide
+    Team2Quality:
+      display: hide
+    Team3Quality:
+      display: hide
+    Team4Quality:
+      display: hide
+    Team5Quality:
+      display: hide
+    Team6Quality:
+      display: hide
+ProalasSmartFleet34:
+  Scheduler:
+    Enable: false
+
+ProalasResourceStats:
+  Scheduler:
+    Enable: false
+    SuccessInterval: 1440
+    FailureInterval: 120
+    ServerUpdate: 00:00
+
+ProalasSmartDispatch:
+  Scheduler:
+    Enable: false
+
+ProalasAccount:
+  Scheduler:
+    Enable: false
+  ProalasAccount:
+    PlanType:
+      display: hide
+    ExpireAt:
+      display: hide
+    RenewalUrl:
+      display: hide
+
+ProalasScreenMonitor:
+  Scheduler:
+    Enable: true
+    SuccessInterval: 5
+    FailureInterval: 5
+    ServerUpdate: 00:00
+
+# TimeTable 由 HostAgent 刷新；ProalasTimerPlan 为合并页主开关（子任务不单独进队）
+ProalasTimerPlan:
+  Scheduler:
+    SuccessInterval: 1440
+    FailureInterval: 120
+    ServerUpdate: 00:00
+
+ProalasPlanCalendar:
+  Scheduler:
+    Enable: false
+
+ProalasActivitySync:
+  Scheduler:
+    Enable: false
+    SuccessInterval: 1440
+    FailureInterval: 120
+    ServerUpdate: 00:00
+
+ProalasGachaCheck:
+  Scheduler:
+    Enable: false
+    SuccessInterval: 720
+    FailureInterval: 120
+    ServerUpdate: 00:00
+
+ProalasCollectionFill:
+  Scheduler:
+    Enable: false
+
+ProalasEventFormatFix:
+  Scheduler:
+    SuccessInterval: 720
+    FailureInterval: 120
+    ServerUpdate: 00:00
+
+ProalasSpecialEvent:
+  Scheduler:
+    Enable: false
+    SuccessInterval: 60
+    FailureInterval: 120
+    ServerUpdate: 00:00
+  ProalasSpecialEvent:
+    EventName:
+      value: Auction
+      display: disabled
+    Lifecycle:
+      value: '0723-0730'
+      display: disabled
+
+ProalasAiPlanner:
+  Scheduler:
+    Enable: true
+    SuccessInterval: 720
+    FailureInterval: 120
+    ServerUpdate: 00:00
 
 # ==================== Tool ====================
 

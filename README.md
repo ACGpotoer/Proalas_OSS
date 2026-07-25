@@ -1,6 +1,19 @@
+# Proalas_OSS
+
+基于 [AzurLaneAutoScript (Alas)](https://github.com/LmeSzinc/AzurLaneAutoScript) 的改进开源版。
+
+- 许可证：**GNU GPL v3**（与上游 Alas 一致；衍生作品须保持 GPL-3）
+- 仓库：https://github.com/ACGpotoer/Proalas_OSS
+- 本仓库**不包含** `toolkit/` 运行时（体积大且被 `.gitignore` 忽略）。请自行准备 Alas 便携环境，或从已有安装目录拷贝 `toolkit` 后再运行。
+- 不包含私有功能：七日活动奖励领取、通用型活动剧情、MMC 模拟器控制等。
+
+建议：解压/克隆后若 Electron 白屏，将 `config/deploy.yaml` 的 `WebuiPort` 设为 `22267`，并设置环境变量 `PROALAS_USE_DAP=0` 使用原版界面。
+
+---
+
 **| [English](README_en.md) | 简体中文 | [日本語](README_jp.md) |**
 
-# AzurLaneAutoScript
+# AzurLaneAutoScript（上游说明保留）
 
 #### Discord [![](https://img.shields.io/discord/720789890354249748?logo=discord&logoColor=ffffff&color=4e4c97)](https://discord.gg/AQN6GeJ) QQ群  ![](https://img.shields.io/badge/QQ%20Group-1087735381-4e4c97)
 Azur Lane bot with GUI (Supports CN, EN, JP, TW, able to support other servers), designed for 24/7 running scenes, can take over almost all Azur Lane gameplay. Azur Lane, as a mobile game, has entered the late stage of its life cycle. During the period from now to the server down, please reduce the time spent on the Azur Lane and leave everything to Alas.

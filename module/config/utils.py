@@ -1,13 +1,20 @@
+from __future__ import annotations
+
 import json
+import os
 import random
 import string
+import time
 from datetime import datetime, timedelta, timezone
 
 import yaml
+from filelock import FileLock
 
 import module.config.server as server_
 from deploy.atomic import atomic_read_text, atomic_read_bytes, atomic_write
 from module.submodule.utils import *
+
+CONFIG_JSON_LOCK_TIMEOUT = 30
 
 LANGUAGES = ['zh-CN', 'en-US', 'ja-JP', 'zh-TW']
 SERVER_TO_LANG = {
@@ -66,6 +73,35 @@ def filepath_code():
     return './module/config/config_generated.py'
 
 
+def _is_device_config_json(file: str) -> bool:
+    if not str(file).endswith('.json'):
+        return False
+    ab = os.path.normpath(os.path.abspath(file))
+    root = os.path.normpath(os.path.abspath('./config'))
+    return ab.startswith(root + os.sep)
+
+
+def _device_config_lock(file: str) -> FileLock:
+    return FileLock(f'{os.path.abspath(file)}.lock', timeout=CONFIG_JSON_LOCK_TIMEOUT)
+
+
+def _json_loads_retry(file: str, raw: bytes, *, attempts: int = 5) -> dict | list:
+    last_err: json.JSONDecodeError | None = None
+    for attempt in range(attempts):
+        if not raw:
+            return {}
+        try:
+            return json.loads(raw)
+        except json.JSONDecodeError as e:
+            last_err = e
+            if attempt + 1 >= attempts:
+                break
+            time.sleep(min(0.5, 0.05 * (2 ** attempt)))
+            raw = atomic_read_bytes(file)
+    print(f'JSON decode failed: {file} ({last_err})')
+    return {}
+
+
 def read_file(file):
     """
     Read a file, support both .yaml and .json format.
@@ -79,10 +115,16 @@ def read_file(file):
     """
     print(f'read: {file}')
     if file.endswith('.json'):
-        content = atomic_read_bytes(file)
-        if not content:
-            return {}
-        return json.loads(content)
+        lock = _device_config_lock(file) if _is_device_config_json(file) else None
+        if lock is not None:
+            lock.acquire()
+        try:
+            raw = atomic_read_bytes(file)
+            data = _json_loads_retry(file, raw)
+        finally:
+            if lock is not None:
+                lock.release()
+        return data
     elif file.endswith('.yaml'):
         content = atomic_read_text(file)
         data = list(yaml.safe_load_all(content))
@@ -107,7 +149,14 @@ def write_file(file, data):
     print(f'write: {file}')
     if file.endswith('.json'):
         content = json.dumps(data, indent=2, ensure_ascii=False, sort_keys=False, default=str)
-        atomic_write(file, content)
+        lock = _device_config_lock(file) if _is_device_config_json(file) else None
+        if lock is not None:
+            lock.acquire()
+        try:
+            atomic_write(file, content)
+        finally:
+            if lock is not None:
+                lock.release()
     elif file.endswith('.yaml'):
         if isinstance(data, list):
             content = yaml.safe_dump_all(
@@ -165,12 +214,24 @@ def alas_instance():
     Returns:
         list[str]: Name of all Alas instances, except `template`.
     """
+    # 运维/内部 JSON 勿当作 Alas 实例（即使仍留在 config 根目录）
+    skip_json = frozenset({
+        'HostControl',
+        'TimeTable',
+        'AlasConfig',
+        'AiPlannerCache',
+        'AiPlannerHistory',
+        'GlobalActivityCalendar',
+        'GlobalActivityCalendar.example',
+        'PlanSchedule',
+        'activity_manifest',
+    })
     out = []
     for file in os.listdir('./config'):
         name, extension = os.path.splitext(file)
         config_name, mod_name = os.path.splitext(name)
         mod_name = mod_name[1:]
-        if name != 'template' and extension == '.json' and mod_name == '':
+        if name != 'template' and extension == '.json' and mod_name == '' and name not in skip_json:
             out.append(name)
 
     out.extend(list_mod_instance())

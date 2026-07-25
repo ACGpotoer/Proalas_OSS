@@ -1,0 +1,23 @@
+<div id="pro-resources" class="pro-bento pro-bento--compact">
+  <article class="pro-dash-card pro-dash-card--resources pro-dash-card--compact" aria-label="资源概览">
+    <header class="pro-card-header">
+      <h3 class="pro-dash-title">资源</h3>
+      <span class="pro-card-badge">{{ device_id }}</span>
+    </header>
+    <div class="pro-resource-strip pro-resource-strip--compact" aria-readonly="true">
+      {% for t in tiles %}
+      <div class="stat-tile">
+        <span class="stat-label">{{ t.label }}</span>
+        <span class="pro-num">{{ t.value }}</span>
+      </div>
+      {% endfor %}
+    </div>
+    {% if gr.get('syncedAt') %}
+    <p class="pro-resource-sync muted">同步 {{ gr.syncedAt }}</p>
+    {% endif %}
+    {% if collector_last_run %}
+    <p class="pro-resource-sync muted">采集 {{ collector_last_run }}</p>
+    {% endif %}
+    <p class="pro-acc-foot muted">ProalasData.GameResource</p>
+  </article>
+</div>

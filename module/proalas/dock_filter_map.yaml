@@ -1,0 +1,95 @@
+# 船坞筛选面板 — 索引 / 阵营 / 稀有度 / 附加索引
+# 坐标由 module/proalas/dock_filter_coords.py 生成，与 module/retire/dock.py ButtonGrid 对齐
+# 1280×720 cn；重生成: toolkit\python.exe -m dev_tools.dock_filter_calibrate --write-yaml
+#
+# 用法（Alas 内置）:
+#   self.dock_filter_set(index='dd', faction='iron', rarity='elite', extra='can_limit_break')
+#
+# 用法（ProAlas 读表点击）:
+#   from module.proalas.dock_filter_map import get_slot
+#   slot = get_slot('faction', 'iron')
+
+version: 2
+gameSize: [1280, 720]
+grid:
+  delta: [147.33333333333334, 57]
+  button_shape: [139, 42]
+index:
+  section: index
+  label: 索引
+  origin: [218, 109]
+  grid_shape: [7, 2]
+  default: all
+  options: [{key: all, label_zh: 全部, row: 0, col: 0, click: [287, 130], crop: [218,
+        109, 357, 151]}, {key: vanguard, label_zh: 前排先锋, row: 0, col: 1, click: [
+        434, 130], crop: [365, 109, 504, 151]}, {key: main, label_zh: 后排主力, row: 0,
+      col: 2, click: [582, 130], crop: [513, 109, 652, 151]}, {key: dd, label_zh: 驱逐,
+      row: 0, col: 3, click: [729, 130], crop: [660, 109, 799, 151]}, {key: cl, label_zh: 轻巡,
+      row: 0, col: 4, click: [876, 130], crop: [807, 109, 946, 151]}, {key: ca, label_zh: 重巡,
+      row: 0, col: 5, click: [1024, 130], crop: [955, 109, 1094, 151]}, {key: bb,
+      label_zh: 战列, row: 0, col: 6, click: [1171, 130], crop: [1102, 109, 1241, 151]},
+    {key: cv, label_zh: 航母, row: 1, col: 0, click: [287, 187], crop: [218, 166, 357,
+        208]}, {key: repair, label_zh: 维修, row: 1, col: 1, click: [434, 187], crop: [
+        365, 166, 504, 208]}, {key: ss, label_zh: 潜艇, row: 1, col: 2, click: [582,
+        187], crop: [513, 166, 652, 208]}, {key: others, label_zh: 其他, row: 1, col: 3,
+      click: [729, 187], crop: [660, 166, 799, 208]}]
+faction:
+  section: faction
+  label: 阵营
+  origin: [218, 239]
+  grid_shape: [7, 3]
+  default: all
+  options: [{key: all, label_zh: 全阵营, row: 0, col: 0, click: [287, 260], crop: [218,
+        239, 357, 281]}, {key: eagle, label_zh: 白鹰, row: 0, col: 1, click: [434, 260],
+      crop: [365, 239, 504, 281]}, {key: royal, label_zh: 皇家, row: 0, col: 2, click: [
+        582, 260], crop: [513, 239, 652, 281]}, {key: sakura, label_zh: 重樱, row: 0,
+      col: 3, click: [729, 260], crop: [660, 239, 799, 281]}, {key: iron, label_zh: 铁血,
+      row: 0, col: 4, click: [876, 260], crop: [807, 239, 946, 281]}, {key: dragon,
+      label_zh: 东煌, row: 0, col: 5, click: [1024, 260], crop: [955, 239, 1094, 281]},
+    {key: sardegna, label_zh: 撒丁帝国, row: 0, col: 6, click: [1171, 260], crop: [1102,
+        239, 1241, 281]}, {key: northern, label_zh: 北方联合, row: 1, col: 0, click: [
+        287, 317], crop: [218, 296, 357, 338]}, {key: iris, label_zh: 自由鸢尾, row: 1,
+      col: 1, click: [434, 317], crop: [365, 296, 504, 338]}, {key: vichya, label_zh: 维希教廷,
+      row: 1, col: 2, click: [582, 317], crop: [513, 296, 652, 338]}, {key: tulipa,
+      label_zh: 郁金王国, row: 1, col: 3, click: [729, 317], crop: [660, 296, 799, 338]},
+    {key: pedreria, label_zh: 晶环联盟, row: 1, col: 4, click: [876, 317], crop: [807,
+        296, 946, 338]}, {key: meta, label_zh: META, row: 1, col: 5, click: [1024,
+        317], crop: [955, 296, 1094, 338]}, {key: tempesta, label_zh: 飓风, row: 1,
+      col: 6, click: [1171, 317], crop: [1102, 296, 1241, 338]}, {key: other, label_zh: 其他,
+      row: 2, col: 0, click: [287, 374], crop: [218, 353, 357, 395]}]
+rarity:
+  section: rarity
+  label: 稀有度
+  origin: [218, 427]
+  grid_shape: [7, 1]
+  default: all
+  options: [{key: all, label_zh: 全部, row: 0, col: 0, click: [287, 448], crop: [218,
+        427, 357, 469]}, {key: common, label_zh: 普通, row: 0, col: 1, click: [434,
+        448], crop: [365, 427, 504, 469]}, {key: rare, label_zh: 稀有, row: 0, col: 2,
+      click: [582, 448], crop: [513, 427, 652, 469]}, {key: elite, label_zh: 精锐, row: 0,
+      col: 3, click: [729, 448], crop: [660, 427, 799, 469]}, {key: super_rare, label_zh: 超稀有,
+      row: 0, col: 4, click: [876, 448], crop: [807, 427, 946, 469]}, {key: ultra,
+      label_zh: 海上传奇, row: 0, col: 5, click: [1024, 448], crop: [955, 427, 1094, 469]}]
+extra:
+  section: extra
+  label: 附加索引
+  origin: [218, 499]
+  grid_shape: [7, 2]
+  default: no_limit
+  options: [{key: no_limit, label_zh: 无限制, row: 0, col: 0, click: [287, 520], crop: [
+        218, 499, 357, 541]}, {key: has_skin, label_zh: 可换装, row: 0, col: 1, click: [
+        434, 520], crop: [365, 499, 504, 541]}, {key: can_retrofit, label_zh: 可改造,
+      row: 0, col: 2, click: [582, 520], crop: [513, 499, 652, 541]}, {key: enhanceable,
+      label_zh: 可强化, row: 0, col: 3, click: [729, 520], crop: [660, 499, 799, 541]},
+    {key: can_limit_break, label_zh: 可突破, row: 0, col: 4, click: [876, 520], crop: [
+        807, 499, 946, 541]}, {key: not_level_max, label_zh: 未满级, row: 0, col: 5,
+      click: [1024, 520], crop: [955, 499, 1094, 541]}, {key: can_awaken, label_zh: 可以认知觉醒,
+      row: 0, col: 6, click: [1171, 520], crop: [1102, 499, 1241, 541]}, {key: can_awaken_plus,
+      label_zh: 可以认知觉醒II, row: 1, col: 0, click: [287, 577], crop: [218, 556, 357,
+        598]}, {key: special, label_zh: 特殊, row: 1, col: 1, click: [434, 577], crop: [
+        365, 556, 504, 598]}, {key: oath_skin, label_zh: 誓约换装, row: 1, col: 2, click: [
+        582, 577], crop: [513, 556, 652, 598]}, {key: unique_augment_module, label_zh: 专属兵装,
+      row: 1, col: 3, click: [729, 577], crop: [660, 556, 799, 598]}, {key: wear_skin,
+      label_zh: 已换装, row: 1, col: 4, click: [876, 577], crop: [807, 556, 946, 598]},
+    {key: oathed, label_zh: 已誓约, row: 1, col: 5, click: [1024, 577], crop: [955, 556,
+        1094, 598]}]

@@ -31,6 +31,10 @@
     "Tool": {
       "name": "工具",
       "help": ""
+    },
+    "Proalas": {
+      "name": "ProAlas",
+      "help": "ProAlas 扩展功能：换队、采集、编队、资源统计与调度、截图监控等"
     }
   },
   "Task": {
@@ -83,7 +87,7 @@
       "help": ""
     },
     "Coalition": {
-      "name": "极地风暴",
+      "name": "怪谈纪实",
       "help": ""
     },
     "MaritimeEscort": {
@@ -119,7 +123,7 @@
       "help": ""
     },
     "CoalitionSp": {
-      "name": "极地风暴每日SP",
+      "name": "怪谈纪实每日SP",
       "help": ""
     },
     "Commission": {
@@ -277,6 +281,102 @@
     "GameManager": {
       "name": "游戏管理器(未完成)",
       "help": ""
+    },
+    "ProalasAutoBreak": {
+      "name": "自动突破",
+      "help": "船坞筛选可突破舰 → 模板进突破页 → 自动突破多艘"
+    },
+    "ProalasAutoEquip": {
+      "name": "自动换装备和配置装备",
+      "help": "按指定编队逐舰补齐空装备槽"
+    },
+    "ProalasAutoEventShop": {
+      "name": "兑换活动商店",
+      "help": "仅周日：无活动商店则跳过；否则兑换全部单价非 1 的商品（贵的优先）"
+    },
+    "ProalasAutoExpBook": {
+      "name": "自动使用经验书",
+      "help": "船坞筛选未满级舰船后自动喂食经验书"
+    },
+    "ProalasAutoFleetChange": {
+      "name": "自动更换队伍",
+      "help": "为第 1–6 队配置换队类型与品质限制"
+    },
+    "ProalasCollector": {
+      "name": "ProAlas 采集",
+      "help": "回主界面后读取石油/物资/PT/魔方，可写入 ProAlas UserData"
+    },
+    "ProalasFleetStrength": {
+      "name": "获取全部编队信息",
+      "help": "读取各编队槽位实力并写入 ProAlas UserData"
+    },
+    "ProalasResourceStats": {
+      "name": "资源统计",
+      "help": "从 Alas 日志与 UserData 绘制资源折线图"
+    },
+    "ProalasSmartDispatch": {
+      "name": "智能资源调度",
+      "help": "按钻石或物资偏好调整 Alas 任务策略"
+    },
+    "ProalasScreenMonitor": {
+      "name": "截图监控",
+      "help": "每 5 分钟截图保存到 img/设备名/，本页可实时查看"
+    },
+    "ProalasTimerPlan": {
+      "name": "定时计划",
+      "help": "TimeTable、活动同步、UP 检测（蓝区）、科研扫描（按间隔）与补齐开关说明"
+    },
+    "ProalasPlanCalendar": {
+      "name": "计划表",
+      "help": "四色日历 + 活动物化；蓝色象限写 Event/Gacha 开关"
+    },
+    "ProalasActivitySync": {
+      "name": "活动同步",
+      "help": "从 sync gateway 拉取日历并物化开关、UP 池、活动检测模板（不写活动 ID）"
+    },
+    "ProalasOpsiSchedule": {
+      "name": "大世界调度",
+      "help": "每月开荒 Enable 为真时按适应性调度坐标任务。"
+    },
+    "ProalasGachaCheck": {
+      "name": "UP 抽卡检测",
+      "help": "按日历 up_ships 船坞检索，结果写入 ProalasData.GachaUp（不自动开 Gacha）"
+    },
+    "ProalasCollectionFill": {
+      "name": "自动补齐图鉴",
+      "help": "总开关+三子功能；检测节奏见定时计划（UP 跟蓝区，科研默认每周，打捞定时待接）"
+    },
+    "ProalasEventFormatFix": {
+      "name": "活动检测与自动修正",
+      "help": "T-HT 三星开荒；共斗（怪谈纪实）按空队/解锁检测并推荐配队后交原版 Coalition"
+    },
+    "ProalasSevenDayReward": {
+      "name": "七日活动奖励领取",
+      "help": "生命周期内可开关；过期强制关闭直至下次更新。业务逻辑稍后完善"
+    },
+    "ProalasEventStory": {
+      "name": "通用型活动剧情处理",
+      "help": "生命周期内可开关；过期强制关闭直至下次更新。业务逻辑稍后完善"
+    },
+    "ProalasSpecialEvent": {
+      "name": "特殊活动处理",
+      "help": "当前活动：竞拍场。生命周期内可开关；过期强制关闭直至下次更新"
+    },
+    "ProalasAiPlanner": {
+      "name": "AI自动规划",
+      "help": "选择策略后由系统每天自动生成 2 次规划；本页仅查看结果"
+    },
+    "ProalasAccount": {
+      "name": "账户管理",
+      "help": "ProAlas 套餐与续费信息"
+    },
+    "ProalasBoatMessage": {
+      "name": "采集收藏率",
+      "help": "Alas 原生 OCR 收藏率，写入 UserData BoatRate"
+    },
+    "ProalasGetExpUseExp": {
+      "name": "自动获取使用经验书",
+      "help": "读取演习经验书存量，超阈值时自动使用"
     }
   },
   "Scheduler": {
@@ -689,6 +789,7 @@
       "coalition_20250626": "迷彩都市的寻踪者",
       "coalition_20251120": "DATE A LANE",
       "coalition_20260122": "光影风尚-拍摄进行时",
+      "coalition_20260723": "怪谈纪实",
       "event_20200227_cn": "北境序曲",
       "event_20200312_cn": "复刻斯图尔特的硝烟",
       "event_20200326_cn": "微层混合",
@@ -1217,7 +1318,7 @@
     },
     "ChangeVanguard": {
       "name": "更换前排",
-      "help": "当前排红脸时更换前排，选择不更换则会强制红脸出击\n换前排通过找一艘心情不低于10、等级100的白鹰或铁血的白皮驱逐完成，所以尽量保证有足够多的驱逐。国服以外则为等级70的白鹰白船驱逐。",
+      "help": "当前排红脸时更换前排，选择不更换则会强制红脸出击\n换前排通过找一艘心情不低于10、等级100的白鹰或铁血的白皮驱逐完成，所以尽量保证有足够多的驱逐。国服以外则为等级70的白鹰白船驱逐。\n\n换装备只会更换正在装备中的栏位，即使是白装也会更换。前排会更换全部5个装备。",
       "disabled": "不更换",
       "ship": "更换舰船",
       "ship_equip": "更换舰船 + 装备"
@@ -1355,11 +1456,10 @@
     "Mode": {
       "name": "难度",
       "help": "SP图需要使用活动每日SP运行",
-      "tc1": "tc1",
-      "tc2": "tc2",
-      "tc3": "tc3",
-      "sp": "sp",
-      "ex": "ex"
+      "easy": "easy",
+      "normal": "normal",
+      "hard": "hard",
+      "sp": "sp"
     },
     "Fleet": {
       "name": "出击队伍",
@@ -1447,7 +1547,7 @@
       "help": ""
     },
     "Favorite": {
-      "name": "仅选择常用角色",
+      "name": "优先选择常用",
       "help": ""
     },
     "MinLevel": {
@@ -2132,8 +2232,873 @@
       "sirius": "天狼星",
       "new_jersey": "新泽西",
       "taihou": "鹩",
-      "aegir": "埃吉尔",
-      "nakhimov": "纳希莫夫"
+      "aegir": "埃吉尔"
+    }
+  },
+  "ProalasCollector": {
+    "_info": {
+      "name": "ProAlas 采集",
+      "help": "使用 Alas 原生采集；结果写入 ./config/当前配置.json → ProalasData"
+    },
+    "ReadOilCoin": {
+      "name": "读取石油与物资",
+      "help": "主界面 OCR，写入 Alas 日志 OCR_OIL / OCR_COIN"
+    },
+    "ReadEventPt": {
+      "name": "读取活动 PT",
+      "help": "主界面 OCR Event_PT"
+    },
+    "ReadBuildCube": {
+      "name": "读取建造魔方",
+      "help": "进入建造页只读魔方数量，不提交建造"
+    },
+    "ReadBoatDock": {
+      "name": "读取船坞占用",
+      "help": "主动进入船坞 OCR 当前/上限，写入 BoatDock 与 BoatMax（收藏率解析依赖 BoatMax）"
+    },
+    "ReadBoatRate": {
+      "name": "读取收藏率",
+      "help": "主界面 → 收藏页 OCR；逻辑已并入本任务，无需单独「采集收藏率」"
+    },
+    "WriteUserData": {
+      "name": "写入 Alas 配置",
+      "help": "写入 ./config/当前配置名.json 的 ProalasData.GameResource"
+    },
+    "UserDataPath": {
+      "name": "（已废弃）",
+      "help": "不再使用；数据已改存 Alas 配置文件 ProalasData"
+    }
+  },
+  "ProalasFleetStrength": {
+    "_info": {
+      "name": "编队采集",
+      "help": "主界面 → 编队 → 详情页 OCR（cnocr），结果写入 ./config/当前.json → ProalasData.FleetStrength"
+    },
+    "TeamScope": {
+      "name": "采集范围",
+      "help": "all 为 1–6 队全部采集，teamN 为仅采集指定队",
+      "all": "全部 1–6 队",
+      "team1": "仅第 1 队",
+      "team2": "仅第 2 队",
+      "team3": "仅第 3 队",
+      "team4": "仅第 4 队",
+      "team5": "仅第 5 队",
+      "team6": "仅第 6 队"
+    },
+    "ProAlasRoot": {
+      "name": "（已废弃）",
+      "help": "不再使用"
+    }
+  },
+  "ProalasAutoBreak": {
+    "_info": {
+      "name": "自动突破",
+      "help": "主界面 → 船坞 → 筛选可突破舰 → TupoInto/Yes 进突破页 → 三击确认，重复多艘"
+    },
+    "ShipRarity": {
+      "name": "舰船稀有度",
+      "help": "船坞稀有度筛选（不含海上传奇）",
+      "all": "全部",
+      "common": "普通",
+      "rare": "稀有",
+      "elite": "精锐",
+      "super_rare": "超稀有"
+    },
+    "ShipsPerRun": {
+      "name": "每次突破艘数",
+      "help": "单次任务最多突破几艘（已突破舰不再占首位，仍点同一格）",
+      "1": "1 艘",
+      "2": "2 艘",
+      "3": "3 艘",
+      "4": "4 艘",
+      "5": "5 艘",
+      "6": "6 艘",
+      "7": "7 艘"
+    },
+    "RunIntervalDays": {
+      "name": "执行间隔（天）",
+      "help": "任务成功后，隔多少天再次调度自动突破",
+      "1": "每 1 天",
+      "2": "每 2 天",
+      "3": "每 3 天",
+      "4": "每 4 天",
+      "5": "每 5 天",
+      "6": "每 6 天",
+      "7": "每 7 天"
+    },
+    "ProAlasRoot": {
+      "name": "（已废弃）",
+      "help": "原生任务不再桥接 ProAlas"
+    }
+  },
+  "ProalasAutoEquip": {
+    "_info": {
+      "name": "自动换装备和配置装备",
+      "help": "按指定编队逐舰补齐空装备槽（可与自动换队联动）；仓库一键配装与合成待后续策略接入"
+    },
+    "EquipQuality": {
+      "name": "品质选择",
+      "help": "自动配装与合成时允许使用的最高装备品质",
+      "blue": "蓝色及以下",
+      "purple": "紫色及以下",
+      "gold": "金色"
+    },
+    "ReplaceSurplusPurple": {
+      "name": "更换多余紫装",
+      "help": "开启后，用低一档装备替换多余紫装以释放装备仓库"
+    },
+    "AllowCraft": {
+      "name": "允许装备合成",
+      "help": "开启后在物资充足时执行简单装备合成（不含复杂图纸链）"
+    },
+    "CraftCoinLimit": {
+      "name": "合成物资限制",
+      "help": "账户物资低于该值时不执行合成，避免影响刷图",
+      "100000": "10 万",
+      "150000": "15 万",
+      "200000": "20 万",
+      "300000": "30 万",
+      "500000": "50 万"
+    },
+    "WarehouseReserve": {
+      "name": "装备仓库冗余数",
+      "help": "至少保留的空位数量，低于该值时优先替换紫装",
+      "5": "5 格",
+      "10": "10 格",
+      "15": "15 格",
+      "20": "20 格",
+      "30": "30 格"
+    },
+    "TeamNo": {
+      "name": "补齐装备编队",
+      "help": "按队执行空槽补齐，仅处理所选编队的六艘舰船",
+      "1": "第 1 队",
+      "2": "第 2 队",
+      "3": "第 3 队",
+      "4": "第 4 队",
+      "5": "第 5 队",
+      "6": "第 6 队"
+    }
+  },
+  "ProalasAutoExpBook": {
+    "_info": {
+      "name": "自动使用经验书",
+      "help": "主界面 → 船坞 → 筛选未满级舰船 → 自动喂食经验书，可重复多轮"
+    },
+    "ShipRarity": {
+      "name": "舰船品质",
+      "help": "船坞稀有度筛选，仅对所选品质及以下的未满级舰船喂食",
+      "all": "全部",
+      "common": "普通",
+      "rare": "稀有",
+      "elite": "精锐",
+      "super_rare": "超稀有",
+      "ultra": "海上传奇"
+    },
+    "FeedRoundsPerRun": {
+      "name": "每次喂食轮数",
+      "help": "单次任务在船坞重复执行选船喂食的次数",
+      "1": "1 轮",
+      "2": "2 轮",
+      "3": "3 轮",
+      "4": "4 轮",
+      "5": "5 轮"
+    },
+    "RunIntervalDays": {
+      "name": "执行间隔（天）",
+      "help": "任务成功后，隔多少天再次调度",
+      "1": "每 1 天",
+      "2": "每 2 天",
+      "3": "每 3 天",
+      "4": "每 4 天",
+      "5": "每 5 天",
+      "6": "每 6 天",
+      "7": "每 7 天"
+    }
+  },
+  "ProalasAutoEventShop": {
+    "_info": {
+      "name": "兑换活动商店",
+      "help": "仅周日执行：能进活动 PT 商店则兑换全部单价非 1 的商品（价格高的优先）；进不去则本周跳过。双店切换模板尚未接入，ShopCount>1 暂只兑第一家。"
+    },
+    "ShopCount": {
+      "name": "活动商店数量",
+      "help": "当前仅第一家商店会自动兑换；选 2/3 需补第二店切换图后再接线",
+      "1": "1 个",
+      "2": "2 个（待补模板）",
+      "3": "3 个（待补模板）"
+    },
+    "PriorityMode": {
+      "name": "兑换优先级",
+      "help": "简化后已不再使用本选项（保留兼容）；实际按价格从高到低兑换",
+      "ur_first": "UR 优先（已忽略）",
+      "custom": "自定义（已忽略）"
+    },
+    "CustomPriority": {
+      "name": "自定义兑换优先级",
+      "help": "简化后已不再使用；请忽略本框"
+    },
+    "TokenUrItem": {
+      "name": "兑换信物 · URITEM",
+      "help": "只读，由任务 OCR 识别后自动更新"
+    },
+    "TokenPt": {
+      "name": "兑换信物 · PT",
+      "help": "只读，由任务 OCR 识别后自动更新"
+    }
+  },
+  "ProalasGetExpUseExp": {
+    "_info": {
+      "name": "自动获取使用经验书",
+      "help": "桥接 autoGetEXP / autoUseEXP"
+    },
+    "ExpBookType": {
+      "name": "经验书类型",
+      "help": "预留，当前仅 default",
+      "default": "default"
+    },
+    "MaxGetPerDay": {
+      "name": "每日最多获取次数",
+      "help": "预留配置"
+    },
+    "RunUseExp": {
+      "name": "自动使用经验书",
+      "help": "EXP 超过阈值时执行 autoUseEXP"
+    },
+    "UseExpThreshold": {
+      "name": "使用经验书阈值",
+      "help": "UserData 中 EXP 大于该值时尝试使用"
+    },
+    "ProAlasRoot": {
+      "name": "ProAlas 根目录",
+      "help": "默认 F:/ProAlas"
+    }
+  },
+  "ProalasBoatMessage": {
+    "_info": {
+      "name": "采集收藏率",
+      "help": "主界面进入收藏页 OCR 收藏率；船坞由退役任务日志同步"
+    },
+    "UserDataPath": {
+      "name": "UserData 路径",
+      "help": "默认 F:/ProAlas/data/UserData.json"
+    }
+  },
+  "ProalasSmartFleet34": {
+    "_info": {
+      "name": "智能配队 3/4",
+      "help": "桥接 changeMainFleet34 handler"
+    },
+    "FleetChoice": {
+      "name": "队伍选择",
+      "help": "当前仅 team34",
+      "team34": "team34"
+    },
+    "FleetMode": {
+      "name": "配置类型",
+      "help": "预留配置",
+      "default": "default"
+    },
+    "ProAlasRoot": {
+      "name": "ProAlas 根目录",
+      "help": "默认 F:/ProAlas"
+    }
+  },
+  "ProalasResourceStats": {
+    "_info": {
+      "name": "资源统计",
+      "help": "下拉折线图 + 资源快照；数据来自 Alas 历史日志与 ProalasData"
+    },
+    "UserDataPath": {
+      "name": "（已废弃）",
+      "help": "不再使用；快照已改存 ./config/当前名.json → ProalasData"
+    },
+    "AlasLogPath": {
+      "name": "Alas 日志目录",
+      "help": "解析 OCR 时序的回退目录，默认 ./log（相对 Alas 根目录）"
+    },
+    "ChartOil": {
+      "name": "石油折线图",
+      "help": "显示 OCR_OIL 时序"
+    },
+    "ChartMoney": {
+      "name": "物资折线图",
+      "help": "显示 OCR_COIN 时序"
+    },
+    "ChartCube": {
+      "name": "魔方折线图",
+      "help": "显示 BUILD_CUBE_COUNT 时序"
+    },
+    "ChartActPt": {
+      "name": "活动 PT 折线图",
+      "help": "显示 Event_PT 时序"
+    },
+    "ChartRmb": {
+      "name": "钻石折线图",
+      "help": "显示 SHOP_GEMS 时序"
+    },
+    "ChartBoatRate": {
+      "name": "收藏率折线图",
+      "help": "显示 BOAT_RATE 时序"
+    },
+    "ChartBoatMax": {
+      "name": "船坞上限折线图",
+      "help": "显示 BOAT_MAX 时序"
+    }
+  },
+  "ProalasSmartDispatch": {
+    "_info": {
+      "name": "智能资源调度",
+      "help": "开启后按资源偏好（钻石 / 物资）调整后续自动化策略"
+    },
+    "EnableSmartDispatch": {
+      "name": "启用智能资源调度",
+      "help": "总开关：关闭后下方偏好设置仅保存，不会参与调度"
+    },
+    "PreferRmb": {
+      "name": "资源偏好 · 钻石",
+      "help": "优先保留与获取钻石（红钻/付费钻相关收益向）"
+    },
+    "PreferMoney": {
+      "name": "资源偏好 · 物资",
+      "help": "优先保留与获取物资（金币）"
+    }
+  },
+  "ProalasAutoFleetChange": {
+    "_info": {
+      "name": "自动更换队伍",
+      "help": "六队编队预览；职能固定为 1–2 推图、3–4 练级、5–6 低耗（Pro+ 可改类型）"
+    },
+    "Team1Type": {
+      "name": "第 1 队 · 队伍类型",
+      "help": "该队自动换队时采用的策略类型",
+      "level": "练级",
+      "push": "推图",
+      "low_cost": "低耗"
+    },
+    "Team1Quality": {
+      "name": "第 1 队 · 品质限制",
+      "help": "换队时允许使用的最高舰娘品质",
+      "R": "R",
+      "SR": "SR",
+      "SSR": "SSR",
+      "UR": "UR",
+      "none": "无"
+    },
+    "Team2Type": {
+      "name": "第 2 队 · 队伍类型",
+      "help": "该队自动换队时采用的策略类型",
+      "level": "练级",
+      "push": "推图",
+      "low_cost": "低耗"
+    },
+    "Team2Quality": {
+      "name": "第 2 队 · 品质限制",
+      "help": "换队时允许使用的最高舰娘品质",
+      "R": "R",
+      "SR": "SR",
+      "SSR": "SSR",
+      "UR": "UR",
+      "none": "无"
+    },
+    "Team3Type": {
+      "name": "第 3 队 · 队伍类型",
+      "help": "该队自动换队时采用的策略类型",
+      "level": "练级",
+      "push": "推图",
+      "low_cost": "低耗"
+    },
+    "Team3Quality": {
+      "name": "第 3 队 · 品质限制",
+      "help": "换队时允许使用的最高舰娘品质",
+      "R": "R",
+      "SR": "SR",
+      "SSR": "SSR",
+      "UR": "UR",
+      "none": "无"
+    },
+    "Team4Type": {
+      "name": "第 4 队 · 队伍类型",
+      "help": "该队自动换队时采用的策略类型",
+      "level": "练级",
+      "push": "推图",
+      "low_cost": "低耗"
+    },
+    "Team4Quality": {
+      "name": "第 4 队 · 品质限制",
+      "help": "换队时允许使用的最高舰娘品质",
+      "R": "R",
+      "SR": "SR",
+      "SSR": "SSR",
+      "UR": "UR",
+      "none": "无"
+    },
+    "Team5Type": {
+      "name": "第 5 队 · 队伍类型",
+      "help": "该队自动换队时采用的策略类型",
+      "level": "练级",
+      "push": "推图",
+      "low_cost": "低耗"
+    },
+    "Team5Quality": {
+      "name": "第 5 队 · 品质限制",
+      "help": "换队时允许使用的最高舰娘品质",
+      "R": "R",
+      "SR": "SR",
+      "SSR": "SSR",
+      "UR": "UR",
+      "none": "无"
+    },
+    "Team6Type": {
+      "name": "第 6 队 · 队伍类型",
+      "help": "该队自动换队时采用的策略类型",
+      "level": "练级",
+      "push": "推图",
+      "low_cost": "低耗"
+    },
+    "Team6Quality": {
+      "name": "第 6 队 · 品质限制",
+      "help": "换队时允许使用的最高舰娘品质",
+      "R": "R",
+      "SR": "SR",
+      "SSR": "SSR",
+      "UR": "UR",
+      "none": "无"
+    },
+    "EventTeam1Enable": {
+      "name": "活动配队 1 独立开关",
+      "help": "与练级/侵蚀一相互独立；须同时打开任务总开关"
+    },
+    "EventTeam1IntervalDays": {
+      "name": "活动配队1间隔",
+      "help": "0=每次任务都跑（单测）；1/3/7天",
+      "0": "每次（测试）",
+      "1": "1天",
+      "3": "3天",
+      "7": "7天"
+    },
+    "EventTeam2Enable": {
+      "name": "活动配队 2 独立开关",
+      "help": "与练级/侵蚀一相互独立；须同时打开任务总开关"
+    },
+    "EventTeam2IntervalDays": {
+      "name": "活动配队2间隔",
+      "help": "0=每次任务都跑（单测）；1/3/7天",
+      "0": "每次（测试）",
+      "1": "1天",
+      "3": "3天",
+      "7": "7天"
+    },
+    "OpsiHazard1FleetEnable": {
+      "name": "侵蚀一换队独立开关",
+      "help": "主界面→大世界→港口后换出击第1队；与活动/练级独立"
+    },
+    "OpsiHazard1FleetIntervalDays": {
+      "name": "侵蚀一换队间隔",
+      "help": "0=每次任务都跑（单测）；1/3/7天",
+      "0": "每次（测试）",
+      "1": "1天",
+      "3": "3天",
+      "7": "7天"
+    },
+    "LevelTeamEnable": {
+      "name": "启用练级换船",
+      "help": "主线编队练级队独立开关；关闭后本任务跳过练级换船"
+    },
+    "RunIntervalDays": {
+      "name": "练级换船间隔",
+      "help": "0=每次任务都跑（单测）；1～7天",
+      "0": "每次（测试）",
+      "1": "每 1 天",
+      "2": "每 2 天",
+      "3": "每 3 天",
+      "4": "每 4 天",
+      "5": "每 5 天",
+      "6": "每 6 天",
+      "7": "每 7 天"
+    },
+    "LevelTeamFaction": {
+      "name": "练级队阵营偏好",
+      "help": "仅练级队换船时船坞筛选阵营；all 为全阵营",
+      "all": "全阵营",
+      "eagle": "白鹰",
+      "royal": "皇家",
+      "sakura": "重樱",
+      "iron": "铁血",
+      "dragon": "东煌",
+      "sardegna": "撒丁帝国",
+      "northern": "北方联合",
+      "iris": "自由鸢尾",
+      "vichya": "维希教廷",
+      "tulipa": "郁金王国",
+      "pedreria": "晶环联盟",
+      "meta": "META",
+      "tempesta": "飓风",
+      "other": "其他"
+    }
+  },
+  "ProalasAccount": {
+    "_info": {
+      "name": "账户管理",
+      "help": "ProAlas 套餐类型、到期时间与续费链接"
+    },
+    "PlanType": {
+      "name": "当前套餐类型",
+      "help": "Normal / Pro / Pro+",
+      "normal": "Normal",
+      "pro": "Pro",
+      "pro_plus": "Pro+"
+    },
+    "ExpireAt": {
+      "name": "到期时间",
+      "help": "套餐有效期，到期后需续费"
+    },
+    "RenewalUrl": {
+      "name": "续费管理",
+      "help": "续费页面链接；保存后点击下方按钮打开"
+    }
+  },
+  "ProalasScreenMonitor": {
+    "_info": {
+      "name": "截图监控",
+      "help": "定时保存模拟器截图到 ./img/当前配置名/，在 ProAlas → 截图监控 页查看"
+    },
+    "KeepCount": {
+      "name": "保留张数",
+      "help": "每个设备目录最多保留的历史截图数量"
+    }
+  },
+  "ProalasTimerPlan": {
+    "_info": {
+      "name": "定时计划",
+      "help": "HostAgent 写 TimeTable；串行：活动同步 →（蓝区）UP 检测/建造 →（到期）科研扫描 → 采集 → AI"
+    },
+    "ExtraExclude": {
+      "name": "额外排除 Command",
+      "help": "逗号分隔，不参与统计的 Scheduler.Command（默认可排除纯 WebUI 任务）"
+    }
+  },
+  "ProalasPlanCalendar": {
+    "_info": {
+      "name": "计划表",
+      "help": "四色日历（黄日常/红主动/绿人工/蓝活动）；调度运行时可同步蓝色象限到 config"
+    },
+    "EnableAi": {
+      "name": "启用 AI 计划表",
+      "help": "开启后预留 AI 对接；当前仅接口与日历视图"
+    },
+    "SyncActivityOnRun": {
+      "name": "运行时同步活动",
+      "help": "计划表任务触发时执行活动物化（与 ProalasActivitySync 相同逻辑）"
+    }
+  },
+  "ProalasActivitySync": {
+    "_info": {
+      "name": "活动同步",
+      "help": "从 sync gateway 拉取日历/计划表（黄绿蓝）→ 物化 Scheduler / UP 池 / 活动模板；不写 Campaign.Event"
+    },
+    "AllowManifestFallback": {
+      "name": "允许 manifest 降级",
+      "help": "当日无蓝色象限时，回退读取 config/activity_manifest.json"
+    },
+    "SyncGatewayEnable": {
+      "name": "启用云端拉取",
+      "help": "运行前先 GET sync gateway（GlobalActivityCalendar + PlanSchedule）"
+    },
+    "SyncGatewayUrl": {
+      "name": "Sync Gateway 地址",
+      "help": "如 http://192.168.2.107:22301"
+    },
+    "SyncGatewayToken": {
+      "name": "Sync Gateway Token",
+      "help": "Authorization Bearer；内网测试填 test"
+    },
+    "PullPlanSchedule": {
+      "name": "同步计划表",
+      "help": "合并云端黄/绿/蓝 override；本地红色（AI）保留"
+    }
+  },
+  "ProalasOpsiSchedule": {
+    "_info": {
+      "name": "大世界调度",
+      "help": "适应性三值调度。"
+    },
+    "AdaptThreshold": {
+      "name": "适应性阈值",
+      "help": "默认400。"
+    },
+    "DeferMeowAndHazard1": {
+      "name": "后置短猫和71",
+      "help": "达标后上半天关短猫/71。"
+    },
+    "ShopUnlockDay": {
+      "name": "大世界商店购买日期",
+      "help": "日期大于该值开商店。",
+      "1": "1",
+      "2": "2",
+      "3": "3",
+      "4": "4",
+      "5": "5",
+      "6": "6",
+      "7": "7",
+      "8": "8",
+      "9": "9",
+      "10": "10",
+      "11": "11",
+      "12": "12",
+      "13": "13",
+      "14": "14",
+      "15": "15",
+      "16": "16",
+      "17": "17",
+      "18": "18",
+      "19": "19",
+      "20": "20",
+      "21": "21",
+      "22": "22",
+      "23": "23",
+      "24": "24",
+      "25": "25",
+      "26": "26",
+      "27": "27",
+      "28": "28"
+    }
+  },
+  "ProalasGachaCheck": {
+    "_info": {
+      "name": "UP 抽卡检测",
+      "help": "按 up_ships 船坞检索；结果写入 ProalasData.GachaUp，供「自动补齐图鉴」页展示，不修改 Gacha.Scheduler"
+    },
+    "BootstrapNullTemplate": {
+      "name": "自举空结果模板",
+      "help": "SearchBoatNull 模板缺失时，首艘船检索后保存模板（待实现）"
+    }
+  },
+  "ProalasCollectionFill": {
+    "_info": {
+      "name": "自动补齐图鉴",
+      "help": "总开关控制建造/打捞/科研；具体检测时机由定时计划编排（说明见定时计划页）"
+    },
+    "Enable": {
+      "name": "启用自动补齐图鉴",
+      "help": "总开关。关闭后建造/打捞/科研相关检测与自动补齐均不执行"
+    },
+    "BuildEnable": {
+      "name": "建造补齐",
+      "help": "UP 池相关。检测仍随蓝区活动日；自动建造另需打开下方「自动抽卡补齐」"
+    },
+    "FarmEnable": {
+      "name": "打捞补齐",
+      "help": "主线/活动打捞目标。检测将按定时节奏执行（逻辑待接）"
+    },
+    "ResearchEnable": {
+      "name": "科研补齐",
+      "help": "开发船坞未完成科研船扫描。由定时计划按下方间隔到期触发（做科研任务，不是抽卡）"
+    },
+    "ResearchIntervalDays": {
+      "name": "科研扫描间隔（天）",
+      "help": "默认 7：距上次扫描满 N 天后，在下一次定时计划中扫描；0=立刻（测试用）",
+      "0": "立刻（测试）",
+      "1": "1 天",
+      "2": "2 天",
+      "3": "3 天",
+      "4": "4 天",
+      "5": "5 天",
+      "6": "6 天",
+      "7": "7 天（每周）",
+      "14": "14 天"
+    },
+    "AutoGachaEnable": {
+      "name": "自动抽卡补齐",
+      "help": "建造补齐子项：定时计划在 UP 检测通过且缺船时自动建造（须关闭原版每日抽卡调度）"
+    },
+    "CubeReserveMin": {
+      "name": "魔方保留下限",
+      "help": "固定 500：当前魔方低于该值不自动抽卡"
+    },
+    "CubeMaxPerRun": {
+      "name": "单次最多建造次数",
+      "help": "每次任务最多建造 N 发（默认 6）"
+    },
+    "CubeDailyMax": {
+      "name": "每日建造上限",
+      "help": "固定 20 发/日（服务器日 04:00 重置）"
+    }
+  },
+  "ProalasEventFormatFix": {
+    "_info": {
+      "name": "活动检测与自动修正",
+      "help": "T-HT：扫 t 关三星写 Event；共斗由蓝区物化 Coalition.Campaign.Event=coalition_* 后自动走空队开荒"
+    },
+    "EnableFix": {
+      "name": "启用修正",
+      "help": "关闭时仅推迟任务，不进入游戏"
+    },
+    "Template": {
+      "name": "活动模板",
+      "help": "由定时计划蓝区 event_format 物化。T-HT=常规；共斗看 Coalition.Campaign.Event 是否为 coalition_*（本下拉不决定共斗）",
+      "T-HT": "T-HT",
+      "AB-CD": "AB-CD",
+      "SP-HSP": "SP-HSP"
+    },
+    "TargetTask": {
+      "name": "写入目标任务",
+      "help": "修正结果写入哪个 Event 任务块（共斗分支不使用）",
+      "Event": "活动一 Event",
+      "Event2": "活动二 Event2"
+    },
+    "StopStage": {
+      "name": "停止关卡",
+      "help": "共斗：easy/normal/hard/sp（或简单/普通/困难），留空=开荒到 SP；推荐失败时写入打得过的上一档"
+    },
+    "ForceThreeStar": {
+      "name": "强制三星",
+      "help": "高危：未三星时仍视为需刷（仅 T-HT，待实现）"
+    },
+    "AllCleared": {
+      "name": "已全部通关",
+      "help": "共斗四关开完后为 true，自检推迟约 7 天；T-HT 为 t1–t3 通关状态"
+    },
+    "AutoHardFleet": {
+      "name": "困难图自动配队",
+      "help": "仅 T-HT：ht 关首次进选队页时清空→确定→点推荐"
+    }
+  },
+  "ProalasSevenDayReward": {
+    "_info": {
+      "name": "七日活动奖励领取",
+      "help": "生命周期内可开关；过期强制关闭且不可再开，直至下次更新推送"
+    },
+    "Enable": {
+      "name": "总开关",
+      "help": "生命周期内可开可关；超出生命周期后强制关闭且不可打开"
+    },
+    "RetireEnhanceSwitch": {
+      "name": "退役/强化切换",
+      "help": "强制打开，用户不可关闭（开发者锁定）"
+    },
+    "RewardMode": {
+      "name": "七日奖励模式",
+      "help": "本期强制模式1（同页双七日）；模式2=单七日待后续活动补充",
+      "1": "模式1·双七日",
+      "2": "模式2·单七日"
+    },
+    "Lifecycle": {
+      "name": "生命周期",
+      "help": "格式 MMDD-MMDD，仅开发者可改；当前窗口外功能强制关闭"
+    }
+  },
+  "ProalasEventStory": {
+    "_info": {
+      "name": "通用型活动剧情处理",
+      "help": "生命周期内可开关；剧情模式由开发者锁定，用户不可改"
+    },
+    "Enable": {
+      "name": "总开关",
+      "help": "生命周期内可开可关；超出生命周期后强制关闭且不可打开"
+    },
+    "StoryMode": {
+      "name": "剧情模式",
+      "help": "用户不可改；当前锁定为「单图无分支」",
+      "SingleNoBranch": "单图无分支",
+      "SingleMultiBranch": "单图多分支",
+      "ChainNoBranch": "链式无分支",
+      "ChainMultiBranch": "链式多分支"
+    },
+    "Lifecycle": {
+      "name": "生命周期",
+      "help": "格式 MMDD-MMDD，仅开发者可改；当前窗口外功能强制关闭"
+    }
+  },
+  "ProalasSpecialEvent": {
+    "_info": {
+      "name": "特殊活动处理",
+      "help": "当前活动：竞拍场。生命周期内可开关；博弈类型用户可选"
+    },
+    "Enable": {
+      "name": "总开关",
+      "help": "生命周期内可开可关；超出生命周期后强制关闭且不可打开"
+    },
+    "EventName": {
+      "name": "活动名称",
+      "help": "当前活动，用户不可改",
+      "Auction": "竞拍场"
+    },
+    "GambleType": {
+      "name": "博弈类型",
+      "help": "低倍=始终四位数；完成任务=币≥8000k七位(首位见出价级别)否则四位。指定场次两模式均生效",
+      "LowYieldInterest": "低倍策略吃息",
+      "ClaimQuestReward": "完成任务"
+    },
+    "VenueSelect": {
+      "name": "指定场次",
+      "help": "两模式均生效。默认规则：低倍按币选B/A/S；完成任务高币默认S，低币同低倍",
+      "Default": "默认规则",
+      "A": "A场",
+      "B": "B场",
+      "S": "S场"
+    },
+    "QuestBidLevel": {
+      "name": "指定出价级别",
+      "help": "仅完成任务且竞拍币≥8000k时生效：七位数出价的第一位，一百万=1 … 八百万=8。低倍吃息始终四位数，不受此项影响",
+      "1": "一百万",
+      "2": "二百万",
+      "3": "三百万",
+      "4": "四百万",
+      "5": "五百万",
+      "6": "六百万",
+      "7": "七百万",
+      "8": "八百万"
+    },
+    "TargetWins": {
+      "name": "完成任务新增中标",
+      "help": "目前中标-初始中标达到该值即完成（默认50）。开关任务不重置初始值；换生命周期自动重置"
+    },
+    "QuestWinBaseline": {
+      "name": "初始中标数",
+      "help": "首次执行完成任务时写入，只读；换生命周期自动清空"
+    },
+    "AuctionCoin": {
+      "name": "竞拍币",
+      "help": "只读"
+    },
+    "WinCount": {
+      "name": "目前中标数",
+      "help": "指标面板 OCR，只读"
+    },
+    "QuestWinProgress": {
+      "name": "本季新增中标",
+      "help": "目前中标-初始中标，只读"
+    },
+    "JoinCount": {
+      "name": "参与局数",
+      "help": "只读"
+    },
+    "QuestBaselineLifecycle": {
+      "name": "ProalasSpecialEvent.QuestBaselineLifecycle.name",
+      "help": "ProalasSpecialEvent.QuestBaselineLifecycle.help"
+    },
+    "Lifecycle": {
+      "name": "生命周期",
+      "help": "格式 MMDD-MMDD，仅开发者可改；当前窗口外功能强制关闭"
+    }
+  },
+  "ProalasAiPlanner": {
+    "_info": {
+      "name": "AI自动规划",
+      "help": "保守/激进/创新三档策略；定时生成规划（每天约 2 次），本页只读查看"
+    },
+    "Strategy": {
+      "name": "规划策略",
+      "help": "保守=稳资源少消耗；激进=资源足时压缩间隔；创新=按油/币阈值在二者间规则化切换"
+    },
+    "AutoApply": {
+      "name": "定时规划自动写配置",
+      "help": "开启后 Scheduler 生成的指令将自动写入 config；Pro+ / 创新·人工 由系统强制关闭"
+    },
+    "CustomEventMain": {
+      "name": "活动与主线自定义",
+      "help": "开启后，AI 自动规划不会修改活动1、活动2、主线1、主线2（Event/Event2/Main/Main2）的配置与调度"
     }
   },
   "Daily": {

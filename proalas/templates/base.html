@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>{% block title %}ProAlas{% endblock %}</title>
+  {# Electron 用 file:// 套 iframe 时会拦第三方 Cookie，必须顶层打开 DAP #}
+  <script>
+  (function () {
+    try {
+      if (window.top && window.top !== window.self) {
+        window.top.location.replace(window.location.href);
+      }
+    } catch (e) {}
+  })();
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <script src="{{ url_for('static', filename='theme.js') }}"></script>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
+  <script src="{{ url_for('static', filename='htmx.min.js') }}"></script>
+  <script src="{{ url_for('static', filename='pro_fleet.js') }}" defer></script>
+  <script src="{{ url_for('static', filename='pro_screen_monitor.js') }}" defer></script>
+  <script src="{{ url_for('static', filename='pro_pause_window.js') }}" defer></script>
+  <script src="{{ url_for('static', filename='pro_remote.js') }}" defer></script>
+  <script src="{{ url_for('static', filename='app_shell.js') }}" defer></script>
+</head>
+<body class="{% block body_class %}{% endblock %}">
+  {% block body %}{% endblock %}
+</body>
+</html>

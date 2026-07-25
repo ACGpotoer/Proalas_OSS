@@ -1,3 +1,4 @@
+import os
 import re
 import typing as t
 from copy import deepcopy
@@ -36,14 +37,19 @@ GEMS_FARMINGS = ['GemsFarming']
 RAIDS = ['Raid', 'RaidDaily']
 WAR_ARCHIVES = ['WarArchives']
 COALITIONS = ['Coalition', 'CoalitionSp']
+CAMPAIGN_EVENT_TASKS = EVENTS + RAIDS + COALITIONS + WAR_ARCHIVES + ['GemsFarming']
 MARITIME_ESCORTS = ['MaritimeEscort']
 HOSPITAL = ['Hospital']
 
 
 class Event:
     def __init__(self, text):
-        self.date, self.directory, self.name, self.cn, self.en, self.jp, self.tw \
-            = [x.strip() for x in text.strip('| \n').split('|')]
+        parts = [x.strip() for x in text.strip('| \n').split('|')]
+        if len(parts) != 7:
+            raise ValueError(
+                f'campaign/Readme.md row must have 7 columns, got {len(parts)}: {text[:120]!r}'
+            )
+        self.date, self.directory, self.name, self.cn, self.en, self.jp, self.tw = parts
 
         self.directory = self.directory.replace(' ', '_')
         self.cn = self.cn.replace('、', '')
@@ -373,6 +379,9 @@ class ConfigGenerator:
             deep_set(data, keys=[task_group, 'page'], value=value)
             tasks = deep_get(self.task, keys=[task_group, 'tasks'], default={})
             tasks = list(tasks.keys())
+            if task_group == 'Proalas':
+                from module.proalas.feature_gate import MENU_HIDDEN_TASKS
+                tasks = [t for t in tasks if t not in MENU_HIDDEN_TASKS]
             deep_set(data, keys=[task_group, 'tasks'], value=tasks)
 
         return data
@@ -404,12 +413,25 @@ class ConfigGenerator:
                     continue
                 else:
                     line_entries = [x.strip() for x in text.strip('| \n').split('|')]
+                    if len(line_entries) != 7:
+                        from module.logger import logger
+                        logger.warning(
+                            'campaign/Readme.md: skip malformed table row (%s columns, need 7): %s',
+                            len(line_entries),
+                            text.strip()[:160],
+                        )
+                        continue
                     data_lines.append(line_entries)
                     data_width = [calc_width(string) for string in line_entries]
                     data_widths.append(data_width)
                     column_width = [max(l1, l2) for l1, l2 in zip(column_width, data_width)]
                     if re.search(r'\d{8}', text):
-                        event = Event(text)
+                        try:
+                            event = Event(text)
+                        except ValueError as e:
+                            from module.logger import logger
+                            logger.warning('%s', e)
+                            continue
                         events.append(event)
         for i, (line, old_width) in enumerate(zip(data_lines, data_widths)):
             lines.append('| ' + ' | '.join([cell + ' ' * (width - length) for cell, width, length in zip(line, column_width, old_width)]) + ' |\n')
@@ -427,15 +449,21 @@ class ConfigGenerator:
                                   v
                    args.json -----+-----> args.json
         """
+        self.insert_event_into(self.args)
+
+    def insert_event_into(self, args: dict) -> None:
+        """Merge campaign/Readme.md into args dict (WebUI in-memory refresh)."""
         for server in ARCHIVES_PREFIX.keys():
             for event in self.event:
                 name = event.__getattribute__(server)
 
                 def insert(key):
-                    opts = deep_get(self.args, keys=f'{key}.Campaign.Event.option_{server}', default=[])
-                    if event not in opts:
-                        opts.append(event)
-                    deep_set(self.args, keys=f'{key}.Campaign.Event.option_{server}', value=opts)
+                    opts = deep_get(args, keys=f'{key}.Campaign.Event.option_{server}', default=[])
+                    opts = [str(x) for x in opts if x is not None and str(x).strip()]
+                    event_id = event.directory
+                    if event_id not in opts:
+                        opts.append(event_id)
+                    deep_set(args, keys=f'{key}.Campaign.Event.option_{server}', value=opts)
 
                 if name:
                     if event.is_raid:
@@ -463,12 +491,16 @@ class ConfigGenerator:
         for task in EVENTS + GEMS_FARMINGS + WAR_ARCHIVES + RAIDS + COALITIONS:
             latest = {}
             for server in ARCHIVES_PREFIX.keys():
-                latest[server] = deep_get(self.args, keys=f'{task}.Campaign.Event.option_{server}', default=[])
+                latest[server] = deep_get(
+                    args, keys=f'{task}.Campaign.Event.option_{server}', default=[],
+                )
             options = set().union(*latest.values())
-            options = sorted([option for option in options if option != 'campaign_main'])
+            options = sorted(
+                [str(option) for option in options if str(option).strip() and str(option) != 'campaign_main']
+            )
             if task not in WAR_ARCHIVES:
-                deep_set(self.args, keys=f'{task}.Campaign.Event.option_bold', value=options)
-            deep_set(self.args, keys=f'{task}.Campaign.Event.option', value=options)
+                deep_set(args, keys=f'{task}.Campaign.Event.option_bold', value=options)
+            deep_set(args, keys=f'{task}.Campaign.Event.option', value=options)
 
     @staticmethod
     def generate_deploy_template():
@@ -534,14 +566,51 @@ class ConfigGenerator:
         deep_set(self.argument, keys='Emulator.ServerName.option', value=option)
         deep_set(self.args, keys='Alas.Emulator.ServerName.option', value=option)
 
+    @staticmethod
+    def _union_campaign_event_blocks(existing: dict, target: dict) -> None:
+        """generate 时合并旧 args 的活动选项，避免 overlay/旧包抹掉目标机已更新活动。"""
+        option_keys = (
+            'option', 'option_cn', 'option_en', 'option_jp', 'option_tw', 'option_bold',
+        )
+
+        def _merge_lists(old_list, new_list):
+            old_list = old_list if isinstance(old_list, list) else []
+            new_list = new_list if isinstance(new_list, list) else []
+            merged = list(dict.fromkeys([*new_list, *old_list]))
+            if 'campaign_main' in merged:
+                merged.remove('campaign_main')
+                merged.insert(0, 'campaign_main')
+            return merged
+
+        for task in CAMPAIGN_EVENT_TASKS:
+            ex_block = deep_get(existing, keys=[task, 'Campaign', 'Event'], default=None)
+            if not isinstance(ex_block, dict):
+                continue
+            for opt_key in option_keys:
+                old_list = ex_block.get(opt_key)
+                new_list = deep_get(target, keys=[task, 'Campaign', 'Event', opt_key], default=[])
+                merged = _merge_lists(old_list, new_list)
+                if merged:
+                    deep_set(target, keys=[task, 'Campaign', 'Event', opt_key], value=merged)
+
     @timer
     def generate(self):
+        existing_args = {}
+        args_path = filepath_args()
+        try:
+            if os.path.isfile(args_path):
+                existing_args = read_file(args_path)
+        except Exception:
+            existing_args = {}
+
         _ = self.args
         _ = self.menu
         _ = self.event
         self.insert_event()
         self.insert_package()
         self.insert_server()
+        if existing_args:
+            self._union_campaign_event_blocks(existing_args, self.args)
         write_file(filepath_args(), self.args)
         write_file(filepath_args('menu'), self.menu)
         self.generate_code()
@@ -614,6 +683,117 @@ class ConfigUpdater:
     def args(self):
         return read_file(filepath_args())
 
+    @classmethod
+    def refresh_webui_event_args(cls, args: dict) -> dict:
+        """WebUI：从 campaign/Readme.md 刷新活动下拉，不写 args.json。"""
+        ConfigGenerator().insert_event_into(args)
+        return args
+
+    @cached_property
+    def _event_catalog(self):
+        return ConfigGenerator().event
+
+    def _latest_campaign_event_id(self, task: str, server: str) -> t.Optional[str]:
+        """Readme 表里该任务类型在指定服别下的最新活动 directory。"""
+        for event in self._event_catalog:
+            if not getattr(event, server, None):
+                continue
+            if task in WAR_ARCHIVES:
+                if event.is_war_archives:
+                    return event.directory
+            elif task in RAIDS:
+                if event.is_raid:
+                    return event.directory
+            elif task in COALITIONS:
+                if event.is_coalition:
+                    return event.directory
+            elif task in EVENTS or task in GEMS_FARMINGS:
+                if not event.is_war_archives and not event.is_raid and not event.is_coalition:
+                    return event.directory
+        return None
+
+    @staticmethod
+    def _is_campaign_event_keys(keys) -> bool:
+        return len(keys) == 3 and keys[1] == 'Campaign' and keys[2] == 'Event'
+
+    @staticmethod
+    def _parse_config_merge_value(keys, value, data, *, is_template: bool):
+        """
+        parse_value 会把不在 args.option 里的值重置为 data['value']。
+        overlay 旧 args 只有上一期活动时，会误把用户新选活动改回 campaign_main / 旧活动。
+        """
+        if not is_template and ConfigUpdater._is_campaign_event_keys(keys):
+            data = {k: v for k, v in data.items() if k != 'option'}
+        return parse_value(value, data=data)
+
+    def _ensure_event_option(self, task: str, server: str, event_id: str) -> None:
+        """把实例里已有、但 stale args 未收录的活动补进下拉选项（WebUI 可显示/保存）。"""
+        if not event_id or event_id == 'campaign_main':
+            return
+        key = f'{task}.Campaign.Event'
+        for opt_key in (f'{key}.option_{server}', f'{key}.option'):
+            opts = deep_get(self.args, keys=opt_key, default=[])
+            if event_id in opts:
+                continue
+            deep_set(self.args, keys=opt_key, value=list(opts) + [event_id])
+        if task not in WAR_ARCHIVES:
+            bold = deep_get(self.args, keys=f'{key}.option_bold', default=[])
+            if event_id not in bold:
+                deep_set(self.args, keys=f'{key}.option_bold', value=list(bold) + [event_id])
+
+    def _restore_campaign_events(self, old: dict, new: dict, *, is_template: bool) -> None:
+        """仅保留用户手动选过的活动；未手动时由 _reconcile_campaign_event 跟最新期。"""
+        if is_template:
+            return
+        for task in CAMPAIGN_EVENT_TASKS:
+            if not deep_get(old, keys=f'{task}.Storage.CampaignEventManual', default=False):
+                continue
+            keys = [task, 'Campaign', 'Event']
+            old_val = deep_get(old, keys=keys, default=None)
+            if old_val in (None, ''):
+                continue
+            deep_set(new, keys=keys, value=old_val)
+
+    def _reconcile_campaign_event(
+        self,
+        new: dict,
+        *,
+        task: str,
+        server: str,
+        fallback_if_campaign_main: bool = False,
+    ) -> None:
+        """未手动选活动时默认 Readme 最新期；手动选过则保留用户值。"""
+        from module.logger import logger
+
+        key = f'{task}.Campaign.Event'
+        manual = bool(deep_get(new, keys=f'{task}.Storage.CampaignEventManual', default=False))
+        current = deep_get(new, keys=key, default='campaign_main')
+        latest = self._latest_campaign_event_id(task, server)
+        self._ensure_event_option(task, server, current)
+        if latest:
+            self._ensure_event_option(task, server, latest)
+        opts = deep_get(
+            self.args,
+            keys=f'{key}.option_{server}',
+            default=[],
+        )
+        if not manual and latest:
+            deep_set(new, keys=key, value=latest)
+            return
+        if not opts:
+            return
+        if current in opts:
+            return
+        if fallback_if_campaign_main and current == 'campaign_main':
+            deep_set(new, keys=key, value=opts[0])
+            return
+        logger.warning(
+            'config_update %s: Campaign.Event=%r 不在 args 活动列表，保留原值'
+            '（可运行 python -m module.config.config_updater 同步 Readme → args）',
+            task,
+            current,
+        )
+
     def config_update(self, old, is_template=False):
         """
         Args:
@@ -626,13 +806,19 @@ class ConfigUpdater:
         new = {}
 
         for keys, data in deep_iter(self.args, depth=3):
-            value = deep_get(old, keys=keys, default=data['value'])
+            if not is_template and self._is_campaign_event_keys(keys):
+                old_val = deep_get(old, keys=keys, default=None)
+                value = old_val if old_val not in (None, '') else data['value']
+            else:
+                value = deep_get(old, keys=keys, default=data['value'])
             typ = data['type']
             display = data.get('display')
             if is_template or value is None or value == '' \
                     or typ in ['lock', 'state'] or (display == 'hide' and typ != 'stored'):
-                value = data['value']
-            value = parse_value(value, data=data)
+                if not (not is_template and self._is_campaign_event_keys(keys)
+                        and deep_get(old, keys=keys, default=None) not in (None, '')):
+                    value = data['value']
+            value = self._parse_config_merge_value(keys, value, data, is_template=is_template)
             deep_set(new, keys=keys, value=value)
 
         # AzurStatsID
@@ -642,29 +828,15 @@ class ConfigUpdater:
             deep_default(new, 'Alas.DropRecord.AzurStatsID', random_id())
         if deep_get(new, keys='OpsiHazard1Leveling.Scheduler.Enable'):
             deep_set(new, keys='OpsiMeowfficerFarming.Scheduler.Enable', value=True)
-        # Update to latest event
+        # Campaign.Event：ProAlas 保留实例已选活动，避免 overlay 旧 args 把新活动改回 opts[0]
         server = to_server(deep_get(new, 'Alas.Emulator.PackageName', 'cn'))
         if not is_template:
-            for task in EVENTS + RAIDS + COALITIONS:
-                opts = deep_get(self.args, keys=f'{task}.Campaign.Event.option_{server}', default=[])
-                if opts and not deep_get(new, keys=f'{task}.Campaign.Event', default='campaign_main') in opts:
-                    deep_set(new,
-                             keys=f'{task}.Campaign.Event',
-                             value=opts[0])
-
-            for task in ['GemsFarming']:
-                opts = deep_get(self.args, keys=f'{task}.Campaign.Event.option_{server}', default=[])
-                if opts and deep_get(new, keys=f'{task}.Campaign.Event', default='campaign_main') not in opts:
-                    deep_set(new,
-                             keys=f'{task}.Campaign.Event',
-                             value=opts[0])
-        # War archive does not allow campaign_main
-        for task in WAR_ARCHIVES:
-            opts = deep_get(self.args, keys=f'{task}.Campaign.Event.option_{server}', default=[])
-            if opts and deep_get(new, keys=f'{task}.Campaign.Event', default='campaign_main') == 'campaign_main':
-                deep_set(new,
-                         keys=f'{task}.Campaign.Event',
-                         value=opts[0])
+            for task in CAMPAIGN_EVENT_TASKS:
+                fallback = task in WAR_ARCHIVES
+                self._reconcile_campaign_event(
+                    new, task=task, server=server, fallback_if_campaign_main=fallback,
+                )
+            self._restore_campaign_events(old, new, is_template=is_template)
 
         # Events does not allow default stage 12-4
         def default_stage(t, stage):
@@ -679,6 +851,20 @@ class ConfigUpdater:
         if not is_template:
             new = self.config_redirect(old, new)
         new = self._override(new)
+
+        # ProAlas 扩展数据不在 args 模板内，读写 config 时必须保留，否则 task_delay→save 会抹掉采集结果。
+        if not is_template:
+            for task in CAMPAIGN_EVENT_TASKS:
+                manual = deep_get(old, keys=f'{task}.Storage.CampaignEventManual', default=None)
+                if manual is not None:
+                    deep_set(new, keys=f'{task}.Storage.CampaignEventManual', value=manual)
+            ext = old.get('ProalasData')
+            if isinstance(ext, dict):
+                new['ProalasData'] = ext
+            # ProalasAccount 套餐字段在 override 中为 hide，merge 会回退模板默认值，需保留用户/计费写入值
+            acct = deep_get(old, keys='ProalasAccount.ProalasAccount', default=None)
+            if isinstance(acct, dict):
+                deep_set(new, keys='ProalasAccount.ProalasAccount', value=acct)
 
         return new
 
@@ -764,6 +950,50 @@ class ConfigUpdater:
             key = key.split(".")
             key[-1] = key[-1].replace("Value", "Record")
             yield ".".join(key), datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        elif key.endswith(".Campaign.Event"):
+            task = key.split(".", 1)[0]
+            if task in CAMPAIGN_EVENT_TASKS:
+                yield f"{task}.Storage.CampaignEventManual", True
+        elif key == 'ProalasTimerPlan.Scheduler.Enable':
+            from module.proalas.timer_plan_bundle import BUNDLE_CHILD_TASKS
+
+            for child in BUNDLE_CHILD_TASKS:
+                yield f'{child}.Scheduler.Enable', False
+            if value:
+                yield 'ProalasActivitySync.SyncGatewayEnable', True
+        elif key.endswith('.Scheduler.Enable'):
+            task = key.split('.', 1)[0]
+            from module.proalas.event_lifecycle import LIFECYCLE_TASKS, enforce_enable_or_false
+
+            if task in LIFECYCLE_TASKS:
+                # Scheduler.Enable 隐藏；以嵌套总开关为准，并受生命周期约束
+                forced = enforce_enable_or_false(task, value)
+                yield key, forced
+                yield f'{task}.{task}.Enable', forced
+        elif key.endswith('.Enable') and key.count('.') >= 2:
+            task = key.split('.', 1)[0]
+            from module.proalas.event_lifecycle import LIFECYCLE_TASKS, enforce_enable_or_false
+
+            if task in LIFECYCLE_TASKS and key == f'{task}.{task}.Enable':
+                forced = enforce_enable_or_false(task, value)
+                if forced != bool(value):
+                    yield key, forced
+                yield f'{task}.Scheduler.Enable', forced
+        elif any(
+            key.startswith(f'{t}.{t}.')
+            for t in (
+                'ProalasSpecialEvent',
+            )
+        ):
+            # 锁定字段被改写时立刻写回开发者值
+            from module.proalas.event_lifecycle import TASK_LOCKED_FIELDS
+
+            parts = key.split('.')
+            if len(parts) >= 3:
+                task, _group, arg = parts[0], parts[1], parts[2]
+                locked = TASK_LOCKED_FIELDS.get(task, {})
+                if arg in locked:
+                    yield key, locked[arg]
         # Oh no, dynamic dropdown update can only be used on pywebio > 1.8.0
         # elif key == 'Alas.Emulator.ScreenshotMethod' and value == 'nemu_ipc':
         #     yield 'Alas.Emulator.ControlMethod', 'nemu_ipc'
@@ -782,7 +1012,25 @@ class ConfigUpdater:
             dict:
         """
         old = read_file(filepath_config(config_name))
+        if not is_template:
+            server = to_server(deep_get(old, 'Alas.Emulator.PackageName', 'cn'))
+            for task in CAMPAIGN_EVENT_TASKS:
+                event_id = deep_get(old, keys=f'{task}.Campaign.Event', default=None)
+                if event_id not in (None, ''):
+                    self._ensure_event_option(task, server, event_id)
         new = self.config_update(old, is_template=is_template)
+        try:
+            from module.proalas.timer_plan_bundle import normalize_timer_plan_bundle
+
+            normalize_timer_plan_bundle(new)
+        except Exception:
+            pass
+        try:
+            from module.proalas.event_lifecycle import normalize_lifecycle_tasks
+
+            normalize_lifecycle_tasks(new)
+        except Exception:
+            pass
         # The updated config did not write into file, although it doesn't matters.
         # Commented for performance issue
         # self.write_file(config_name, new)

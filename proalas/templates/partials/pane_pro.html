@@ -1,0 +1,85 @@
+<div class="pro-workspace pro-workspace--config-only">
+  <div class="pro-board">
+    <aside class="pro-board-notice" role="note">
+      <p class="pro-board-notice-title">本页为 ProAlas 功能缩略图（只读）</p>
+      <p class="pro-board-notice-body muted">
+        此处汇总资源、<strong>截图监控</strong>、不运行时段、编队与调度状态。
+        完整配置请在侧栏打开<strong>「Alas 原版」</strong>，在左侧菜单 <strong>ProAlas</strong> 分组中编辑。
+      </p>
+    </aside>
+
+    <div
+      id="pro-screen-monitor-host"
+      class="pro-board-slot pro-board-slot--wide pro-screen-monitor-board"
+      hx-get="{{ url_for('pro.screen_monitor_partial') }}"
+      hx-trigger="every 5s"
+      hx-swap="innerHTML"
+    >
+      {% include "partials/pro_screen_monitor_inner.html" %}
+    </div>
+
+    <div class="pro-board-row pro-board-row--2">
+      <div
+        class="pro-board-slot pro-board-slot--pause"
+        id="pro-pause-window-host"
+        hx-get="{{ url_for('pro.pause_window_partial') }}"
+        hx-trigger="every 60s"
+        hx-swap="innerHTML"
+      >
+        {% include "partials/pro_pause_window.html" %}
+      </div>
+      <div
+        class="pro-board-slot"
+        id="pro-resources-host"
+        hx-get="{{ url_for('pro.resources_partial') }}"
+        hx-trigger="every 30s"
+        hx-swap="innerHTML"
+      >
+        {% include "partials/pro_resources.html" %}
+      </div>
+    </div>
+
+    <div
+      class="pro-board-slot pro-board-slot--wide"
+      id="pro-fleet-host"
+      hx-get="{{ url_for('pro.fleet_strength_partial') }}"
+      hx-trigger="every 30s"
+      hx-swap="innerHTML"
+    >
+      {% include "partials/pro_fleet_strength.html" %}
+    </div>
+
+    <div
+      class="pro-board-slot pro-board-slot--wide"
+      id="pro-runtime-host"
+      hx-get="{{ url_for('pro.runtime_partial') }}"
+      hx-trigger="every 45s"
+      hx-swap="innerHTML"
+    >
+      {% include "partials/pro_runtime.html" %}
+    </div>
+
+    <div class="pro-board-row pro-board-row--2">
+      <div
+        class="pro-board-slot"
+        id="pro-scheduler-host"
+        hx-get="{{ url_for('pro.scheduler_partial') }}"
+        hx-trigger="every 45s"
+        hx-swap="innerHTML"
+      >
+        {% include "partials/pro_scheduler.html" %}
+      </div>
+      <div
+        class="pro-board-slot"
+        id="pro-timer-plan-host"
+        hx-get="{{ url_for('pro.timer_plan_partial') }}"
+        hx-trigger="every 45s"
+        hx-swap="innerHTML"
+      >
+        {% include "partials/pro_timer_plan.html" %}
+      </div>
+    </div>
+
+    <p class="pro-config-foot muted">数据来源：config/{{ device_id }}.json · 只读展示，不在此页修改</p>
+  </div>
+</div>

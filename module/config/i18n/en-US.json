@@ -31,6 +31,10 @@
     "Tool": {
       "name": "Tools",
       "help": ""
+    },
+    "Proalas": {
+      "name": "ProAlas",
+      "help": "ProAlas extensions: fleet change, collection, stats, dispatch, screen monitor, etc."
     }
   },
   "Task": {
@@ -83,7 +87,7 @@
       "help": ""
     },
     "Coalition": {
-      "name": "Frostfall",
+      "name": "Authentic Horror Story",
       "help": ""
     },
     "MaritimeEscort": {
@@ -119,7 +123,7 @@
       "help": ""
     },
     "CoalitionSp": {
-      "name": "Frostfall SP",
+      "name": "Authentic Horror Story SP",
       "help": ""
     },
     "Commission": {
@@ -277,6 +281,102 @@
     "GameManager": {
       "name": "Game Manager(WIP)",
       "help": ""
+    },
+    "ProalasAutoBreak": {
+      "name": "Auto breakthrough",
+      "help": "Auto breakthrough in dock via ProAlas handler"
+    },
+    "ProalasAutoEquip": {
+      "name": "Task.ProalasAutoEquip.name",
+      "help": "Task.ProalasAutoEquip.help"
+    },
+    "ProalasAutoEventShop": {
+      "name": "Task.ProalasAutoEventShop.name",
+      "help": "Task.ProalasAutoEventShop.help"
+    },
+    "ProalasAutoExpBook": {
+      "name": "Task.ProalasAutoExpBook.name",
+      "help": "Task.ProalasAutoExpBook.help"
+    },
+    "ProalasAutoFleetChange": {
+      "name": "Task.ProalasAutoFleetChange.name",
+      "help": "Task.ProalasAutoFleetChange.help"
+    },
+    "ProalasCollector": {
+      "name": "ProAlas Collector",
+      "help": "Read oil/coin/PT/cube on schedule; optional UserData write"
+    },
+    "ProalasFleetStrength": {
+      "name": "Fleet strength",
+      "help": "Read fleet slot power into ProAlas UserData"
+    },
+    "ProalasResourceStats": {
+      "name": "Task.ProalasResourceStats.name",
+      "help": "Task.ProalasResourceStats.help"
+    },
+    "ProalasSmartDispatch": {
+      "name": "Task.ProalasSmartDispatch.name",
+      "help": "Task.ProalasSmartDispatch.help"
+    },
+    "ProalasScreenMonitor": {
+      "name": "Task.ProalasScreenMonitor.name",
+      "help": "Task.ProalasScreenMonitor.help"
+    },
+    "ProalasTimerPlan": {
+      "name": "Task.ProalasTimerPlan.name",
+      "help": "Task.ProalasTimerPlan.help"
+    },
+    "ProalasPlanCalendar": {
+      "name": "Task.ProalasPlanCalendar.name",
+      "help": "Task.ProalasPlanCalendar.help"
+    },
+    "ProalasActivitySync": {
+      "name": "Task.ProalasActivitySync.name",
+      "help": "Task.ProalasActivitySync.help"
+    },
+    "ProalasOpsiSchedule": {
+      "name": "Task.ProalasOpsiSchedule.name",
+      "help": "Task.ProalasOpsiSchedule.help"
+    },
+    "ProalasGachaCheck": {
+      "name": "Task.ProalasGachaCheck.name",
+      "help": "Task.ProalasGachaCheck.help"
+    },
+    "ProalasCollectionFill": {
+      "name": "Collection fill dashboard",
+      "help": "Gacha and drop farming progress; auto actions coming later"
+    },
+    "ProalasEventFormatFix": {
+      "name": "Task.ProalasEventFormatFix.name",
+      "help": "Task.ProalasEventFormatFix.help"
+    },
+    "ProalasSevenDayReward": {
+      "name": "Task.ProalasSevenDayReward.name",
+      "help": "Task.ProalasSevenDayReward.help"
+    },
+    "ProalasEventStory": {
+      "name": "Task.ProalasEventStory.name",
+      "help": "Task.ProalasEventStory.help"
+    },
+    "ProalasSpecialEvent": {
+      "name": "Task.ProalasSpecialEvent.name",
+      "help": "Task.ProalasSpecialEvent.help"
+    },
+    "ProalasAiPlanner": {
+      "name": "Task.ProalasAiPlanner.name",
+      "help": "Task.ProalasAiPlanner.help"
+    },
+    "ProalasAccount": {
+      "name": "Task.ProalasAccount.name",
+      "help": "Task.ProalasAccount.help"
+    },
+    "ProalasBoatMessage": {
+      "name": "Dock & collection",
+      "help": "Read dock cap and collection rate"
+    },
+    "ProalasGetExpUseExp": {
+      "name": "Task.ProalasGetExpUseExp.name",
+      "help": "Task.ProalasGetExpUseExp.help"
     }
   },
   "Scheduler": {
@@ -689,6 +789,7 @@
       "coalition_20250626": "The Neon City Investigator",
       "coalition_20251120": "DATE A LANE",
       "coalition_20260122": "Light & Shadow Fashion Shoot!",
+      "coalition_20260723": "Authentic Horror Story",
       "event_20200227_cn": "Northern Overture",
       "event_20200312_cn": "The Solomon Ranger Rerun",
       "event_20200326_cn": "Microlayer Medley",
@@ -1217,7 +1318,7 @@
     },
     "ChangeVanguard": {
       "name": "Change Vanguard",
-      "help": "Change vanguard if flagship or vanguard are emotion exhausted. If you choose not to change, your fleet will ignore the low emotion warning and continue combat.\nSwitch out to new level 100(70) common vanguard from eagle or ironblood after current flagship has reached level 32+ (Only CN players'0 limit break ship can reach level 100)",
+      "help": "Change vanguard if flagship or vanguard are emotion exhausted. If you choose not to change, your fleet will ignore the low emotion warning and continue combat.\nSwitch out to new level 100(70) common vanguard from eagle or ironblood after current flagship has reached level 32+ (Only CN players'0 limit break ship can reach level 100)\n\nThe vanguard's equipment is replaced when being switched out by first recording the current setup. Only populated equipment slots will be replaced.",
       "disabled": "Don't Change",
       "ship": "Change Ship",
       "ship_equip": "Change Ship + Gears"
@@ -1355,11 +1456,10 @@
     "Mode": {
       "name": "Mode",
       "help": "SP needs to use event daily SP to run",
-      "tc1": "tc1",
-      "tc2": "tc2",
-      "tc3": "tc3",
-      "sp": "sp",
-      "ex": "ex"
+      "easy": "easy",
+      "normal": "normal",
+      "hard": "hard",
+      "sp": "sp"
     },
     "Fleet": {
       "name": "Fleet",
@@ -1447,7 +1547,7 @@
       "help": ""
     },
     "Favorite": {
-      "name": "Only Favorite Ships",
+      "name": "Use Favorite Filter",
       "help": "During student selection apply the favorite filter\nThereby, giving priority to certain ship girls\nApply the favorite status to a ship girl in-game"
     },
     "MinLevel": {
@@ -2132,8 +2232,873 @@
       "sirius": "Sirius",
       "new_jersey": "New Jersey",
       "taihou": "Taihou",
-      "aegir": "Aegir",
-      "nakhimov": "Nakhimov"
+      "aegir": "Aegir"
+    }
+  },
+  "ProalasCollector": {
+    "_info": {
+      "name": "ProAlas Collector",
+      "help": "Native ui_goto_main + OCR/SSIM; writes F:/ProAlas/data/UserData.json optionally"
+    },
+    "ReadOilCoin": {
+      "name": "Read oil and coins",
+      "help": "Main screen OCR_OIL / OCR_COIN in Alas log"
+    },
+    "ReadEventPt": {
+      "name": "Read event PT",
+      "help": "Main screen Event_PT OCR"
+    },
+    "ReadBuildCube": {
+      "name": "Read build cubes",
+      "help": "Build page cube count only, no submit"
+    },
+    "ReadBoatDock": {
+      "name": "ProalasCollector.ReadBoatDock.name",
+      "help": "ProalasCollector.ReadBoatDock.help"
+    },
+    "ReadBoatRate": {
+      "name": "ProalasCollector.ReadBoatRate.name",
+      "help": "ProalasCollector.ReadBoatRate.help"
+    },
+    "WriteUserData": {
+      "name": "Write ProAlas UserData",
+      "help": "Merge into UserData.json GameResource"
+    },
+    "UserDataPath": {
+      "name": "UserData path",
+      "help": "Default F:/ProAlas/data/UserData.json"
+    }
+  },
+  "ProalasFleetStrength": {
+    "_info": {
+      "name": "ProalasFleetStrength._info.name",
+      "help": "ProalasFleetStrength._info.help"
+    },
+    "TeamScope": {
+      "name": "ProalasFleetStrength.TeamScope.name",
+      "help": "ProalasFleetStrength.TeamScope.help",
+      "all": "all",
+      "team1": "team1",
+      "team2": "team2",
+      "team3": "team3",
+      "team4": "team4",
+      "team5": "team5",
+      "team6": "team6"
+    },
+    "ProAlasRoot": {
+      "name": "ProalasFleetStrength.ProAlasRoot.name",
+      "help": "ProalasFleetStrength.ProAlasRoot.help"
+    }
+  },
+  "ProalasAutoBreak": {
+    "_info": {
+      "name": "ProalasAutoBreak._info.name",
+      "help": "ProalasAutoBreak._info.help"
+    },
+    "ShipRarity": {
+      "name": "ProalasAutoBreak.ShipRarity.name",
+      "help": "ProalasAutoBreak.ShipRarity.help",
+      "all": "all",
+      "common": "common",
+      "rare": "rare",
+      "elite": "elite",
+      "super_rare": "super_rare"
+    },
+    "ShipsPerRun": {
+      "name": "ProalasAutoBreak.ShipsPerRun.name",
+      "help": "ProalasAutoBreak.ShipsPerRun.help",
+      "1": "1",
+      "2": "2",
+      "3": "3",
+      "4": "4",
+      "5": "5",
+      "6": "6",
+      "7": "7"
+    },
+    "RunIntervalDays": {
+      "name": "ProalasAutoBreak.RunIntervalDays.name",
+      "help": "ProalasAutoBreak.RunIntervalDays.help",
+      "1": "1",
+      "2": "2",
+      "3": "3",
+      "4": "4",
+      "5": "5",
+      "6": "6",
+      "7": "7"
+    },
+    "ProAlasRoot": {
+      "name": "ProalasAutoBreak.ProAlasRoot.name",
+      "help": "ProalasAutoBreak.ProAlasRoot.help"
+    }
+  },
+  "ProalasAutoEquip": {
+    "_info": {
+      "name": "ProalasAutoEquip._info.name",
+      "help": "ProalasAutoEquip._info.help"
+    },
+    "EquipQuality": {
+      "name": "ProalasAutoEquip.EquipQuality.name",
+      "help": "ProalasAutoEquip.EquipQuality.help",
+      "blue": "blue",
+      "purple": "purple",
+      "gold": "gold"
+    },
+    "ReplaceSurplusPurple": {
+      "name": "ProalasAutoEquip.ReplaceSurplusPurple.name",
+      "help": "ProalasAutoEquip.ReplaceSurplusPurple.help"
+    },
+    "AllowCraft": {
+      "name": "ProalasAutoEquip.AllowCraft.name",
+      "help": "ProalasAutoEquip.AllowCraft.help"
+    },
+    "CraftCoinLimit": {
+      "name": "ProalasAutoEquip.CraftCoinLimit.name",
+      "help": "ProalasAutoEquip.CraftCoinLimit.help",
+      "100000": "100000",
+      "150000": "150000",
+      "200000": "200000",
+      "300000": "300000",
+      "500000": "500000"
+    },
+    "WarehouseReserve": {
+      "name": "ProalasAutoEquip.WarehouseReserve.name",
+      "help": "ProalasAutoEquip.WarehouseReserve.help",
+      "5": "5",
+      "10": "10",
+      "15": "15",
+      "20": "20",
+      "30": "30"
+    },
+    "TeamNo": {
+      "name": "ProalasAutoEquip.TeamNo.name",
+      "help": "ProalasAutoEquip.TeamNo.help",
+      "1": "1",
+      "2": "2",
+      "3": "3",
+      "4": "4",
+      "5": "5",
+      "6": "6"
+    }
+  },
+  "ProalasAutoExpBook": {
+    "_info": {
+      "name": "ProalasAutoExpBook._info.name",
+      "help": "ProalasAutoExpBook._info.help"
+    },
+    "ShipRarity": {
+      "name": "ProalasAutoExpBook.ShipRarity.name",
+      "help": "ProalasAutoExpBook.ShipRarity.help",
+      "all": "all",
+      "common": "common",
+      "rare": "rare",
+      "elite": "elite",
+      "super_rare": "super_rare",
+      "ultra": "ultra"
+    },
+    "FeedRoundsPerRun": {
+      "name": "ProalasAutoExpBook.FeedRoundsPerRun.name",
+      "help": "ProalasAutoExpBook.FeedRoundsPerRun.help",
+      "1": "1",
+      "2": "2",
+      "3": "3",
+      "4": "4",
+      "5": "5"
+    },
+    "RunIntervalDays": {
+      "name": "ProalasAutoExpBook.RunIntervalDays.name",
+      "help": "ProalasAutoExpBook.RunIntervalDays.help",
+      "1": "1",
+      "2": "2",
+      "3": "3",
+      "4": "4",
+      "5": "5",
+      "6": "6",
+      "7": "7"
+    }
+  },
+  "ProalasAutoEventShop": {
+    "_info": {
+      "name": "ProalasAutoEventShop._info.name",
+      "help": "ProalasAutoEventShop._info.help"
+    },
+    "ShopCount": {
+      "name": "ProalasAutoEventShop.ShopCount.name",
+      "help": "ProalasAutoEventShop.ShopCount.help",
+      "1": "1",
+      "2": "2",
+      "3": "3"
+    },
+    "PriorityMode": {
+      "name": "ProalasAutoEventShop.PriorityMode.name",
+      "help": "ProalasAutoEventShop.PriorityMode.help",
+      "ur_first": "ur_first",
+      "custom": "custom"
+    },
+    "CustomPriority": {
+      "name": "ProalasAutoEventShop.CustomPriority.name",
+      "help": "ProalasAutoEventShop.CustomPriority.help"
+    },
+    "TokenUrItem": {
+      "name": "ProalasAutoEventShop.TokenUrItem.name",
+      "help": "ProalasAutoEventShop.TokenUrItem.help"
+    },
+    "TokenPt": {
+      "name": "ProalasAutoEventShop.TokenPt.name",
+      "help": "ProalasAutoEventShop.TokenPt.help"
+    }
+  },
+  "ProalasGetExpUseExp": {
+    "_info": {
+      "name": "ProalasGetExpUseExp._info.name",
+      "help": "ProalasGetExpUseExp._info.help"
+    },
+    "ExpBookType": {
+      "name": "ProalasGetExpUseExp.ExpBookType.name",
+      "help": "ProalasGetExpUseExp.ExpBookType.help",
+      "default": "default"
+    },
+    "MaxGetPerDay": {
+      "name": "ProalasGetExpUseExp.MaxGetPerDay.name",
+      "help": "ProalasGetExpUseExp.MaxGetPerDay.help"
+    },
+    "RunUseExp": {
+      "name": "ProalasGetExpUseExp.RunUseExp.name",
+      "help": "ProalasGetExpUseExp.RunUseExp.help"
+    },
+    "UseExpThreshold": {
+      "name": "ProalasGetExpUseExp.UseExpThreshold.name",
+      "help": "ProalasGetExpUseExp.UseExpThreshold.help"
+    },
+    "ProAlasRoot": {
+      "name": "ProalasGetExpUseExp.ProAlasRoot.name",
+      "help": "ProalasGetExpUseExp.ProAlasRoot.help"
+    }
+  },
+  "ProalasBoatMessage": {
+    "_info": {
+      "name": "ProalasBoatMessage._info.name",
+      "help": "ProalasBoatMessage._info.help"
+    },
+    "UserDataPath": {
+      "name": "ProalasBoatMessage.UserDataPath.name",
+      "help": "ProalasBoatMessage.UserDataPath.help"
+    }
+  },
+  "ProalasSmartFleet34": {
+    "_info": {
+      "name": "ProalasSmartFleet34._info.name",
+      "help": "ProalasSmartFleet34._info.help"
+    },
+    "FleetChoice": {
+      "name": "ProalasSmartFleet34.FleetChoice.name",
+      "help": "ProalasSmartFleet34.FleetChoice.help",
+      "team34": "team34"
+    },
+    "FleetMode": {
+      "name": "ProalasSmartFleet34.FleetMode.name",
+      "help": "ProalasSmartFleet34.FleetMode.help",
+      "default": "default"
+    },
+    "ProAlasRoot": {
+      "name": "ProalasSmartFleet34.ProAlasRoot.name",
+      "help": "ProalasSmartFleet34.ProAlasRoot.help"
+    }
+  },
+  "ProalasResourceStats": {
+    "_info": {
+      "name": "ProalasResourceStats._info.name",
+      "help": "ProalasResourceStats._info.help"
+    },
+    "UserDataPath": {
+      "name": "ProalasResourceStats.UserDataPath.name",
+      "help": "ProalasResourceStats.UserDataPath.help"
+    },
+    "AlasLogPath": {
+      "name": "ProalasResourceStats.AlasLogPath.name",
+      "help": "ProalasResourceStats.AlasLogPath.help"
+    },
+    "ChartOil": {
+      "name": "ProalasResourceStats.ChartOil.name",
+      "help": "ProalasResourceStats.ChartOil.help"
+    },
+    "ChartMoney": {
+      "name": "ProalasResourceStats.ChartMoney.name",
+      "help": "ProalasResourceStats.ChartMoney.help"
+    },
+    "ChartCube": {
+      "name": "ProalasResourceStats.ChartCube.name",
+      "help": "ProalasResourceStats.ChartCube.help"
+    },
+    "ChartActPt": {
+      "name": "ProalasResourceStats.ChartActPt.name",
+      "help": "ProalasResourceStats.ChartActPt.help"
+    },
+    "ChartRmb": {
+      "name": "ProalasResourceStats.ChartRmb.name",
+      "help": "ProalasResourceStats.ChartRmb.help"
+    },
+    "ChartBoatRate": {
+      "name": "ProalasResourceStats.ChartBoatRate.name",
+      "help": "ProalasResourceStats.ChartBoatRate.help"
+    },
+    "ChartBoatMax": {
+      "name": "ProalasResourceStats.ChartBoatMax.name",
+      "help": "ProalasResourceStats.ChartBoatMax.help"
+    }
+  },
+  "ProalasSmartDispatch": {
+    "_info": {
+      "name": "ProalasSmartDispatch._info.name",
+      "help": "ProalasSmartDispatch._info.help"
+    },
+    "EnableSmartDispatch": {
+      "name": "ProalasSmartDispatch.EnableSmartDispatch.name",
+      "help": "ProalasSmartDispatch.EnableSmartDispatch.help"
+    },
+    "PreferRmb": {
+      "name": "ProalasSmartDispatch.PreferRmb.name",
+      "help": "ProalasSmartDispatch.PreferRmb.help"
+    },
+    "PreferMoney": {
+      "name": "ProalasSmartDispatch.PreferMoney.name",
+      "help": "ProalasSmartDispatch.PreferMoney.help"
+    }
+  },
+  "ProalasAutoFleetChange": {
+    "_info": {
+      "name": "ProalasAutoFleetChange._info.name",
+      "help": "ProalasAutoFleetChange._info.help"
+    },
+    "Team1Type": {
+      "name": "ProalasAutoFleetChange.Team1Type.name",
+      "help": "ProalasAutoFleetChange.Team1Type.help",
+      "level": "level",
+      "push": "push",
+      "low_cost": "low_cost"
+    },
+    "Team1Quality": {
+      "name": "ProalasAutoFleetChange.Team1Quality.name",
+      "help": "ProalasAutoFleetChange.Team1Quality.help",
+      "R": "R",
+      "SR": "SR",
+      "SSR": "SSR",
+      "UR": "UR",
+      "none": "none"
+    },
+    "Team2Type": {
+      "name": "ProalasAutoFleetChange.Team2Type.name",
+      "help": "ProalasAutoFleetChange.Team2Type.help",
+      "level": "level",
+      "push": "push",
+      "low_cost": "low_cost"
+    },
+    "Team2Quality": {
+      "name": "ProalasAutoFleetChange.Team2Quality.name",
+      "help": "ProalasAutoFleetChange.Team2Quality.help",
+      "R": "R",
+      "SR": "SR",
+      "SSR": "SSR",
+      "UR": "UR",
+      "none": "none"
+    },
+    "Team3Type": {
+      "name": "ProalasAutoFleetChange.Team3Type.name",
+      "help": "ProalasAutoFleetChange.Team3Type.help",
+      "level": "level",
+      "push": "push",
+      "low_cost": "low_cost"
+    },
+    "Team3Quality": {
+      "name": "ProalasAutoFleetChange.Team3Quality.name",
+      "help": "ProalasAutoFleetChange.Team3Quality.help",
+      "R": "R",
+      "SR": "SR",
+      "SSR": "SSR",
+      "UR": "UR",
+      "none": "none"
+    },
+    "Team4Type": {
+      "name": "ProalasAutoFleetChange.Team4Type.name",
+      "help": "ProalasAutoFleetChange.Team4Type.help",
+      "level": "level",
+      "push": "push",
+      "low_cost": "low_cost"
+    },
+    "Team4Quality": {
+      "name": "ProalasAutoFleetChange.Team4Quality.name",
+      "help": "ProalasAutoFleetChange.Team4Quality.help",
+      "R": "R",
+      "SR": "SR",
+      "SSR": "SSR",
+      "UR": "UR",
+      "none": "none"
+    },
+    "Team5Type": {
+      "name": "ProalasAutoFleetChange.Team5Type.name",
+      "help": "ProalasAutoFleetChange.Team5Type.help",
+      "level": "level",
+      "push": "push",
+      "low_cost": "low_cost"
+    },
+    "Team5Quality": {
+      "name": "ProalasAutoFleetChange.Team5Quality.name",
+      "help": "ProalasAutoFleetChange.Team5Quality.help",
+      "R": "R",
+      "SR": "SR",
+      "SSR": "SSR",
+      "UR": "UR",
+      "none": "none"
+    },
+    "Team6Type": {
+      "name": "ProalasAutoFleetChange.Team6Type.name",
+      "help": "ProalasAutoFleetChange.Team6Type.help",
+      "level": "level",
+      "push": "push",
+      "low_cost": "low_cost"
+    },
+    "Team6Quality": {
+      "name": "ProalasAutoFleetChange.Team6Quality.name",
+      "help": "ProalasAutoFleetChange.Team6Quality.help",
+      "R": "R",
+      "SR": "SR",
+      "SSR": "SSR",
+      "UR": "UR",
+      "none": "none"
+    },
+    "EventTeam1Enable": {
+      "name": "ProalasAutoFleetChange.EventTeam1Enable.name",
+      "help": "ProalasAutoFleetChange.EventTeam1Enable.help"
+    },
+    "EventTeam1IntervalDays": {
+      "name": "ProalasAutoFleetChange.EventTeam1IntervalDays.name",
+      "help": "ProalasAutoFleetChange.EventTeam1IntervalDays.help",
+      "0": "0",
+      "1": "1",
+      "3": "3",
+      "7": "7"
+    },
+    "EventTeam2Enable": {
+      "name": "ProalasAutoFleetChange.EventTeam2Enable.name",
+      "help": "ProalasAutoFleetChange.EventTeam2Enable.help"
+    },
+    "EventTeam2IntervalDays": {
+      "name": "ProalasAutoFleetChange.EventTeam2IntervalDays.name",
+      "help": "ProalasAutoFleetChange.EventTeam2IntervalDays.help",
+      "0": "0",
+      "1": "1",
+      "3": "3",
+      "7": "7"
+    },
+    "OpsiHazard1FleetEnable": {
+      "name": "ProalasAutoFleetChange.OpsiHazard1FleetEnable.name",
+      "help": "ProalasAutoFleetChange.OpsiHazard1FleetEnable.help"
+    },
+    "OpsiHazard1FleetIntervalDays": {
+      "name": "ProalasAutoFleetChange.OpsiHazard1FleetIntervalDays.name",
+      "help": "ProalasAutoFleetChange.OpsiHazard1FleetIntervalDays.help",
+      "0": "0",
+      "1": "1",
+      "3": "3",
+      "7": "7"
+    },
+    "LevelTeamEnable": {
+      "name": "ProalasAutoFleetChange.LevelTeamEnable.name",
+      "help": "ProalasAutoFleetChange.LevelTeamEnable.help"
+    },
+    "RunIntervalDays": {
+      "name": "ProalasAutoFleetChange.RunIntervalDays.name",
+      "help": "ProalasAutoFleetChange.RunIntervalDays.help",
+      "0": "0",
+      "1": "1",
+      "2": "2",
+      "3": "3",
+      "4": "4",
+      "5": "5",
+      "6": "6",
+      "7": "7"
+    },
+    "LevelTeamFaction": {
+      "name": "ProalasAutoFleetChange.LevelTeamFaction.name",
+      "help": "ProalasAutoFleetChange.LevelTeamFaction.help",
+      "all": "all",
+      "eagle": "eagle",
+      "royal": "royal",
+      "sakura": "sakura",
+      "iron": "iron",
+      "dragon": "dragon",
+      "sardegna": "sardegna",
+      "northern": "northern",
+      "iris": "iris",
+      "vichya": "vichya",
+      "tulipa": "tulipa",
+      "pedreria": "pedreria",
+      "meta": "meta",
+      "tempesta": "tempesta",
+      "other": "other"
+    }
+  },
+  "ProalasAccount": {
+    "_info": {
+      "name": "ProalasAccount._info.name",
+      "help": "ProalasAccount._info.help"
+    },
+    "PlanType": {
+      "name": "ProalasAccount.PlanType.name",
+      "help": "ProalasAccount.PlanType.help",
+      "normal": "normal",
+      "pro": "pro",
+      "pro_plus": "pro_plus"
+    },
+    "ExpireAt": {
+      "name": "ProalasAccount.ExpireAt.name",
+      "help": "ProalasAccount.ExpireAt.help"
+    },
+    "RenewalUrl": {
+      "name": "ProalasAccount.RenewalUrl.name",
+      "help": "ProalasAccount.RenewalUrl.help"
+    }
+  },
+  "ProalasScreenMonitor": {
+    "_info": {
+      "name": "ProalasScreenMonitor._info.name",
+      "help": "ProalasScreenMonitor._info.help"
+    },
+    "KeepCount": {
+      "name": "ProalasScreenMonitor.KeepCount.name",
+      "help": "ProalasScreenMonitor.KeepCount.help"
+    }
+  },
+  "ProalasTimerPlan": {
+    "_info": {
+      "name": "ProalasTimerPlan._info.name",
+      "help": "ProalasTimerPlan._info.help"
+    },
+    "ExtraExclude": {
+      "name": "ProalasTimerPlan.ExtraExclude.name",
+      "help": "ProalasTimerPlan.ExtraExclude.help"
+    }
+  },
+  "ProalasPlanCalendar": {
+    "_info": {
+      "name": "ProalasPlanCalendar._info.name",
+      "help": "ProalasPlanCalendar._info.help"
+    },
+    "EnableAi": {
+      "name": "ProalasPlanCalendar.EnableAi.name",
+      "help": "ProalasPlanCalendar.EnableAi.help"
+    },
+    "SyncActivityOnRun": {
+      "name": "ProalasPlanCalendar.SyncActivityOnRun.name",
+      "help": "ProalasPlanCalendar.SyncActivityOnRun.help"
+    }
+  },
+  "ProalasActivitySync": {
+    "_info": {
+      "name": "ProalasActivitySync._info.name",
+      "help": "ProalasActivitySync._info.help"
+    },
+    "AllowManifestFallback": {
+      "name": "ProalasActivitySync.AllowManifestFallback.name",
+      "help": "ProalasActivitySync.AllowManifestFallback.help"
+    },
+    "SyncGatewayEnable": {
+      "name": "ProalasActivitySync.SyncGatewayEnable.name",
+      "help": "ProalasActivitySync.SyncGatewayEnable.help"
+    },
+    "SyncGatewayUrl": {
+      "name": "ProalasActivitySync.SyncGatewayUrl.name",
+      "help": "ProalasActivitySync.SyncGatewayUrl.help"
+    },
+    "SyncGatewayToken": {
+      "name": "ProalasActivitySync.SyncGatewayToken.name",
+      "help": "ProalasActivitySync.SyncGatewayToken.help"
+    },
+    "PullPlanSchedule": {
+      "name": "ProalasActivitySync.PullPlanSchedule.name",
+      "help": "ProalasActivitySync.PullPlanSchedule.help"
+    }
+  },
+  "ProalasOpsiSchedule": {
+    "_info": {
+      "name": "ProalasOpsiSchedule._info.name",
+      "help": "ProalasOpsiSchedule._info.help"
+    },
+    "AdaptThreshold": {
+      "name": "ProalasOpsiSchedule.AdaptThreshold.name",
+      "help": "ProalasOpsiSchedule.AdaptThreshold.help"
+    },
+    "DeferMeowAndHazard1": {
+      "name": "ProalasOpsiSchedule.DeferMeowAndHazard1.name",
+      "help": "ProalasOpsiSchedule.DeferMeowAndHazard1.help"
+    },
+    "ShopUnlockDay": {
+      "name": "ProalasOpsiSchedule.ShopUnlockDay.name",
+      "help": "ProalasOpsiSchedule.ShopUnlockDay.help",
+      "1": "1",
+      "2": "2",
+      "3": "3",
+      "4": "4",
+      "5": "5",
+      "6": "6",
+      "7": "7",
+      "8": "8",
+      "9": "9",
+      "10": "10",
+      "11": "11",
+      "12": "12",
+      "13": "13",
+      "14": "14",
+      "15": "15",
+      "16": "16",
+      "17": "17",
+      "18": "18",
+      "19": "19",
+      "20": "20",
+      "21": "21",
+      "22": "22",
+      "23": "23",
+      "24": "24",
+      "25": "25",
+      "26": "26",
+      "27": "27",
+      "28": "28"
+    }
+  },
+  "ProalasGachaCheck": {
+    "_info": {
+      "name": "UP gacha check",
+      "help": "Dock search for up_ships; writes ProalasData.GachaUp only (does not toggle Gacha scheduler)"
+    },
+    "BootstrapNullTemplate": {
+      "name": "ProalasGachaCheck.BootstrapNullTemplate.name",
+      "help": "ProalasGachaCheck.BootstrapNullTemplate.help"
+    }
+  },
+  "ProalasCollectionFill": {
+    "_info": {
+      "name": "Collection fill",
+      "help": "Master switch + build / farm / research; schedules are orchestrated by Timer Plan"
+    },
+    "Enable": {
+      "name": "Enable collection fill",
+      "help": "Master switch for build / farm / research"
+    },
+    "BuildEnable": {
+      "name": "Build fill",
+      "help": "UP pool path; detect on blue event days; auto build needs Auto gacha"
+    },
+    "FarmEnable": {
+      "name": "Farm fill",
+      "help": "Drop farm targets; timed detect coming later"
+    },
+    "ResearchEnable": {
+      "name": "Research fill",
+      "help": "Shipyard research scan on Timer Plan when due"
+    },
+    "ResearchIntervalDays": {
+      "name": "Research scan interval (days)",
+      "help": "Default 7; 0 = run immediately (testing)",
+      "0": "Immediate (test)",
+      "1": "1",
+      "2": "2",
+      "3": "3",
+      "4": "4",
+      "5": "5",
+      "6": "6",
+      "7": "7 (weekly)",
+      "14": "14"
+    },
+    "AutoGachaEnable": {
+      "name": "Auto gacha fill",
+      "help": "Build-fill sub option: auto construct after UP check on event days"
+    },
+    "CubeReserveMin": {
+      "name": "Minimum cube reserve",
+      "help": "Hard floor 500 cubes"
+    },
+    "CubeMaxPerRun": {
+      "name": "Max builds per run",
+      "help": "Default 6"
+    },
+    "CubeDailyMax": {
+      "name": "Daily build cap",
+      "help": "Hard 20 / server day"
+    }
+  },
+  "ProalasEventFormatFix": {
+    "_info": {
+      "name": "ProalasEventFormatFix._info.name",
+      "help": "ProalasEventFormatFix._info.help"
+    },
+    "EnableFix": {
+      "name": "ProalasEventFormatFix.EnableFix.name",
+      "help": "ProalasEventFormatFix.EnableFix.help"
+    },
+    "Template": {
+      "name": "ProalasEventFormatFix.Template.name",
+      "help": "ProalasEventFormatFix.Template.help",
+      "T-HT": "T-HT",
+      "AB-CD": "AB-CD",
+      "SP-HSP": "SP-HSP"
+    },
+    "TargetTask": {
+      "name": "ProalasEventFormatFix.TargetTask.name",
+      "help": "ProalasEventFormatFix.TargetTask.help",
+      "Event": "Event",
+      "Event2": "Event2"
+    },
+    "StopStage": {
+      "name": "ProalasEventFormatFix.StopStage.name",
+      "help": "ProalasEventFormatFix.StopStage.help"
+    },
+    "ForceThreeStar": {
+      "name": "ProalasEventFormatFix.ForceThreeStar.name",
+      "help": "ProalasEventFormatFix.ForceThreeStar.help"
+    },
+    "AllCleared": {
+      "name": "ProalasEventFormatFix.AllCleared.name",
+      "help": "ProalasEventFormatFix.AllCleared.help"
+    },
+    "AutoHardFleet": {
+      "name": "ProalasEventFormatFix.AutoHardFleet.name",
+      "help": "ProalasEventFormatFix.AutoHardFleet.help"
+    }
+  },
+  "ProalasSevenDayReward": {
+    "_info": {
+      "name": "ProalasSevenDayReward._info.name",
+      "help": "ProalasSevenDayReward._info.help"
+    },
+    "Enable": {
+      "name": "ProalasSevenDayReward.Enable.name",
+      "help": "ProalasSevenDayReward.Enable.help"
+    },
+    "RetireEnhanceSwitch": {
+      "name": "ProalasSevenDayReward.RetireEnhanceSwitch.name",
+      "help": "ProalasSevenDayReward.RetireEnhanceSwitch.help"
+    },
+    "RewardMode": {
+      "name": "ProalasSevenDayReward.RewardMode.name",
+      "help": "ProalasSevenDayReward.RewardMode.help",
+      "1": "1",
+      "2": "2"
+    },
+    "Lifecycle": {
+      "name": "ProalasSevenDayReward.Lifecycle.name",
+      "help": "ProalasSevenDayReward.Lifecycle.help"
+    }
+  },
+  "ProalasEventStory": {
+    "_info": {
+      "name": "ProalasEventStory._info.name",
+      "help": "ProalasEventStory._info.help"
+    },
+    "Enable": {
+      "name": "ProalasEventStory.Enable.name",
+      "help": "ProalasEventStory.Enable.help"
+    },
+    "StoryMode": {
+      "name": "ProalasEventStory.StoryMode.name",
+      "help": "ProalasEventStory.StoryMode.help",
+      "SingleNoBranch": "SingleNoBranch",
+      "SingleMultiBranch": "SingleMultiBranch",
+      "ChainNoBranch": "ChainNoBranch",
+      "ChainMultiBranch": "ChainMultiBranch"
+    },
+    "Lifecycle": {
+      "name": "ProalasEventStory.Lifecycle.name",
+      "help": "ProalasEventStory.Lifecycle.help"
+    }
+  },
+  "ProalasSpecialEvent": {
+    "_info": {
+      "name": "ProalasSpecialEvent._info.name",
+      "help": "ProalasSpecialEvent._info.help"
+    },
+    "Enable": {
+      "name": "ProalasSpecialEvent.Enable.name",
+      "help": "ProalasSpecialEvent.Enable.help"
+    },
+    "EventName": {
+      "name": "ProalasSpecialEvent.EventName.name",
+      "help": "ProalasSpecialEvent.EventName.help",
+      "Auction": "Auction"
+    },
+    "GambleType": {
+      "name": "ProalasSpecialEvent.GambleType.name",
+      "help": "Low-yield always 4 digits; ClaimQuest uses 7 digits when coin>=8000k (leading digit=bid level). VenueSelect applies to both modes",
+      "LowYieldInterest": "Low-Yield Interest",
+      "ClaimQuestReward": "Claim Quest Reward"
+    },
+    "VenueSelect": {
+      "name": "Venue Select",
+      "help": "Applies to both modes. Default: coin tiers B/A/S; ClaimQuest high-coin defaults to S",
+      "Default": "Default",
+      "A": "Venue A",
+      "B": "Venue B",
+      "S": "Venue S"
+    },
+    "QuestBidLevel": {
+      "name": "Quest Bid Level",
+      "help": "ClaimQuest only when coin>=8000k: first digit of 7-digit bid (1=1M … 8=8M). Low-yield always 4 digits",
+      "1": "1 Million",
+      "2": "2 Million",
+      "3": "3 Million",
+      "4": "4 Million",
+      "5": "5 Million",
+      "6": "6 Million",
+      "7": "7 Million",
+      "8": "8 Million"
+    },
+    "TargetWins": {
+      "name": "Target Wins",
+      "help": ""
+    },
+    "QuestWinBaseline": {
+      "name": "ProalasSpecialEvent.QuestWinBaseline.name",
+      "help": "ProalasSpecialEvent.QuestWinBaseline.help"
+    },
+    "AuctionCoin": {
+      "name": "Auction Coin",
+      "help": ""
+    },
+    "WinCount": {
+      "name": "Win Count",
+      "help": ""
+    },
+    "QuestWinProgress": {
+      "name": "ProalasSpecialEvent.QuestWinProgress.name",
+      "help": "ProalasSpecialEvent.QuestWinProgress.help"
+    },
+    "JoinCount": {
+      "name": "Join Count",
+      "help": ""
+    },
+    "QuestBaselineLifecycle": {
+      "name": "ProalasSpecialEvent.QuestBaselineLifecycle.name",
+      "help": "ProalasSpecialEvent.QuestBaselineLifecycle.help"
+    },
+    "Lifecycle": {
+      "name": "ProalasSpecialEvent.Lifecycle.name",
+      "help": "ProalasSpecialEvent.Lifecycle.help"
+    }
+  },
+  "ProalasAiPlanner": {
+    "_info": {
+      "name": "ProalasAiPlanner._info.name",
+      "help": "ProalasAiPlanner._info.help"
+    },
+    "Strategy": {
+      "name": "ProalasAiPlanner.Strategy.name",
+      "help": "ProalasAiPlanner.Strategy.help"
+    },
+    "AutoApply": {
+      "name": "ProalasAiPlanner.AutoApply.name",
+      "help": "ProalasAiPlanner.AutoApply.help"
+    },
+    "CustomEventMain": {
+      "name": "ProalasAiPlanner.CustomEventMain.name",
+      "help": "ProalasAiPlanner.CustomEventMain.help"
     }
   },
   "Daily": {

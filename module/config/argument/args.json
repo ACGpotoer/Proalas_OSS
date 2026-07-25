@@ -1865,9 +1865,11 @@
         "value": "do_not_use",
         "option": [
           "do_not_use",
-          "hunt_only"
-        ],
-        "display": "display"
+          "hunt_only",
+          "boss_only",
+          "hunt_and_boss",
+          "every_combat"
+        ]
       },
       "AutoSearchMode": {
         "type": "select",
@@ -1875,31 +1877,28 @@
         "option": [
           "sub_standby",
           "sub_auto_call"
-        ],
-        "display": "hide"
+        ]
       },
       "DistanceToBoss": {
         "type": "select",
-        "value": "use_open_ocean_support",
+        "value": "2_grid_to_boss",
         "option": [
           "to_boss_position",
           "1_grid_to_boss",
           "2_grid_to_boss",
           "use_open_ocean_support"
-        ],
-        "display": "hide"
+        ]
       }
     },
     "Emotion": {
       "Mode": {
         "type": "select",
-        "value": "calculate_ignore",
+        "value": "calculate",
         "option": [
           "calculate",
           "ignore",
           "calculate_ignore"
-        ],
-        "display": "hide"
+        ]
       },
       "Fleet1Value": {
         "type": "input",
@@ -1913,14 +1912,13 @@
       },
       "Fleet1Control": {
         "type": "select",
-        "value": "prevent_red_face",
+        "value": "prevent_green_face",
         "option": [
           "keep_exp_bonus",
           "prevent_green_face",
           "prevent_yellow_face",
           "prevent_red_face"
-        ],
-        "display": "hide"
+        ]
       },
       "Fleet1Recover": {
         "type": "select",
@@ -1929,35 +1927,31 @@
           "not_in_dormitory",
           "dormitory_floor_1",
           "dormitory_floor_2"
-        ],
-        "display": "hide"
+        ]
       },
       "Fleet1Oath": {
         "type": "checkbox",
-        "value": false,
-        "display": "hide"
+        "value": false
       },
       "Fleet2Value": {
         "type": "input",
-        "value": 119,
-        "display": "hide"
+        "value": 119
       },
       "Fleet2Record": {
         "type": "datetime",
         "value": "2020-01-01 00:00:00",
         "validate": "datetime",
-        "display": "hide"
+        "display": "disabled"
       },
       "Fleet2Control": {
         "type": "select",
-        "value": "prevent_red_face",
+        "value": "prevent_green_face",
         "option": [
           "keep_exp_bonus",
           "prevent_green_face",
           "prevent_yellow_face",
           "prevent_red_face"
-        ],
-        "display": "hide"
+        ]
       },
       "Fleet2Recover": {
         "type": "select",
@@ -1966,13 +1960,11 @@
           "not_in_dormitory",
           "dormitory_floor_1",
           "dormitory_floor_2"
-        ],
-        "display": "hide"
+        ]
       },
       "Fleet2Oath": {
         "type": "checkbox",
-        "value": false,
-        "display": "hide"
+        "value": false
       }
     },
     "Storage": {
@@ -3276,15 +3268,19 @@
         "value": "campaign_main",
         "option": [
           "coalition_20230323",
+          "coalition_20260723",
           "coalition_20260122"
         ],
         "option_cn": [
+          "coalition_20260723",
           "coalition_20260122"
         ],
         "option_en": [
+          "coalition_20260723",
           "coalition_20260122"
         ],
         "option_jp": [
+          "coalition_20260723",
           "coalition_20260122"
         ],
         "option_tw": [
@@ -3292,6 +3288,7 @@
         ],
         "option_bold": [
           "coalition_20230323",
+          "coalition_20260723",
           "coalition_20260122"
         ]
       },
@@ -3333,12 +3330,12 @@
     "Coalition": {
       "Mode": {
         "type": "select",
-        "value": "tc3",
+        "value": "hard",
         "option": [
-          "tc1",
-          "tc2",
-          "tc3",
-          "ex"
+          "easy",
+          "normal",
+          "hard",
+          "sp"
         ]
       },
       "Fleet": {
@@ -6486,15 +6483,19 @@
         "value": "campaign_main",
         "option": [
           "coalition_20230323",
+          "coalition_20260723",
           "coalition_20260122"
         ],
         "option_cn": [
+          "coalition_20260723",
           "coalition_20260122"
         ],
         "option_en": [
+          "coalition_20260723",
           "coalition_20260122"
         ],
         "option_jp": [
+          "coalition_20260723",
           "coalition_20260122"
         ],
         "option_tw": [
@@ -6502,6 +6503,7 @@
         ],
         "option_bold": [
           "coalition_20230323",
+          "coalition_20260723",
           "coalition_20260122"
         ]
       },
@@ -6545,11 +6547,10 @@
         "type": "select",
         "value": "sp",
         "option": [
-          "tc1",
-          "tc2",
-          "tc3",
-          "sp",
-          "ex"
+          "easy",
+          "normal",
+          "hard",
+          "sp"
         ],
         "display": "hide"
       },
@@ -8425,8 +8426,7 @@
           "sirius",
           "new_jersey",
           "taihou",
-          "aegir",
-          "nakhimov"
+          "aegir"
         ]
       }
     },
@@ -9487,6 +9487,1951 @@
       "AutoRestart": {
         "type": "checkbox",
         "value": true
+      }
+    },
+    "Storage": {
+      "Storage": {
+        "type": "storage",
+        "value": {},
+        "valuetype": "ignore",
+        "display": "disabled"
+      }
+    }
+  },
+  "ProalasAutoBreak": {
+    "Scheduler": {
+      "Enable": {
+        "type": "checkbox",
+        "value": false,
+        "option": [
+          true,
+          false
+        ]
+      },
+      "NextRun": {
+        "type": "datetime",
+        "value": "2020-01-01 00:00:00",
+        "validate": "datetime"
+      },
+      "Command": {
+        "type": "input",
+        "value": "ProalasAutoBreak",
+        "display": "hide"
+      },
+      "SuccessInterval": {
+        "type": "input",
+        "value": 1440,
+        "display": "hide"
+      },
+      "FailureInterval": {
+        "type": "input",
+        "value": 120,
+        "display": "hide"
+      },
+      "ServerUpdate": {
+        "type": "input",
+        "value": "00:00",
+        "display": "hide"
+      }
+    },
+    "ProalasAutoBreak": {
+      "ShipRarity": {
+        "type": "select",
+        "value": "all",
+        "option": [
+          "all",
+          "common",
+          "rare",
+          "elite",
+          "super_rare"
+        ]
+      },
+      "ShipsPerRun": {
+        "type": "select",
+        "value": 2,
+        "option": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7
+        ]
+      },
+      "RunIntervalDays": {
+        "type": "select",
+        "value": 1,
+        "option": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7
+        ]
+      },
+      "ProAlasRoot": {
+        "type": "input",
+        "value": "",
+        "valuetype": "str",
+        "display": "hide"
+      }
+    },
+    "Storage": {
+      "Storage": {
+        "type": "storage",
+        "value": {},
+        "valuetype": "ignore",
+        "display": "disabled"
+      }
+    }
+  },
+  "ProalasAutoEquip": {
+    "Scheduler": {
+      "Enable": {
+        "type": "checkbox",
+        "value": false,
+        "option": [
+          true,
+          false
+        ]
+      },
+      "NextRun": {
+        "type": "datetime",
+        "value": "2020-01-01 00:00:00",
+        "validate": "datetime"
+      },
+      "Command": {
+        "type": "input",
+        "value": "ProalasAutoEquip",
+        "display": "hide"
+      },
+      "SuccessInterval": {
+        "type": "input",
+        "value": 1440,
+        "display": "hide"
+      },
+      "FailureInterval": {
+        "type": "input",
+        "value": 120,
+        "display": "hide"
+      },
+      "ServerUpdate": {
+        "type": "input",
+        "value": "00:00",
+        "display": "hide"
+      }
+    },
+    "ProalasAutoEquip": {
+      "EquipQuality": {
+        "type": "select",
+        "value": "purple",
+        "option": [
+          "blue",
+          "purple",
+          "gold"
+        ]
+      },
+      "ReplaceSurplusPurple": {
+        "type": "checkbox",
+        "value": true
+      },
+      "AllowCraft": {
+        "type": "checkbox",
+        "value": false
+      },
+      "CraftCoinLimit": {
+        "type": "select",
+        "value": 300000,
+        "option": [
+          100000,
+          150000,
+          200000,
+          300000,
+          500000
+        ]
+      },
+      "WarehouseReserve": {
+        "type": "select",
+        "value": 10,
+        "option": [
+          5,
+          10,
+          15,
+          20,
+          30
+        ]
+      },
+      "TeamNo": {
+        "type": "select",
+        "value": 3,
+        "option": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6
+        ]
+      }
+    },
+    "Storage": {
+      "Storage": {
+        "type": "storage",
+        "value": {},
+        "valuetype": "ignore",
+        "display": "disabled"
+      }
+    }
+  },
+  "ProalasAutoEventShop": {
+    "Scheduler": {
+      "Enable": {
+        "type": "checkbox",
+        "value": false,
+        "option": [
+          true,
+          false
+        ]
+      },
+      "NextRun": {
+        "type": "datetime",
+        "value": "2020-01-01 00:00:00",
+        "validate": "datetime"
+      },
+      "Command": {
+        "type": "input",
+        "value": "ProalasAutoEventShop",
+        "display": "hide"
+      },
+      "SuccessInterval": {
+        "type": "input",
+        "value": 1440,
+        "display": "hide"
+      },
+      "FailureInterval": {
+        "type": "input",
+        "value": 120,
+        "display": "hide"
+      },
+      "ServerUpdate": {
+        "type": "input",
+        "value": "00:00",
+        "display": "hide"
+      }
+    },
+    "ProalasAutoEventShop": {
+      "ShopCount": {
+        "type": "select",
+        "value": 1,
+        "option": [
+          1,
+          2,
+          3
+        ]
+      },
+      "PriorityMode": {
+        "type": "select",
+        "value": "ur_first",
+        "option": [
+          "ur_first",
+          "custom"
+        ]
+      },
+      "CustomPriority": {
+        "type": "textarea",
+        "value": "2UR>UR>SSR_BOX>SSR_CAT>SSR_BOAT>XIN2>XIN1>SR_CAT>OTHER"
+      },
+      "TokenUrItem": {
+        "type": "input",
+        "value": "—",
+        "valuetype": "str",
+        "display": "disabled"
+      },
+      "TokenPt": {
+        "type": "input",
+        "value": "—",
+        "valuetype": "str",
+        "display": "disabled"
+      }
+    },
+    "Storage": {
+      "Storage": {
+        "type": "storage",
+        "value": {},
+        "valuetype": "ignore",
+        "display": "disabled"
+      }
+    }
+  },
+  "ProalasAutoExpBook": {
+    "Scheduler": {
+      "Enable": {
+        "type": "checkbox",
+        "value": false,
+        "option": [
+          true,
+          false
+        ]
+      },
+      "NextRun": {
+        "type": "datetime",
+        "value": "2020-01-01 00:00:00",
+        "validate": "datetime"
+      },
+      "Command": {
+        "type": "input",
+        "value": "ProalasAutoExpBook",
+        "display": "hide"
+      },
+      "SuccessInterval": {
+        "type": "input",
+        "value": 1440,
+        "display": "hide"
+      },
+      "FailureInterval": {
+        "type": "input",
+        "value": 120,
+        "display": "hide"
+      },
+      "ServerUpdate": {
+        "type": "input",
+        "value": "00:00",
+        "display": "hide"
+      }
+    },
+    "ProalasAutoExpBook": {
+      "ShipRarity": {
+        "type": "select",
+        "value": "all",
+        "option": [
+          "all",
+          "common",
+          "rare",
+          "elite",
+          "super_rare",
+          "ultra"
+        ]
+      },
+      "FeedRoundsPerRun": {
+        "type": "select",
+        "value": 1,
+        "option": [
+          1,
+          2,
+          3,
+          4,
+          5
+        ]
+      },
+      "RunIntervalDays": {
+        "type": "select",
+        "value": 7,
+        "option": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7
+        ]
+      }
+    },
+    "Storage": {
+      "Storage": {
+        "type": "storage",
+        "value": {},
+        "valuetype": "ignore",
+        "display": "disabled"
+      }
+    }
+  },
+  "ProalasAutoFleetChange": {
+    "Scheduler": {
+      "Enable": {
+        "type": "checkbox",
+        "value": false,
+        "option": [
+          true,
+          false
+        ]
+      },
+      "NextRun": {
+        "type": "datetime",
+        "value": "2020-01-01 00:00:00",
+        "validate": "datetime"
+      },
+      "Command": {
+        "type": "input",
+        "value": "ProalasAutoFleetChange",
+        "display": "hide"
+      },
+      "SuccessInterval": {
+        "type": "input",
+        "value": 1440,
+        "display": "hide"
+      },
+      "FailureInterval": {
+        "type": "input",
+        "value": 120,
+        "display": "hide"
+      },
+      "ServerUpdate": {
+        "type": "input",
+        "value": "00:00",
+        "display": "hide"
+      }
+    },
+    "ProalasAutoFleetChange": {
+      "Team1Type": {
+        "type": "select",
+        "value": "push",
+        "option": [
+          "level",
+          "push",
+          "low_cost"
+        ]
+      },
+      "Team1Quality": {
+        "type": "select",
+        "value": "none",
+        "option": [
+          "R",
+          "SR",
+          "SSR",
+          "UR",
+          "none"
+        ],
+        "display": "hide"
+      },
+      "Team2Type": {
+        "type": "select",
+        "value": "push",
+        "option": [
+          "level",
+          "push",
+          "low_cost"
+        ]
+      },
+      "Team2Quality": {
+        "type": "select",
+        "value": "none",
+        "option": [
+          "R",
+          "SR",
+          "SSR",
+          "UR",
+          "none"
+        ],
+        "display": "hide"
+      },
+      "Team3Type": {
+        "type": "select",
+        "value": "level",
+        "option": [
+          "level",
+          "push",
+          "low_cost"
+        ]
+      },
+      "Team3Quality": {
+        "type": "select",
+        "value": "none",
+        "option": [
+          "R",
+          "SR",
+          "SSR",
+          "UR",
+          "none"
+        ],
+        "display": "hide"
+      },
+      "Team4Type": {
+        "type": "select",
+        "value": "level",
+        "option": [
+          "level",
+          "push",
+          "low_cost"
+        ]
+      },
+      "Team4Quality": {
+        "type": "select",
+        "value": "none",
+        "option": [
+          "R",
+          "SR",
+          "SSR",
+          "UR",
+          "none"
+        ],
+        "display": "hide"
+      },
+      "Team5Type": {
+        "type": "select",
+        "value": "low_cost",
+        "option": [
+          "level",
+          "push",
+          "low_cost"
+        ]
+      },
+      "Team5Quality": {
+        "type": "select",
+        "value": "none",
+        "option": [
+          "R",
+          "SR",
+          "SSR",
+          "UR",
+          "none"
+        ],
+        "display": "hide"
+      },
+      "Team6Type": {
+        "type": "select",
+        "value": "low_cost",
+        "option": [
+          "level",
+          "push",
+          "low_cost"
+        ]
+      },
+      "Team6Quality": {
+        "type": "select",
+        "value": "none",
+        "option": [
+          "R",
+          "SR",
+          "SSR",
+          "UR",
+          "none"
+        ],
+        "display": "hide"
+      },
+      "EventTeam1Enable": {
+        "type": "checkbox",
+        "value": false
+      },
+      "EventTeam1IntervalDays": {
+        "type": "select",
+        "value": 7,
+        "option": [
+          0,
+          1,
+          3,
+          7
+        ]
+      },
+      "EventTeam2Enable": {
+        "type": "checkbox",
+        "value": false
+      },
+      "EventTeam2IntervalDays": {
+        "type": "select",
+        "value": 7,
+        "option": [
+          0,
+          1,
+          3,
+          7
+        ]
+      },
+      "OpsiHazard1FleetEnable": {
+        "type": "checkbox",
+        "value": false
+      },
+      "OpsiHazard1FleetIntervalDays": {
+        "type": "select",
+        "value": 7,
+        "option": [
+          0,
+          1,
+          3,
+          7
+        ]
+      },
+      "LevelTeamEnable": {
+        "type": "checkbox",
+        "value": true
+      },
+      "RunIntervalDays": {
+        "type": "select",
+        "value": 7,
+        "option": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7
+        ]
+      },
+      "LevelTeamFaction": {
+        "type": "select",
+        "value": "all",
+        "option": [
+          "all",
+          "eagle",
+          "royal",
+          "sakura",
+          "iron",
+          "dragon",
+          "sardegna",
+          "northern",
+          "iris",
+          "vichya",
+          "tulipa",
+          "pedreria",
+          "meta",
+          "tempesta",
+          "other"
+        ]
+      }
+    },
+    "Storage": {
+      "Storage": {
+        "type": "storage",
+        "value": {},
+        "valuetype": "ignore",
+        "display": "disabled"
+      }
+    }
+  },
+  "ProalasCollector": {
+    "Scheduler": {
+      "Enable": {
+        "type": "checkbox",
+        "value": false,
+        "option": [
+          true,
+          false
+        ]
+      },
+      "NextRun": {
+        "type": "datetime",
+        "value": "2020-01-01 00:00:00",
+        "validate": "datetime"
+      },
+      "Command": {
+        "type": "input",
+        "value": "ProalasCollector",
+        "display": "hide"
+      },
+      "SuccessInterval": {
+        "type": "input",
+        "value": 360,
+        "display": "hide"
+      },
+      "FailureInterval": {
+        "type": "input",
+        "value": 120,
+        "display": "hide"
+      },
+      "ServerUpdate": {
+        "type": "input",
+        "value": "00:00",
+        "display": "hide"
+      }
+    },
+    "ProalasCollector": {
+      "ReadOilCoin": {
+        "type": "checkbox",
+        "value": true
+      },
+      "ReadEventPt": {
+        "type": "checkbox",
+        "value": true
+      },
+      "ReadBuildCube": {
+        "type": "checkbox",
+        "value": true
+      },
+      "ReadBoatDock": {
+        "type": "checkbox",
+        "value": true
+      },
+      "ReadBoatRate": {
+        "type": "checkbox",
+        "value": true
+      },
+      "WriteUserData": {
+        "type": "checkbox",
+        "value": true
+      },
+      "UserDataPath": {
+        "type": "input",
+        "value": "",
+        "valuetype": "str",
+        "display": "hide"
+      }
+    },
+    "Storage": {
+      "Storage": {
+        "type": "storage",
+        "value": {},
+        "valuetype": "ignore",
+        "display": "disabled"
+      }
+    }
+  },
+  "ProalasFleetStrength": {
+    "Scheduler": {
+      "Enable": {
+        "type": "checkbox",
+        "value": false,
+        "option": [
+          true,
+          false
+        ]
+      },
+      "NextRun": {
+        "type": "datetime",
+        "value": "2020-01-01 00:00:00",
+        "validate": "datetime"
+      },
+      "Command": {
+        "type": "input",
+        "value": "ProalasFleetStrength",
+        "display": "hide"
+      },
+      "SuccessInterval": {
+        "type": "input",
+        "value": 1440,
+        "display": "hide"
+      },
+      "FailureInterval": {
+        "type": "input",
+        "value": 120,
+        "display": "hide"
+      },
+      "ServerUpdate": {
+        "type": "input",
+        "value": "00:00",
+        "display": "hide"
+      }
+    },
+    "ProalasFleetStrength": {
+      "TeamScope": {
+        "type": "select",
+        "value": "all",
+        "option": [
+          "all",
+          "team1",
+          "team2",
+          "team3",
+          "team4",
+          "team5",
+          "team6"
+        ]
+      },
+      "ProAlasRoot": {
+        "type": "input",
+        "value": "",
+        "valuetype": "str",
+        "display": "hide"
+      }
+    },
+    "Storage": {
+      "Storage": {
+        "type": "storage",
+        "value": {},
+        "valuetype": "ignore",
+        "display": "disabled"
+      }
+    }
+  },
+  "ProalasResourceStats": {
+    "Scheduler": {
+      "Enable": {
+        "type": "checkbox",
+        "value": false,
+        "option": [
+          true,
+          false
+        ],
+        "display": "hide"
+      },
+      "NextRun": {
+        "type": "datetime",
+        "value": "2020-01-01 00:00:00",
+        "validate": "datetime"
+      },
+      "Command": {
+        "type": "input",
+        "value": "ProalasResourceStats",
+        "display": "hide"
+      },
+      "SuccessInterval": {
+        "type": "input",
+        "value": 1440,
+        "display": "hide"
+      },
+      "FailureInterval": {
+        "type": "input",
+        "value": 120,
+        "display": "hide"
+      },
+      "ServerUpdate": {
+        "type": "input",
+        "value": "00:00",
+        "display": "hide"
+      }
+    },
+    "ProalasResourceStats": {
+      "UserDataPath": {
+        "type": "input",
+        "value": "",
+        "valuetype": "str",
+        "display": "hide"
+      },
+      "AlasLogPath": {
+        "type": "input",
+        "value": "./log",
+        "valuetype": "str"
+      },
+      "ChartOil": {
+        "type": "checkbox",
+        "value": true
+      },
+      "ChartMoney": {
+        "type": "checkbox",
+        "value": true
+      },
+      "ChartCube": {
+        "type": "checkbox",
+        "value": true
+      },
+      "ChartActPt": {
+        "type": "checkbox",
+        "value": true
+      },
+      "ChartRmb": {
+        "type": "checkbox",
+        "value": true
+      },
+      "ChartBoatRate": {
+        "type": "checkbox",
+        "value": true
+      },
+      "ChartBoatMax": {
+        "type": "checkbox",
+        "value": false
+      }
+    },
+    "Storage": {
+      "Storage": {
+        "type": "storage",
+        "value": {},
+        "valuetype": "ignore",
+        "display": "disabled"
+      }
+    }
+  },
+  "ProalasSmartDispatch": {
+    "ProalasSmartDispatch": {
+      "EnableSmartDispatch": {
+        "type": "checkbox",
+        "value": false
+      },
+      "PreferRmb": {
+        "type": "checkbox",
+        "value": true
+      },
+      "PreferMoney": {
+        "type": "checkbox",
+        "value": false
+      }
+    },
+    "Storage": {
+      "Storage": {
+        "type": "storage",
+        "value": {},
+        "valuetype": "ignore",
+        "display": "disabled"
+      }
+    }
+  },
+  "ProalasScreenMonitor": {
+    "Scheduler": {
+      "Enable": {
+        "type": "checkbox",
+        "value": true,
+        "option": [
+          true,
+          false
+        ],
+        "display": "hide"
+      },
+      "NextRun": {
+        "type": "datetime",
+        "value": "2020-01-01 00:00:00",
+        "validate": "datetime"
+      },
+      "Command": {
+        "type": "input",
+        "value": "ProalasScreenMonitor",
+        "display": "hide"
+      },
+      "SuccessInterval": {
+        "type": "input",
+        "value": 5,
+        "display": "hide"
+      },
+      "FailureInterval": {
+        "type": "input",
+        "value": 5,
+        "display": "hide"
+      },
+      "ServerUpdate": {
+        "type": "input",
+        "value": "00:00",
+        "display": "hide"
+      }
+    },
+    "ProalasScreenMonitor": {
+      "KeepCount": {
+        "type": "input",
+        "value": 10
+      }
+    },
+    "Storage": {
+      "Storage": {
+        "type": "storage",
+        "value": {},
+        "valuetype": "ignore",
+        "display": "disabled"
+      }
+    }
+  },
+  "ProalasTimerPlan": {
+    "Scheduler": {
+      "Enable": {
+        "type": "checkbox",
+        "value": false,
+        "option": [
+          true,
+          false
+        ]
+      },
+      "NextRun": {
+        "type": "datetime",
+        "value": "2020-01-01 00:00:00",
+        "validate": "datetime"
+      },
+      "Command": {
+        "type": "input",
+        "value": "ProalasTimerPlan",
+        "display": "hide"
+      },
+      "SuccessInterval": {
+        "type": "input",
+        "value": 1440,
+        "display": "hide"
+      },
+      "FailureInterval": {
+        "type": "input",
+        "value": 120,
+        "display": "hide"
+      },
+      "ServerUpdate": {
+        "type": "input",
+        "value": "00:00",
+        "display": "hide"
+      }
+    },
+    "ProalasTimerPlan": {
+      "ExtraExclude": {
+        "type": "input",
+        "value": "",
+        "valuetype": "str"
+      }
+    },
+    "Storage": {
+      "Storage": {
+        "type": "storage",
+        "value": {},
+        "valuetype": "ignore",
+        "display": "disabled"
+      }
+    }
+  },
+  "ProalasPlanCalendar": {
+    "Scheduler": {
+      "Enable": {
+        "type": "checkbox",
+        "value": false,
+        "option": [
+          true,
+          false
+        ],
+        "display": "hide"
+      },
+      "NextRun": {
+        "type": "datetime",
+        "value": "2020-01-01 00:00:00",
+        "validate": "datetime"
+      },
+      "Command": {
+        "type": "input",
+        "value": "ProalasPlanCalendar",
+        "display": "hide"
+      },
+      "SuccessInterval": {
+        "type": "input",
+        "value": 0,
+        "display": "hide"
+      },
+      "FailureInterval": {
+        "type": "input",
+        "value": 120,
+        "display": "hide"
+      },
+      "ServerUpdate": {
+        "type": "input",
+        "value": "00:00",
+        "display": "hide"
+      }
+    },
+    "ProalasPlanCalendar": {
+      "EnableAi": {
+        "type": "checkbox",
+        "value": false
+      },
+      "SyncActivityOnRun": {
+        "type": "checkbox",
+        "value": true
+      }
+    },
+    "Storage": {
+      "Storage": {
+        "type": "storage",
+        "value": {},
+        "valuetype": "ignore",
+        "display": "disabled"
+      }
+    }
+  },
+  "ProalasActivitySync": {
+    "Scheduler": {
+      "Enable": {
+        "type": "checkbox",
+        "value": false,
+        "option": [
+          true,
+          false
+        ],
+        "display": "hide"
+      },
+      "NextRun": {
+        "type": "datetime",
+        "value": "2020-01-01 00:00:00",
+        "validate": "datetime"
+      },
+      "Command": {
+        "type": "input",
+        "value": "ProalasActivitySync",
+        "display": "hide"
+      },
+      "SuccessInterval": {
+        "type": "input",
+        "value": 1440,
+        "display": "hide"
+      },
+      "FailureInterval": {
+        "type": "input",
+        "value": 120,
+        "display": "hide"
+      },
+      "ServerUpdate": {
+        "type": "input",
+        "value": "00:00",
+        "display": "hide"
+      }
+    },
+    "ProalasActivitySync": {
+      "AllowManifestFallback": {
+        "type": "checkbox",
+        "value": true
+      },
+      "SyncGatewayEnable": {
+        "type": "checkbox",
+        "value": true
+      },
+      "SyncGatewayUrl": {
+        "type": "input",
+        "value": "http://192.168.2.107:22301",
+        "valuetype": "str"
+      },
+      "SyncGatewayToken": {
+        "type": "input",
+        "value": "test",
+        "valuetype": "str"
+      },
+      "PullPlanSchedule": {
+        "type": "checkbox",
+        "value": true
+      }
+    },
+    "Storage": {
+      "Storage": {
+        "type": "storage",
+        "value": {},
+        "valuetype": "ignore",
+        "display": "disabled"
+      }
+    }
+  },
+  "ProalasOpsiSchedule": {
+    "Scheduler": {
+      "Enable": {
+        "type": "checkbox",
+        "value": false,
+        "option": [
+          true,
+          false
+        ]
+      },
+      "NextRun": {
+        "type": "datetime",
+        "value": "2020-01-01 00:00:00",
+        "validate": "datetime"
+      },
+      "Command": {
+        "type": "input",
+        "value": "ProalasOpsiSchedule",
+        "display": "hide"
+      },
+      "SuccessInterval": {
+        "type": "input",
+        "value": 1440,
+        "display": "hide"
+      },
+      "FailureInterval": {
+        "type": "input",
+        "value": 120,
+        "display": "hide"
+      },
+      "ServerUpdate": {
+        "type": "input",
+        "value": "00:00",
+        "display": "hide"
+      }
+    },
+    "ProalasOpsiSchedule": {
+      "AdaptThreshold": {
+        "type": "input",
+        "value": 400
+      },
+      "DeferMeowAndHazard1": {
+        "type": "checkbox",
+        "value": false
+      },
+      "ShopUnlockDay": {
+        "type": "select",
+        "value": 20,
+        "option": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19,
+          20,
+          21,
+          22,
+          23,
+          24,
+          25,
+          26,
+          27,
+          28
+        ]
+      }
+    },
+    "Storage": {
+      "Storage": {
+        "type": "storage",
+        "value": {},
+        "valuetype": "ignore",
+        "display": "disabled"
+      }
+    }
+  },
+  "ProalasGachaCheck": {
+    "Scheduler": {
+      "Enable": {
+        "type": "checkbox",
+        "value": false,
+        "option": [
+          true,
+          false
+        ],
+        "display": "hide"
+      },
+      "NextRun": {
+        "type": "datetime",
+        "value": "2020-01-01 00:00:00",
+        "validate": "datetime"
+      },
+      "Command": {
+        "type": "input",
+        "value": "ProalasGachaCheck",
+        "display": "hide"
+      },
+      "SuccessInterval": {
+        "type": "input",
+        "value": 720,
+        "display": "hide"
+      },
+      "FailureInterval": {
+        "type": "input",
+        "value": 120,
+        "display": "hide"
+      },
+      "ServerUpdate": {
+        "type": "input",
+        "value": "00:00",
+        "display": "hide"
+      }
+    },
+    "ProalasGachaCheck": {
+      "BootstrapNullTemplate": {
+        "type": "checkbox",
+        "value": false
+      }
+    },
+    "Storage": {
+      "Storage": {
+        "type": "storage",
+        "value": {},
+        "valuetype": "ignore",
+        "display": "disabled"
+      }
+    }
+  },
+  "ProalasCollectionFill": {
+    "Scheduler": {
+      "Enable": {
+        "type": "checkbox",
+        "value": false,
+        "option": [
+          true,
+          false
+        ],
+        "display": "hide"
+      },
+      "NextRun": {
+        "type": "datetime",
+        "value": "2020-01-01 00:00:00",
+        "validate": "datetime"
+      },
+      "Command": {
+        "type": "input",
+        "value": "ProalasCollectionFill",
+        "display": "hide"
+      },
+      "SuccessInterval": {
+        "type": "input",
+        "value": 0,
+        "display": "hide"
+      },
+      "FailureInterval": {
+        "type": "input",
+        "value": 120,
+        "display": "hide"
+      },
+      "ServerUpdate": {
+        "type": "input",
+        "value": "00:00",
+        "display": "hide"
+      }
+    },
+    "ProalasCollectionFill": {
+      "Enable": {
+        "type": "checkbox",
+        "value": true
+      },
+      "BuildEnable": {
+        "type": "checkbox",
+        "value": true
+      },
+      "FarmEnable": {
+        "type": "checkbox",
+        "value": false
+      },
+      "ResearchEnable": {
+        "type": "checkbox",
+        "value": true
+      },
+      "ResearchIntervalDays": {
+        "type": "select",
+        "value": 7,
+        "option": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          14
+        ]
+      },
+      "AutoGachaEnable": {
+        "type": "checkbox",
+        "value": false
+      },
+      "CubeReserveMin": {
+        "type": "input",
+        "value": 500,
+        "display": "hide"
+      },
+      "CubeMaxPerRun": {
+        "type": "input",
+        "value": 6,
+        "display": "hide"
+      },
+      "CubeDailyMax": {
+        "type": "input",
+        "value": 20,
+        "display": "hide"
+      }
+    },
+    "Storage": {
+      "Storage": {
+        "type": "storage",
+        "value": {},
+        "valuetype": "ignore",
+        "display": "disabled"
+      }
+    }
+  },
+  "ProalasEventFormatFix": {
+    "Scheduler": {
+      "Enable": {
+        "type": "checkbox",
+        "value": false,
+        "option": [
+          true,
+          false
+        ]
+      },
+      "NextRun": {
+        "type": "datetime",
+        "value": "2020-01-01 00:00:00",
+        "validate": "datetime"
+      },
+      "Command": {
+        "type": "input",
+        "value": "ProalasEventFormatFix",
+        "display": "hide"
+      },
+      "SuccessInterval": {
+        "type": "input",
+        "value": 720,
+        "display": "hide"
+      },
+      "FailureInterval": {
+        "type": "input",
+        "value": 120,
+        "display": "hide"
+      },
+      "ServerUpdate": {
+        "type": "input",
+        "value": "00:00",
+        "display": "hide"
+      }
+    },
+    "ProalasEventFormatFix": {
+      "EnableFix": {
+        "type": "checkbox",
+        "value": true
+      },
+      "Template": {
+        "type": "select",
+        "value": "T-HT",
+        "option": [
+          "T-HT",
+          "AB-CD",
+          "SP-HSP"
+        ]
+      },
+      "TargetTask": {
+        "type": "select",
+        "value": "Event",
+        "option": [
+          "Event",
+          "Event2"
+        ]
+      },
+      "StopStage": {
+        "type": "input",
+        "value": "",
+        "valuetype": "str"
+      },
+      "ForceThreeStar": {
+        "type": "checkbox",
+        "value": false
+      },
+      "AllCleared": {
+        "type": "checkbox",
+        "value": false
+      },
+      "AutoHardFleet": {
+        "type": "checkbox",
+        "value": true
+      }
+    },
+    "Storage": {
+      "Storage": {
+        "type": "storage",
+        "value": {},
+        "valuetype": "ignore",
+        "display": "disabled"
+      }
+    }
+  },
+  "ProalasSevenDayReward": {
+    "Scheduler": {
+      "Enable": {
+        "type": "checkbox",
+        "value": false,
+        "option": [
+          true,
+          false
+        ],
+        "display": "hide"
+      },
+      "NextRun": {
+        "type": "datetime",
+        "value": "2020-01-01 00:00:00",
+        "validate": "datetime"
+      },
+      "Command": {
+        "type": "input",
+        "value": "ProalasSevenDayReward",
+        "display": "hide"
+      },
+      "SuccessInterval": {
+        "type": "input",
+        "value": 360,
+        "display": "hide"
+      },
+      "FailureInterval": {
+        "type": "input",
+        "value": 120,
+        "display": "hide"
+      },
+      "ServerUpdate": {
+        "type": "input",
+        "value": "00:00",
+        "display": "hide"
+      }
+    },
+    "ProalasSevenDayReward": {
+      "Enable": {
+        "type": "checkbox",
+        "value": false
+      },
+      "RetireEnhanceSwitch": {
+        "type": "checkbox",
+        "value": true,
+        "display": "disabled"
+      },
+      "RewardMode": {
+        "type": "select",
+        "value": "1",
+        "option": [
+          "1",
+          "2"
+        ],
+        "display": "disabled"
+      },
+      "Lifecycle": {
+        "type": "input",
+        "value": "0723-0730",
+        "valuetype": "str",
+        "display": "disabled"
+      }
+    },
+    "Storage": {
+      "Storage": {
+        "type": "storage",
+        "value": {},
+        "valuetype": "ignore",
+        "display": "disabled"
+      }
+    }
+  },
+  "ProalasEventStory": {
+    "Scheduler": {
+      "Enable": {
+        "type": "checkbox",
+        "value": false,
+        "option": [
+          true,
+          false
+        ],
+        "display": "hide"
+      },
+      "NextRun": {
+        "type": "datetime",
+        "value": "2020-01-01 00:00:00",
+        "validate": "datetime"
+      },
+      "Command": {
+        "type": "input",
+        "value": "ProalasEventStory",
+        "display": "hide"
+      },
+      "SuccessInterval": {
+        "type": "input",
+        "value": 30,
+        "display": "hide"
+      },
+      "FailureInterval": {
+        "type": "input",
+        "value": 120,
+        "display": "hide"
+      },
+      "ServerUpdate": {
+        "type": "input",
+        "value": "00:00",
+        "display": "hide"
+      }
+    },
+    "ProalasEventStory": {
+      "Enable": {
+        "type": "checkbox",
+        "value": false
+      },
+      "StoryMode": {
+        "type": "select",
+        "value": "SingleNoBranch",
+        "option": [
+          "SingleNoBranch",
+          "SingleMultiBranch",
+          "ChainNoBranch",
+          "ChainMultiBranch"
+        ],
+        "display": "disabled"
+      },
+      "Lifecycle": {
+        "type": "input",
+        "value": "0723-0730",
+        "valuetype": "str",
+        "display": "disabled"
+      }
+    },
+    "Storage": {
+      "Storage": {
+        "type": "storage",
+        "value": {},
+        "valuetype": "ignore",
+        "display": "disabled"
+      }
+    }
+  },
+  "ProalasSpecialEvent": {
+    "Scheduler": {
+      "Enable": {
+        "type": "checkbox",
+        "value": false,
+        "option": [
+          true,
+          false
+        ],
+        "display": "hide"
+      },
+      "NextRun": {
+        "type": "datetime",
+        "value": "2020-01-01 00:00:00",
+        "validate": "datetime"
+      },
+      "Command": {
+        "type": "input",
+        "value": "ProalasSpecialEvent",
+        "display": "hide"
+      },
+      "SuccessInterval": {
+        "type": "input",
+        "value": 60,
+        "display": "hide"
+      },
+      "FailureInterval": {
+        "type": "input",
+        "value": 120,
+        "display": "hide"
+      },
+      "ServerUpdate": {
+        "type": "input",
+        "value": "00:00",
+        "display": "hide"
+      }
+    },
+    "ProalasSpecialEvent": {
+      "Enable": {
+        "type": "checkbox",
+        "value": false
+      },
+      "EventName": {
+        "type": "select",
+        "value": "Auction",
+        "option": [
+          "Auction"
+        ],
+        "display": "disabled"
+      },
+      "GambleType": {
+        "type": "select",
+        "value": "LowYieldInterest",
+        "option": [
+          "LowYieldInterest",
+          "ClaimQuestReward"
+        ]
+      },
+      "VenueSelect": {
+        "type": "select",
+        "value": "Default",
+        "option": [
+          "Default",
+          "A",
+          "B",
+          "S"
+        ]
+      },
+      "QuestBidLevel": {
+        "type": "select",
+        "value": "4",
+        "option": [
+          "1",
+          "2",
+          "3",
+          "4",
+          "5",
+          "6",
+          "7",
+          "8"
+        ]
+      },
+      "TargetWins": {
+        "type": "input",
+        "value": 50
+      },
+      "QuestWinBaseline": {
+        "type": "input",
+        "value": -1,
+        "display": "disabled"
+      },
+      "AuctionCoin": {
+        "type": "input",
+        "value": 0,
+        "display": "disabled"
+      },
+      "WinCount": {
+        "type": "input",
+        "value": 0,
+        "display": "disabled"
+      },
+      "QuestWinProgress": {
+        "type": "input",
+        "value": 0,
+        "display": "disabled"
+      },
+      "JoinCount": {
+        "type": "input",
+        "value": 0,
+        "display": "disabled"
+      },
+      "QuestBaselineLifecycle": {
+        "type": "input",
+        "value": "",
+        "valuetype": "str",
+        "display": "hide"
+      },
+      "Lifecycle": {
+        "type": "input",
+        "value": "0723-0730",
+        "valuetype": "str",
+        "display": "disabled"
+      }
+    },
+    "Storage": {
+      "Storage": {
+        "type": "storage",
+        "value": {},
+        "valuetype": "ignore",
+        "display": "disabled"
+      }
+    }
+  },
+  "ProalasAiPlanner": {
+    "Scheduler": {
+      "Enable": {
+        "type": "checkbox",
+        "value": true,
+        "option": [
+          true,
+          false
+        ],
+        "display": "hide"
+      },
+      "NextRun": {
+        "type": "datetime",
+        "value": "2020-01-01 00:00:00",
+        "validate": "datetime"
+      },
+      "Command": {
+        "type": "input",
+        "value": "ProalasAiPlanner",
+        "display": "hide"
+      },
+      "SuccessInterval": {
+        "type": "input",
+        "value": 720,
+        "display": "hide"
+      },
+      "FailureInterval": {
+        "type": "input",
+        "value": 120,
+        "display": "hide"
+      },
+      "ServerUpdate": {
+        "type": "input",
+        "value": "00:00",
+        "display": "hide"
+      }
+    },
+    "ProalasAiPlanner": {
+      "Strategy": {
+        "type": "input",
+        "value": "conservative"
+      },
+      "AutoApply": {
+        "type": "checkbox",
+        "value": true
+      },
+      "CustomEventMain": {
+        "type": "checkbox",
+        "value": false
+      }
+    },
+    "Storage": {
+      "Storage": {
+        "type": "storage",
+        "value": {},
+        "valuetype": "ignore",
+        "display": "disabled"
+      }
+    }
+  },
+  "ProalasAccount": {
+    "Scheduler": {
+      "Enable": {
+        "type": "checkbox",
+        "value": false,
+        "option": [
+          true,
+          false
+        ],
+        "display": "hide"
+      },
+      "NextRun": {
+        "type": "datetime",
+        "value": "2020-01-01 00:00:00",
+        "validate": "datetime"
+      },
+      "Command": {
+        "type": "input",
+        "value": "ProalasAccount",
+        "display": "hide"
+      },
+      "SuccessInterval": {
+        "type": "input",
+        "value": 0,
+        "display": "hide"
+      },
+      "FailureInterval": {
+        "type": "input",
+        "value": 120,
+        "display": "hide"
+      },
+      "ServerUpdate": {
+        "type": "input",
+        "value": "00:00",
+        "display": "hide"
+      }
+    },
+    "ProalasAccount": {
+      "PlanType": {
+        "type": "select",
+        "value": "normal",
+        "option": [
+          "normal",
+          "pro",
+          "pro_plus"
+        ],
+        "display": "hide"
+      },
+      "ExpireAt": {
+        "type": "datetime",
+        "value": "2099-12-31 23:59:59",
+        "validate": "datetime",
+        "valuetype": "datetime",
+        "display": "hide"
+      },
+      "RenewalUrl": {
+        "type": "input",
+        "value": "",
+        "valuetype": "str",
+        "display": "hide"
+      }
+    },
+    "Storage": {
+      "Storage": {
+        "type": "storage",
+        "value": {},
+        "valuetype": "ignore",
+        "display": "disabled"
+      }
+    }
+  },
+  "ProalasBoatMessage": {
+    "Scheduler": {
+      "Enable": {
+        "type": "checkbox",
+        "value": false,
+        "option": [
+          true,
+          false
+        ],
+        "display": "hide"
+      },
+      "NextRun": {
+        "type": "datetime",
+        "value": "2020-01-01 00:00:00",
+        "validate": "datetime"
+      },
+      "Command": {
+        "type": "input",
+        "value": "ProalasBoatMessage",
+        "display": "hide"
+      },
+      "SuccessInterval": {
+        "type": "input",
+        "value": 1440,
+        "display": "hide"
+      },
+      "FailureInterval": {
+        "type": "input",
+        "value": 120,
+        "display": "hide"
+      },
+      "ServerUpdate": {
+        "type": "input",
+        "value": "00:00",
+        "display": "hide"
+      }
+    },
+    "ProalasBoatMessage": {
+      "UserDataPath": {
+        "type": "input",
+        "value": "",
+        "valuetype": "str",
+        "display": "hide"
+      }
+    },
+    "Storage": {
+      "Storage": {
+        "type": "storage",
+        "value": {},
+        "valuetype": "ignore",
+        "display": "disabled"
+      }
+    }
+  },
+  "ProalasGetExpUseExp": {
+    "Scheduler": {
+      "Enable": {
+        "type": "checkbox",
+        "value": false,
+        "option": [
+          true,
+          false
+        ],
+        "display": "hide"
+      },
+      "NextRun": {
+        "type": "datetime",
+        "value": "2020-01-01 00:00:00",
+        "validate": "datetime"
+      },
+      "Command": {
+        "type": "input",
+        "value": "ProalasGetExpUseExp",
+        "display": "hide"
+      },
+      "SuccessInterval": {
+        "type": "input",
+        "value": 1440,
+        "display": "hide"
+      },
+      "FailureInterval": {
+        "type": "input",
+        "value": 120,
+        "display": "hide"
+      },
+      "ServerUpdate": {
+        "type": "input",
+        "value": "00:00",
+        "display": "hide"
+      }
+    },
+    "ProalasGetExpUseExp": {
+      "ExpBookType": {
+        "type": "select",
+        "value": "default",
+        "option": [
+          "default"
+        ]
+      },
+      "MaxGetPerDay": {
+        "type": "input",
+        "value": 1
+      },
+      "RunUseExp": {
+        "type": "checkbox",
+        "value": true
+      },
+      "UseExpThreshold": {
+        "type": "input",
+        "value": 2000
+      },
+      "ProAlasRoot": {
+        "type": "input",
+        "value": "",
+        "valuetype": "str",
+        "display": "hide"
       }
     },
     "Storage": {

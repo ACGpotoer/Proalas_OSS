@@ -1,0 +1,1195 @@
+{
+  "version": 3,
+  "tags": {
+    "daily_yellow_3leo": {
+      "green": {
+        "note": "人工：周末买粮 / 换队",
+        "manual_window": true
+      }
+    },
+    "yellow": {
+      "yellow": {
+        "note": "日常：委托 / 科研 / 收获"
+      }
+    },
+    "evt_20260627": {
+      "blue": {
+        "mode": "event",
+        "scheduler_enable": {
+          "Event": true,
+          "Event2": true,
+          "EventA": false,
+          "EventB": false,
+          "EventC": false,
+          "EventD": false,
+          "EventSp": false,
+          "Raid": false,
+          "RaidDaily": false,
+          "Main": false,
+          "Main2": false,
+          "Main3": false,
+          "ProalasAutoEventShop": true
+        },
+        "event_format": "T-HT",
+        "gacha": {
+          "up_ships": [
+            "阿罗芒什",
+            "瑟堡"
+          ],
+          "stop_if_owned": true
+        }
+      }
+    }
+  },
+  "schedules": [],
+  "days": {
+    "2026-06-11": {
+      "yellow": {
+        "note": "日常：委托 / 科研 / 收获"
+      },
+      "_paintedTag": "daily_yellow_3leo"
+    },
+    "2026-06-12": {
+      "yellow": {
+        "note": "日常：委托 / 科研 / 收获"
+      },
+      "_paintedTag": "daily_yellow_3leo"
+    },
+    "2026-06-20": {
+      "yellow": {
+        "note": "日常：委托 / 科研 / 收获"
+      },
+      "_paintedTag": "daily_yellow_3leo"
+    },
+    "2026-06-21": {
+      "yellow": {
+        "note": "日常：委托 / 科研 / 收获"
+      },
+      "_paintedTag": "daily_yellow_3leo"
+    },
+    "2026-06-05": {
+      "green": {
+        "note": "人工：周末买粮 / 换队",
+        "manual_window": true
+      },
+      "_paintedTag": "daily_yellow_3leo"
+    },
+    "2026-06-06": {
+      "yellow": {
+        "note": "日常：委托 / 科研 / 收获"
+      },
+      "_paintedTag": "daily_yellow_3leo"
+    },
+    "2026-06-07": {
+      "yellow": {
+        "note": "日常：委托 / 科研 / 收获"
+      },
+      "_paintedTag": "daily_yellow_3leo"
+    },
+    "2026-06-14": {
+      "yellow": {
+        "note": "日常：委托 / 科研 / 收获"
+      },
+      "_paintedTag": "daily_yellow_3leo"
+    },
+    "2026-06-13": {
+      "yellow": {
+        "note": "日常：委托 / 科研 / 收获"
+      },
+      "_paintedTag": "daily_yellow_3leo"
+    },
+    "2026-06-10": {
+      "yellow": {
+        "note": "日常：委托 / 科研 / 收获"
+      },
+      "_paintedTag": "daily_yellow_3leo"
+    },
+    "2026-06-09": {
+      "yellow": {
+        "note": "日常：委托 / 科研 / 收获"
+      },
+      "_paintedTag": "daily_yellow_3leo"
+    },
+    "2026-06-08": {
+      "yellow": {
+        "note": "日常：委托 / 科研 / 收获"
+      },
+      "_paintedTag": "daily_yellow_3leo"
+    },
+    "2026-06-15": {
+      "yellow": {
+        "note": "日常：委托 / 科研 / 收获"
+      },
+      "_paintedTag": "daily_yellow_3leo"
+    },
+    "2026-06-22": {
+      "yellow": {
+        "note": "日常：委托 / 科研 / 收获"
+      },
+      "_paintedTag": "daily_yellow_3leo"
+    },
+    "2026-06-23": {
+      "yellow": {
+        "note": "日常：委托 / 科研 / 收获"
+      },
+      "_paintedTag": "daily_yellow_3leo"
+    },
+    "2026-06-16": {
+      "yellow": {
+        "note": "日常：委托 / 科研 / 收获"
+      },
+      "_paintedTag": "daily_yellow_3leo"
+    },
+    "2026-06-17": {
+      "yellow": {
+        "note": "日常：委托 / 科研 / 收获"
+      },
+      "_paintedTag": "daily_yellow_3leo"
+    },
+    "2026-06-24": {
+      "yellow": {
+        "note": "日常：委托 / 科研 / 收获"
+      },
+      "_paintedTag": "daily_yellow_3leo"
+    },
+    "2026-06-18": {
+      "yellow": {
+        "note": "日常：委托 / 科研 / 收获"
+      },
+      "_paintedTag": "daily_yellow_3leo"
+    },
+    "2026-06-19": {
+      "yellow": {
+        "note": "日常：委托 / 科研 / 收获"
+      },
+      "_paintedTag": "daily_yellow_3leo"
+    },
+    "2026-06-02": {
+      "green": {
+        "note": "人工：周末买粮 / 换队",
+        "manual_window": true
+      },
+      "_paintedTag": "daily_yellow_3leo"
+    },
+    "2026-06-01": {
+      "green": {
+        "note": "人工：周末买粮 / 换队",
+        "manual_window": true
+      },
+      "_paintedTag": "yellow",
+      "yellow": {
+        "note": "日常：委托 / 科研 / 收获"
+      },
+      "_paintedTags": [
+        "yellow"
+      ]
+    },
+    "2026-06-04": {
+      "green": {
+        "note": "人工：周末买粮 / 换队",
+        "manual_window": true
+      },
+      "_paintedTag": "daily_yellow_3leo"
+    },
+    "2026-06-03": {
+      "green": {
+        "note": "人工：周末买粮 / 换队",
+        "manual_window": true
+      },
+      "_paintedTag": "daily_yellow_3leo"
+    },
+    "2029-06-11": {
+      "green": {
+        "note": "人工：周末买粮 / 换队",
+        "manual_window": true
+      },
+      "_paintedTags": [
+        "daily_yellow_3leo",
+        "yellow"
+      ],
+      "_paintedTag": "yellow",
+      "yellow": {
+        "note": "日常：委托 / 科研 / 收获"
+      }
+    },
+    "2029-06-12": {
+      "green": {
+        "note": "人工：周末买粮 / 换队",
+        "manual_window": true
+      },
+      "_paintedTags": [
+        "daily_yellow_3leo"
+      ],
+      "_paintedTag": "daily_yellow_3leo"
+    },
+    "2029-06-13": {
+      "green": {
+        "note": "人工：周末买粮 / 换队",
+        "manual_window": true
+      },
+      "_paintedTags": [
+        "daily_yellow_3leo"
+      ],
+      "_paintedTag": "daily_yellow_3leo"
+    },
+    "2029-06-04": {
+      "green": {
+        "note": "人工：周末买粮 / 换队",
+        "manual_window": true
+      },
+      "_paintedTags": [
+        "daily_yellow_3leo",
+        "yellow"
+      ],
+      "_paintedTag": "yellow",
+      "yellow": {
+        "note": "日常：委托 / 科研 / 收获"
+      }
+    },
+    "2029-06-05": {
+      "green": {
+        "note": "人工：周末买粮 / 换队",
+        "manual_window": true
+      },
+      "_paintedTags": [
+        "daily_yellow_3leo"
+      ],
+      "_paintedTag": "daily_yellow_3leo"
+    },
+    "2029-06-06": {
+      "green": {
+        "note": "人工：周末买粮 / 换队",
+        "manual_window": true
+      },
+      "_paintedTags": [
+        "daily_yellow_3leo"
+      ],
+      "_paintedTag": "daily_yellow_3leo"
+    },
+    "2029-06-07": {
+      "green": {
+        "note": "人工：周末买粮 / 换队",
+        "manual_window": true
+      },
+      "_paintedTags": [
+        "daily_yellow_3leo"
+      ],
+      "_paintedTag": "daily_yellow_3leo"
+    },
+    "2029-06-08": {
+      "green": {
+        "note": "人工：周末买粮 / 换队",
+        "manual_window": true
+      },
+      "_paintedTags": [
+        "daily_yellow_3leo"
+      ],
+      "_paintedTag": "daily_yellow_3leo"
+    },
+    "2029-06-09": {
+      "green": {
+        "note": "人工：周末买粮 / 换队",
+        "manual_window": true
+      },
+      "_paintedTags": [
+        "daily_yellow_3leo"
+      ],
+      "_paintedTag": "daily_yellow_3leo"
+    },
+    "2029-06-10": {
+      "green": {
+        "note": "人工：周末买粮 / 换队",
+        "manual_window": true
+      },
+      "_paintedTags": [
+        "daily_yellow_3leo"
+      ],
+      "_paintedTag": "daily_yellow_3leo"
+    },
+    "2029-06-18": {
+      "yellow": {
+        "note": "日常：委托 / 科研 / 收获"
+      },
+      "_paintedTags": [
+        "yellow"
+      ],
+      "_paintedTag": "yellow"
+    },
+    "2029-06-19": {
+      "yellow": {
+        "note": "日常：委托 / 科研 / 收获"
+      },
+      "_paintedTags": [
+        "yellow"
+      ],
+      "_paintedTag": "yellow"
+    },
+    "2029-06-26": {
+      "yellow": {
+        "note": "日常：委托 / 科研 / 收获"
+      },
+      "_paintedTags": [
+        "yellow"
+      ],
+      "_paintedTag": "yellow"
+    },
+    "2029-06-25": {
+      "yellow": {
+        "note": "日常：委托 / 科研 / 收获"
+      },
+      "_paintedTags": [
+        "yellow"
+      ],
+      "_paintedTag": "yellow"
+    },
+    "2029-06-27": {
+      "yellow": {
+        "note": "日常：委托 / 科研 / 收获"
+      },
+      "_paintedTags": [
+        "yellow"
+      ],
+      "_paintedTag": "yellow"
+    },
+    "2029-06-28": {
+      "yellow": {
+        "note": "日常：委托 / 科研 / 收获"
+      },
+      "_paintedTags": [
+        "yellow"
+      ],
+      "_paintedTag": "yellow"
+    },
+    "2029-06-29": {
+      "yellow": {
+        "note": "日常：委托 / 科研 / 收获"
+      },
+      "_paintedTags": [
+        "yellow"
+      ],
+      "_paintedTag": "yellow"
+    },
+    "2029-06-30": {
+      "yellow": {
+        "note": "日常：委托 / 科研 / 收获"
+      },
+      "_paintedTags": [
+        "yellow"
+      ],
+      "_paintedTag": "yellow"
+    },
+    "2029-06-20": {
+      "yellow": {
+        "note": "日常：委托 / 科研 / 收获"
+      },
+      "_paintedTags": [
+        "yellow"
+      ],
+      "_paintedTag": "yellow"
+    },
+    "2029-06-21": {
+      "yellow": {
+        "note": "日常：委托 / 科研 / 收获"
+      },
+      "_paintedTags": [
+        "yellow"
+      ],
+      "_paintedTag": "yellow"
+    },
+    "2029-06-22": {
+      "yellow": {
+        "note": "日常：委托 / 科研 / 收获"
+      },
+      "_paintedTags": [
+        "yellow"
+      ],
+      "_paintedTag": "yellow"
+    },
+    "2029-06-23": {
+      "yellow": {
+        "note": "日常：委托 / 科研 / 收获"
+      },
+      "_paintedTags": [
+        "yellow"
+      ],
+      "_paintedTag": "yellow"
+    },
+    "2029-06-24": {
+      "yellow": {
+        "note": "日常：委托 / 科研 / 收获"
+      },
+      "_paintedTags": [
+        "yellow"
+      ],
+      "_paintedTag": "yellow"
+    },
+    "2029-06-17": {
+      "yellow": {
+        "note": "日常：委托 / 科研 / 收获"
+      },
+      "_paintedTags": [
+        "yellow"
+      ],
+      "_paintedTag": "yellow"
+    },
+    "2029-06-16": {
+      "yellow": {
+        "note": "日常：委托 / 科研 / 收获"
+      },
+      "_paintedTags": [
+        "yellow"
+      ],
+      "_paintedTag": "yellow"
+    },
+    "2029-06-15": {
+      "yellow": {
+        "note": "日常：委托 / 科研 / 收获"
+      },
+      "_paintedTags": [
+        "yellow"
+      ],
+      "_paintedTag": "yellow"
+    },
+    "2029-06-14": {
+      "yellow": {
+        "note": "日常：委托 / 科研 / 收获"
+      },
+      "_paintedTags": [
+        "yellow"
+      ],
+      "_paintedTag": "yellow"
+    },
+    "2029-06-03": {
+      "yellow": {
+        "note": "日常：委托 / 科研 / 收获"
+      },
+      "_paintedTags": [
+        "yellow"
+      ],
+      "_paintedTag": "yellow"
+    },
+    "2029-06-02": {
+      "yellow": {
+        "note": "日常：委托 / 科研 / 收获"
+      },
+      "_paintedTags": [
+        "yellow"
+      ],
+      "_paintedTag": "yellow"
+    },
+    "2029-06-01": {
+      "yellow": {
+        "note": "日常：委托 / 科研 / 收获"
+      },
+      "_paintedTags": [
+        "yellow"
+      ],
+      "_paintedTag": "yellow"
+    },
+    "2026-06-25": {
+      "yellow": {
+        "note": "日常：委托 / 科研 / 收获"
+      },
+      "_paintedTags": [
+        "yellow"
+      ],
+      "_paintedTag": "yellow"
+    },
+    "2026-06-26": {
+      "yellow": {
+        "note": "日常：委托 / 科研 / 收获"
+      },
+      "_paintedTags": [
+        "yellow",
+        "evt_20260627"
+      ],
+      "_paintedTag": "evt_20260627",
+      "blue": {
+        "mode": "event",
+        "scheduler_enable": {
+          "Event": true,
+          "Event2": true,
+          "EventA": false,
+          "EventB": false,
+          "EventC": false,
+          "EventD": false,
+          "EventSp": false,
+          "Raid": false,
+          "RaidDaily": false,
+          "Main": false,
+          "Main2": false,
+          "Main3": false,
+          "ProalasAutoEventShop": true
+        },
+        "event_format": "T-HT",
+        "gacha": {
+          "up_ships": [
+            "阿罗芒什",
+            "瑟堡"
+          ],
+          "stop_if_owned": true
+        }
+      }
+    },
+    "2026-06-27": {
+      "yellow": {
+        "note": "日常：委托 / 科研 / 收获"
+      },
+      "_paintedTags": [
+        "yellow",
+        "evt_20260627"
+      ],
+      "_paintedTag": "evt_20260627",
+      "blue": {
+        "mode": "event",
+        "scheduler_enable": {
+          "Event": true,
+          "Event2": true,
+          "EventA": false,
+          "EventB": false,
+          "EventC": false,
+          "EventD": false,
+          "EventSp": false,
+          "Raid": false,
+          "RaidDaily": false,
+          "Main": false,
+          "Main2": false,
+          "Main3": false,
+          "ProalasAutoEventShop": true
+        },
+        "event_format": "T-HT",
+        "gacha": {
+          "up_ships": [
+            "阿罗芒什",
+            "瑟堡"
+          ],
+          "stop_if_owned": true
+        }
+      }
+    },
+    "2026-06-28": {
+      "yellow": {
+        "note": "日常：委托 / 科研 / 收获"
+      },
+      "_paintedTags": [
+        "yellow",
+        "evt_20260627"
+      ],
+      "_paintedTag": "evt_20260627",
+      "blue": {
+        "mode": "event",
+        "scheduler_enable": {
+          "Event": true,
+          "Event2": true,
+          "EventA": false,
+          "EventB": false,
+          "EventC": false,
+          "EventD": false,
+          "EventSp": false,
+          "Raid": false,
+          "RaidDaily": false,
+          "Main": false,
+          "Main2": false,
+          "Main3": false,
+          "ProalasAutoEventShop": true
+        },
+        "event_format": "T-HT",
+        "gacha": {
+          "up_ships": [
+            "阿罗芒什",
+            "瑟堡"
+          ],
+          "stop_if_owned": true
+        }
+      }
+    },
+    "2026-06-29": {
+      "yellow": {
+        "note": "日常：委托 / 科研 / 收获"
+      },
+      "_paintedTags": [
+        "yellow",
+        "evt_20260627"
+      ],
+      "_paintedTag": "evt_20260627",
+      "blue": {
+        "mode": "event",
+        "scheduler_enable": {
+          "Event": true,
+          "Event2": true,
+          "EventA": false,
+          "EventB": false,
+          "EventC": false,
+          "EventD": false,
+          "EventSp": false,
+          "Raid": false,
+          "RaidDaily": false,
+          "Main": false,
+          "Main2": false,
+          "Main3": false,
+          "ProalasAutoEventShop": true
+        },
+        "event_format": "T-HT",
+        "gacha": {
+          "up_ships": [
+            "阿罗芒什",
+            "瑟堡"
+          ],
+          "stop_if_owned": true
+        }
+      }
+    },
+    "2026-06-30": {
+      "yellow": {
+        "note": "日常：委托 / 科研 / 收获"
+      },
+      "_paintedTags": [
+        "yellow",
+        "evt_20260627"
+      ],
+      "_paintedTag": "evt_20260627",
+      "blue": {
+        "mode": "event",
+        "scheduler_enable": {
+          "Event": true,
+          "Event2": true,
+          "EventA": false,
+          "EventB": false,
+          "EventC": false,
+          "EventD": false,
+          "EventSp": false,
+          "Raid": false,
+          "RaidDaily": false,
+          "Main": false,
+          "Main2": false,
+          "Main3": false,
+          "ProalasAutoEventShop": true
+        },
+        "event_format": "T-HT",
+        "gacha": {
+          "up_ships": [
+            "阿罗芒什",
+            "瑟堡"
+          ],
+          "stop_if_owned": true
+        }
+      }
+    },
+    "2026-07-01": {
+      "yellow": {
+        "note": "日常：委托 / 科研 / 收获"
+      },
+      "_paintedTags": [
+        "yellow",
+        "evt_20260627"
+      ],
+      "_paintedTag": "evt_20260627",
+      "blue": {
+        "mode": "event",
+        "scheduler_enable": {
+          "Event": true,
+          "Event2": true,
+          "EventA": false,
+          "EventB": false,
+          "EventC": false,
+          "EventD": false,
+          "EventSp": false,
+          "Raid": false,
+          "RaidDaily": false,
+          "Main": false,
+          "Main2": false,
+          "Main3": false,
+          "ProalasAutoEventShop": true
+        },
+        "event_format": "T-HT",
+        "gacha": {
+          "up_ships": [
+            "阿罗芒什",
+            "瑟堡"
+          ],
+          "stop_if_owned": true
+        }
+      }
+    },
+    "2026-07-08": {
+      "yellow": {
+        "note": "日常：委托 / 科研 / 收获"
+      },
+      "_paintedTags": [
+        "yellow",
+        "evt_20260627"
+      ],
+      "_paintedTag": "evt_20260627",
+      "blue": {
+        "mode": "event",
+        "scheduler_enable": {
+          "Event": true,
+          "Event2": true,
+          "EventA": false,
+          "EventB": false,
+          "EventC": false,
+          "EventD": false,
+          "EventSp": false,
+          "Raid": false,
+          "RaidDaily": false,
+          "Main": false,
+          "Main2": false,
+          "Main3": false,
+          "ProalasAutoEventShop": true
+        },
+        "event_format": "T-HT",
+        "gacha": {
+          "up_ships": [
+            "阿罗芒什",
+            "瑟堡"
+          ],
+          "stop_if_owned": true
+        }
+      }
+    },
+    "2026-07-15": {
+      "yellow": {
+        "note": "日常：委托 / 科研 / 收获"
+      },
+      "_paintedTags": [
+        "yellow"
+      ],
+      "_paintedTag": "yellow"
+    },
+    "2026-07-22": {
+      "yellow": {
+        "note": "日常：委托 / 科研 / 收获"
+      },
+      "_paintedTags": [
+        "yellow"
+      ],
+      "_paintedTag": "yellow"
+    },
+    "2026-07-29": {
+      "yellow": {
+        "note": "日常：委托 / 科研 / 收获"
+      },
+      "_paintedTags": [
+        "yellow"
+      ],
+      "_paintedTag": "yellow"
+    },
+    "2026-07-02": {
+      "yellow": {
+        "note": "日常：委托 / 科研 / 收获"
+      },
+      "_paintedTags": [
+        "yellow",
+        "evt_20260627"
+      ],
+      "_paintedTag": "evt_20260627",
+      "blue": {
+        "mode": "event",
+        "scheduler_enable": {
+          "Event": true,
+          "Event2": true,
+          "EventA": false,
+          "EventB": false,
+          "EventC": false,
+          "EventD": false,
+          "EventSp": false,
+          "Raid": false,
+          "RaidDaily": false,
+          "Main": false,
+          "Main2": false,
+          "Main3": false,
+          "ProalasAutoEventShop": true
+        },
+        "event_format": "T-HT",
+        "gacha": {
+          "up_ships": [
+            "阿罗芒什",
+            "瑟堡"
+          ],
+          "stop_if_owned": true
+        }
+      }
+    },
+    "2026-07-03": {
+      "yellow": {
+        "note": "日常：委托 / 科研 / 收获"
+      },
+      "_paintedTags": [
+        "yellow",
+        "evt_20260627"
+      ],
+      "_paintedTag": "evt_20260627",
+      "blue": {
+        "mode": "event",
+        "scheduler_enable": {
+          "Event": true,
+          "Event2": true,
+          "EventA": false,
+          "EventB": false,
+          "EventC": false,
+          "EventD": false,
+          "EventSp": false,
+          "Raid": false,
+          "RaidDaily": false,
+          "Main": false,
+          "Main2": false,
+          "Main3": false,
+          "ProalasAutoEventShop": true
+        },
+        "event_format": "T-HT",
+        "gacha": {
+          "up_ships": [
+            "阿罗芒什",
+            "瑟堡"
+          ],
+          "stop_if_owned": true
+        }
+      }
+    },
+    "2026-07-04": {
+      "yellow": {
+        "note": "日常：委托 / 科研 / 收获"
+      },
+      "_paintedTags": [
+        "yellow",
+        "evt_20260627"
+      ],
+      "_paintedTag": "evt_20260627",
+      "blue": {
+        "mode": "event",
+        "scheduler_enable": {
+          "Event": true,
+          "Event2": true,
+          "EventA": false,
+          "EventB": false,
+          "EventC": false,
+          "EventD": false,
+          "EventSp": false,
+          "Raid": false,
+          "RaidDaily": false,
+          "Main": false,
+          "Main2": false,
+          "Main3": false,
+          "ProalasAutoEventShop": true
+        },
+        "event_format": "T-HT",
+        "gacha": {
+          "up_ships": [
+            "阿罗芒什",
+            "瑟堡"
+          ],
+          "stop_if_owned": true
+        }
+      }
+    },
+    "2026-07-05": {
+      "yellow": {
+        "note": "日常：委托 / 科研 / 收获"
+      },
+      "_paintedTags": [
+        "yellow",
+        "evt_20260627",
+        "daily_yellow_3leo"
+      ],
+      "_paintedTag": "daily_yellow_3leo",
+      "blue": {
+        "mode": "event",
+        "scheduler_enable": {
+          "Event": true,
+          "Event2": true,
+          "EventA": false,
+          "EventB": false,
+          "EventC": false,
+          "EventD": false,
+          "EventSp": false,
+          "Raid": false,
+          "RaidDaily": false,
+          "Main": false,
+          "Main2": false,
+          "Main3": false,
+          "ProalasAutoEventShop": true
+        },
+        "event_format": "T-HT",
+        "gacha": {
+          "up_ships": [
+            "阿罗芒什",
+            "瑟堡"
+          ],
+          "stop_if_owned": true
+        }
+      },
+      "green": {
+        "note": "人工：周末买粮 / 换队",
+        "manual_window": true
+      }
+    },
+    "2026-07-12": {
+      "yellow": {
+        "note": "日常：委托 / 科研 / 收获"
+      },
+      "_paintedTags": [
+        "yellow",
+        "daily_yellow_3leo"
+      ],
+      "_paintedTag": "daily_yellow_3leo",
+      "green": {
+        "note": "人工：周末买粮 / 换队",
+        "manual_window": true
+      }
+    },
+    "2026-07-19": {
+      "yellow": {
+        "note": "日常：委托 / 科研 / 收获"
+      },
+      "_paintedTags": [
+        "yellow",
+        "daily_yellow_3leo"
+      ],
+      "_paintedTag": "daily_yellow_3leo",
+      "green": {
+        "note": "人工：周末买粮 / 换队",
+        "manual_window": true
+      }
+    },
+    "2026-07-26": {
+      "yellow": {
+        "note": "日常：委托 / 科研 / 收获"
+      },
+      "_paintedTags": [
+        "yellow",
+        "daily_yellow_3leo"
+      ],
+      "_paintedTag": "daily_yellow_3leo",
+      "green": {
+        "note": "人工：周末买粮 / 换队",
+        "manual_window": true
+      }
+    },
+    "2026-07-11": {
+      "yellow": {
+        "note": "日常：委托 / 科研 / 收获"
+      },
+      "_paintedTags": [
+        "yellow"
+      ],
+      "_paintedTag": "yellow"
+    },
+    "2026-07-18": {
+      "yellow": {
+        "note": "日常：委托 / 科研 / 收获"
+      },
+      "_paintedTags": [
+        "yellow"
+      ],
+      "_paintedTag": "yellow"
+    },
+    "2026-07-25": {
+      "yellow": {
+        "note": "日常：委托 / 科研 / 收获"
+      },
+      "_paintedTags": [
+        "yellow"
+      ],
+      "_paintedTag": "yellow"
+    },
+    "2026-07-10": {
+      "yellow": {
+        "note": "日常：委托 / 科研 / 收获"
+      },
+      "_paintedTags": [
+        "yellow"
+      ],
+      "_paintedTag": "yellow"
+    },
+    "2026-07-17": {
+      "yellow": {
+        "note": "日常：委托 / 科研 / 收获"
+      },
+      "_paintedTags": [
+        "yellow"
+      ],
+      "_paintedTag": "yellow"
+    },
+    "2026-07-24": {
+      "yellow": {
+        "note": "日常：委托 / 科研 / 收获"
+      },
+      "_paintedTags": [
+        "yellow"
+      ],
+      "_paintedTag": "yellow"
+    },
+    "2026-07-31": {
+      "yellow": {
+        "note": "日常：委托 / 科研 / 收获"
+      },
+      "_paintedTags": [
+        "yellow"
+      ],
+      "_paintedTag": "yellow"
+    },
+    "2026-07-16": {
+      "yellow": {
+        "note": "日常：委托 / 科研 / 收获"
+      },
+      "_paintedTags": [
+        "yellow"
+      ],
+      "_paintedTag": "yellow"
+    },
+    "2026-07-23": {
+      "yellow": {
+        "note": "日常：委托 / 科研 / 收获"
+      },
+      "_paintedTags": [
+        "yellow"
+      ],
+      "_paintedTag": "yellow"
+    },
+    "2026-07-30": {
+      "yellow": {
+        "note": "日常：委托 / 科研 / 收获"
+      },
+      "_paintedTags": [
+        "yellow"
+      ],
+      "_paintedTag": "yellow"
+    },
+    "2026-07-07": {
+      "yellow": {
+        "note": "日常：委托 / 科研 / 收获"
+      },
+      "_paintedTags": [
+        "yellow",
+        "evt_20260627"
+      ],
+      "_paintedTag": "evt_20260627",
+      "blue": {
+        "mode": "event",
+        "scheduler_enable": {
+          "Event": true,
+          "Event2": true,
+          "EventA": false,
+          "EventB": false,
+          "EventC": false,
+          "EventD": false,
+          "EventSp": false,
+          "Raid": false,
+          "RaidDaily": false,
+          "Main": false,
+          "Main2": false,
+          "Main3": false,
+          "ProalasAutoEventShop": true
+        },
+        "event_format": "T-HT",
+        "gacha": {
+          "up_ships": [
+            "阿罗芒什",
+            "瑟堡"
+          ],
+          "stop_if_owned": true
+        }
+      }
+    },
+    "2026-07-14": {
+      "yellow": {
+        "note": "日常：委托 / 科研 / 收获"
+      },
+      "_paintedTags": [
+        "yellow"
+      ],
+      "_paintedTag": "yellow"
+    },
+    "2026-07-21": {
+      "yellow": {
+        "note": "日常：委托 / 科研 / 收获"
+      },
+      "_paintedTags": [
+        "yellow"
+      ],
+      "_paintedTag": "yellow"
+    },
+    "2026-07-28": {
+      "yellow": {
+        "note": "日常：委托 / 科研 / 收获"
+      },
+      "_paintedTags": [
+        "yellow"
+      ],
+      "_paintedTag": "yellow"
+    },
+    "2026-07-06": {
+      "yellow": {
+        "note": "日常：委托 / 科研 / 收获"
+      },
+      "_paintedTags": [
+        "yellow",
+        "evt_20260627"
+      ],
+      "_paintedTag": "evt_20260627",
+      "blue": {
+        "mode": "event",
+        "scheduler_enable": {
+          "Event": true,
+          "Event2": true,
+          "EventA": false,
+          "EventB": false,
+          "EventC": false,
+          "EventD": false,
+          "EventSp": false,
+          "Raid": false,
+          "RaidDaily": false,
+          "Main": false,
+          "Main2": false,
+          "Main3": false,
+          "ProalasAutoEventShop": true
+        },
+        "event_format": "T-HT",
+        "gacha": {
+          "up_ships": [
+            "阿罗芒什",
+            "瑟堡"
+          ],
+          "stop_if_owned": true
+        }
+      }
+    },
+    "2026-07-13": {
+      "yellow": {
+        "note": "日常：委托 / 科研 / 收获"
+      },
+      "_paintedTags": [
+        "yellow"
+      ],
+      "_paintedTag": "yellow"
+    },
+    "2026-07-20": {
+      "yellow": {
+        "note": "日常：委托 / 科研 / 收获"
+      },
+      "_paintedTags": [
+        "yellow"
+      ],
+      "_paintedTag": "yellow"
+    },
+    "2026-07-27": {
+      "yellow": {
+        "note": "日常：委托 / 科研 / 收获"
+      },
+      "_paintedTags": [
+        "yellow"
+      ],
+      "_paintedTag": "yellow"
+    },
+    "2026-07-09": {
+      "yellow": {
+        "note": "日常：委托 / 科研 / 收获"
+      },
+      "_paintedTags": [
+        "yellow"
+      ],
+      "_paintedTag": "yellow"
+    }
+  },
+  "updatedAt": "2026-07-09T10:09:02"
+}

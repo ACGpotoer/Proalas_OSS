@@ -16,6 +16,18 @@ from module.exception import RequestHumanTakeover, ScriptError
 from module.logger import logger
 from module.map.map_grids import SelectedGrids
 
+# ProAlas 等任务可配置 >24h 的 Scheduler.NextRun，不受 override 全局 24h 截断
+_SCHEDULER_NEXT_RUN_EXEMPT = frozenset({
+    'ProalasAutoBreak',
+})
+
+
+def _scheduler_next_run_exempt(task: str) -> bool:
+    """1440min 间隔会略超 limit_next_run 的 24h-1s 上限，ProAlas 任务一律豁免。"""
+    if task in _SCHEDULER_NEXT_RUN_EXEMPT:
+        return True
+    return str(task or '').startswith('Proalas')
+
 
 class TaskEnd(Exception):
     pass
@@ -288,6 +300,8 @@ class AzurLaneConfig(ConfigUpdater, ManualConfig, GeneratedConfig, ConfigWatcher
             for task in tasks:
                 if task in limited:
                     continue
+                if _scheduler_next_run_exempt(task):
+                    continue
                 limited.add(task)
                 next_run = deep_get(
                     self.data, keys=f"{task}.Scheduler.NextRun", default=None
@@ -434,7 +448,13 @@ class AzurLaneConfig(ConfigUpdater, ManualConfig, GeneratedConfig, ConfigWatcher
                 task = self.task.command
             logger.info(f"Delay task `{task}` to {run} ({kv})")
             self.modified[f'{task}.Scheduler.NextRun'] = run
-            self.update()
+            # 显式 minute/target 可能 >24h；直接写入并 save，避免 load()->override 截断
+            if minute is not None or target is not None:
+                deep_set(self.data, keys=f'{task}.Scheduler.NextRun', value=run)
+                self.bind(self.task)
+                self.save()
+            else:
+                self.update()
         else:
             raise ScriptError(
                 "Missing argument in delay_next_run, should set at least one"

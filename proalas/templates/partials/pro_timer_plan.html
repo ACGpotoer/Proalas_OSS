@@ -1,0 +1,40 @@
+<article class="pro-dash-card pro-timer-card" aria-label="定时计划">
+  <header class="pro-card-header">
+    <h3 class="pro-dash-title">定时计划</h3>
+    <span class="pro-card-badge muted">只读</span>
+  </header>
+  <div class="pro-timer-meta">
+    <div class="pro-timer-stat">
+      <span class="pro-acc-label">启用任务数</span>
+      <span class="pro-acc-value">{{ summary.enabled_count }}</span>
+    </div>
+    <div class="pro-timer-stat">
+      <span class="pro-acc-label">需保持运行</span>
+      <span class="pro-acc-value">{% if summary.has_timetable %}{% if summary.need_running %}是{% else %}否{% endif %}{% else %}—{% endif %}</span>
+    </div>
+    {% if summary.earliest_command %}
+    <div class="pro-timer-stat">
+      <span class="pro-acc-label">最早任务</span>
+      <span class="pro-acc-value">{{ summary.earliest_command }} @ {{ summary.earliest_next_run }}</span>
+    </div>
+    {% endif %}
+  </div>
+  {% if summary.extra_exclude %}
+  <p class="pro-timer-exclude muted">ExtraExclude：{{ summary.extra_exclude | join(', ') }}</p>
+  {% endif %}
+  {% if summary.pending_commands %}
+  <p class="pro-timer-pending muted">待运行：{{ summary.pending_commands | join(', ') }}</p>
+  {% endif %}
+  {% if summary.waiting %}
+  <ul class="pro-timer-list">
+    {% for w in summary.waiting %}
+    <li><span class="pro-sched-cmd">{{ w.command }}</span> <span class="pro-sched-time">{{ w.next_run }}</span></li>
+    {% endfor %}
+  </ul>
+  {% endif %}
+  {% if summary.timetable_updated %}
+  <p class="pro-acc-foot muted">TimeTable 快照 {{ summary.timetable_updated }}</p>
+  {% elif not summary.has_timetable %}
+  <p class="pro-acc-foot muted">未配置 TIMETABLE_PATH；仅显示 config 内 NextRun</p>
+  {% endif %}
+</article>

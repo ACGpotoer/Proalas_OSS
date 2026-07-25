@@ -1,4 +1,4 @@
-import os
+﻿import os
 import re
 import threading
 import time
@@ -228,6 +228,110 @@ class AzurLaneAutoScript:
     def gacha(self):
         from module.gacha.gacha_reward import RewardGacha
         RewardGacha(config=self.config, device=self.device).run()
+
+    def proalas_collector(self):
+        from module.proalas_collector.collector import ProalasCollector
+        ProalasCollector(config=self.config, device=self.device).run()
+
+    def proalas_boat_message(self):
+        from module.proalas.boat_rate import ProalasBoatMessage
+        ProalasBoatMessage(config=self.config, device=self.device).run()
+
+    def proalas_resource_stats(self):
+        from module.proalas.resource_stats import ProalasResourceStats
+        ProalasResourceStats(config=self.config, device=self.device).run()
+
+    def proalas_smart_dispatch(self):
+        from module.proalas.smart_dispatch import ProalasSmartDispatch
+        ProalasSmartDispatch(config=self.config, device=self.device).run()
+
+    def proalas_auto_fleet_change(self):
+        from module.proalas.auto_fleet_change import ProalasAutoFleetChange
+        ProalasAutoFleetChange(config=self.config, device=self.device).run()
+
+    def proalas_fleet_strength(self):
+        from module.proalas.fleet_strength import ProalasFleetStrength
+        ProalasFleetStrength(config=self.config, device=self.device).run()
+
+    def proalas_auto_break(self):
+        from module.proalas.auto_break import ProalasAutoBreak
+        ProalasAutoBreak(config=self.config, device=self.device).run()
+
+    def proalas_opsi_schedule(self):
+        from module.proalas.opsi_schedule import ProalasOpsiSchedule
+        ProalasOpsiSchedule(config=self.config, device=self.device).run()
+
+    def proalas_auto_equip(self):
+        from module.proalas.auto_equip import ProalasAutoEquip
+        ProalasAutoEquip(config=self.config, device=self.device).run()
+
+    def proalas_auto_event_shop(self):
+        from module.proalas.auto_event_shop import ProalasAutoEventShop
+        ProalasAutoEventShop(config=self.config, device=self.device).run()
+
+    def proalas_auto_exp_book(self):
+        from module.proalas.auto_exp_book import ProalasAutoExpBook
+        ProalasAutoExpBook(config=self.config, device=self.device).run()
+
+    def proalas_get_exp_use_exp(self):
+        from module.proalas.get_exp_use_exp import ProalasGetExpUseExp
+        ProalasGetExpUseExp(config=self.config, device=self.device).run()
+
+    def proalas_timer_plan(self):
+        from module.proalas.timer_plan import ProalasTimerPlan
+        ProalasTimerPlan(config=self.config, device=self.device).run()
+
+    def proalas_plan_calendar(self):
+        from module.proalas.plan_calendar import ProalasPlanCalendar
+        ProalasPlanCalendar(config=self.config, device=self.device).run()
+
+    def proalas_activity_sync(self):
+        from module.proalas.activity_sync import ProalasActivitySync
+        ProalasActivitySync(config=self.config, device=self.device).run()
+
+    def proalas_gacha_check(self):
+        from module.proalas.gacha_up_check import ProalasGachaCheck
+        ProalasGachaCheck(config=self.config, device=self.device).run()
+
+    def proalas_collection_fill(self):
+        """自动补齐图鉴独立入口（日常由定时计划编排）。
+
+        - 科研：到期才扫开发船坞（默认每周）
+        - 建造：活动日 + 子开关 + AutoGachaEnable 才自动建
+        """
+        from module.proalas.auto_gacha import ProalasAutoGacha
+        from module.proalas.event_campaign_orchestrator import is_event_day_blue
+        from module.proalas.plan_quadrant_view import get_blue_payload
+        from module.proalas.research_scan_schedule import maybe_run_research_scan_if_due
+        from datetime import datetime
+
+        maybe_run_research_scan_if_due(self.config, self.device)
+
+        today = datetime.now().strftime('%Y-%m-%d')
+        device_id = str(getattr(self.config, 'config_name', '') or 'alas')
+        blue = get_blue_payload(device_id, today)
+        event_day = is_event_day_blue(blue)
+        ProalasAutoGacha(config=self.config, device=self.device).run(event_day=event_day)
+
+    def proalas_event_format_fix(self):
+        from module.proalas.event_format_fix import ProalasEventFormatFix
+        ProalasEventFormatFix(config=self.config, device=self.device).run()
+
+    def proalas_special_event(self):
+        from module.proalas.special_event import ProalasSpecialEvent
+        ProalasSpecialEvent(config=self.config, device=self.device).run()
+
+    def proalas_ai_planner(self):
+        from module.proalas.ai_planner.run import ProalasAiPlanner
+        ProalasAiPlanner(config=self.config, device=self.device).run()
+
+    def proalas_account(self):
+        from module.proalas.account import ProalasAccount
+        ProalasAccount(config=self.config, device=self.device).run()
+
+    def proalas_screen_monitor(self):
+        from module.proalas.screen_monitor import ProalasScreenMonitor
+        ProalasScreenMonitor(config=self.config, device=self.device).run()
 
     def freebies(self):
         from module.freebies.freebies import Freebies

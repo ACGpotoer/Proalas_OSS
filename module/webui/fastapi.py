@@ -3,6 +3,7 @@ Copy from pywebio.platform.fastapi
 """
 import asyncio
 import os
+from pathlib import Path
 
 import uvicorn
 from pywebio.platform.fastapi import (STATIC_PATH, Session, cdn_validation,
@@ -28,6 +29,7 @@ def asgi_app(
     applications,
     cdn=True,
     static_dir=None,
+    img_dir=None,
     debug=False,
     allowed_origins=None,
     check_origin=None,
@@ -37,16 +39,48 @@ def asgi_app(
     cdn = cdn_validation(cdn, "warn")
     if cdn is False:
         cdn = "pywebio_static"
-    routes = webio_routes(
-        applications,
-        cdn=cdn,
-        allowed_origins=allowed_origins,
-        check_origin=check_origin,
-    )
+    routes = []
+    if img_dir:
+        img_dir = str(Path(img_dir).resolve())
+        os.makedirs(img_dir, exist_ok=True)
+        try:
+            from module.logger import logger
+
+            logger.info('ProAlas screenshot URL mount: /img -> %s', img_dir)
+        except Exception:
+            pass
+        routes.append(
+            Mount("/img", app=StaticFiles(directory=img_dir), name="proalas_img")
+        )
     if static_dir:
         routes.append(
             Mount("/static", app=StaticFiles(directory=static_dir), name="static")
         )
+    try:
+        from module.proalas.instance_api import build_instance_routes
+
+        routes.extend(build_instance_routes())
+        try:
+            from module.logger import logger as _logger
+
+            _logger.info('mmc instance_api routes mounted')
+        except Exception:
+            pass
+    except Exception as e:
+        try:
+            from module.logger import logger as _logger
+
+            _logger.warning('mmc instance_api routes not loaded: %s', e)
+        except Exception:
+            pass
+    routes.extend(
+        webio_routes(
+            applications,
+            cdn=cdn,
+            allowed_origins=allowed_origins,
+            check_origin=check_origin,
+        )
+    )
     routes.append(
         Mount(
             "/pywebio_static",
@@ -66,6 +100,7 @@ def start_server(
     host="",
     cdn=True,
     static_dir=None,
+    img_dir=None,
     remote_access=False,
     debug=False,
     allowed_origins=None,
@@ -78,6 +113,7 @@ def start_server(
         applications,
         cdn=cdn,
         static_dir=static_dir,
+        img_dir=img_dir,
         debug=debug,
         allowed_origins=allowed_origins,
         check_origin=check_origin,

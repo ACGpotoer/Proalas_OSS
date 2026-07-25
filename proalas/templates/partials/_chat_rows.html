@@ -1,0 +1,10 @@
+{% macro chat_rows(messages) %}
+{% for m in messages %}
+<div class="chat-row chat-row--{{ m.role }}">
+  <div class="chat-bubble chat-bubble--{{ m.role }}">
+    <span class="bubble-role">{{ '你' if m.role == 'user' else '助手' }}</span>
+    <span class="bubble-text">{{ m.content }}</span>
+  </div>
+</div>
+{% endfor %}
+{% endmacro %}

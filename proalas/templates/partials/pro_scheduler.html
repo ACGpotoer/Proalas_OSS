@@ -1,0 +1,30 @@
+<article class="pro-dash-card pro-sched-card" aria-label="ProAlas 任务调度">
+  <header class="pro-card-header">
+    <h3 class="pro-dash-title">Scheduler 简表</h3>
+    <span class="pro-card-badge muted">只读</span>
+  </header>
+  <div class="pro-sched-wrap">
+    <table class="pro-sched-table">
+      <thead>
+        <tr>
+          <th>任务</th>
+          <th>启用</th>
+          <th>NextRun</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for r in rows %}
+        <tr class="{% if r.enable %}pro-sched-on{% else %}pro-sched-off{% endif %}">
+          <td>
+            <span class="pro-sched-name">{{ r.label }}</span>
+            <span class="pro-sched-cmd muted">{{ r.command }}</span>
+          </td>
+          <td>{% if r.enable %}是{% else %}否{% endif %}</td>
+          <td class="pro-sched-time">{{ r.next_run or '—' }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  <p class="pro-acc-foot muted">config/{{ device_id }}.json · Proalas* Scheduler</p>
+</article>

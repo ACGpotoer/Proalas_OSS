@@ -1,0 +1,17 @@
+<article class="pro-dash-card pro-acc-card" aria-label="账户">
+  <header class="pro-card-header">
+    <h3 class="pro-dash-title">设备</h3>
+    <span class="pro-card-badge">{{ device_id }}</span>
+  </header>
+  <div class="pro-acc-grid">
+    <div class="pro-acc-field">
+      <span class="pro-acc-label">配置</span>
+      <span class="pro-acc-value">config/{{ device_id }}.json</span>
+    </div>
+    <div class="pro-acc-field">
+      <span class="pro-acc-label">AI 规划策略</span>
+      <span class="pro-acc-value">{% if planner_enabled %}{{ strategy }}{% if auto_apply %} · 自动应用{% endif %}{% else %}Scheduler 未启用{% endif %}</span>
+    </div>
+  </div>
+  <p class="pro-acc-foot pro-card-hint">开源本地版；完整任务配置请用侧栏「Alas 原版」→ ProAlas 分组</p>
+</article>

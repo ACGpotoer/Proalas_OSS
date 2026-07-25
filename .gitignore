@@ -255,3 +255,12 @@ console.bat
 
 # Pylance configuration file
 pyrightconfig.json
+# ProAlas OSS local / backup
+.merge-backup-*/
+dap_data/
+img/
+mumucontrol/runtime/
+
+# local calendars / bak
+config/alas_research_incomplete.txt
+config/proalas/*.bak.*

@@ -1,0 +1,97 @@
+{% macro fmt_num(v) -%}
+  {%- if v is none or v == '' -%}—{%- else -%}{{ v }}{%- endif -%}
+{%- endmacro %}
+
+<article id="pro-fleet-panel" class="pro-dash-card pro-dash-card--fleet" aria-label="实力预览">
+  <header class="pro-card-header">
+    <h3 class="pro-dash-title">实力预览</h3>
+    {% if fleet.updatedAt %}
+    <span class="pro-card-badge pro-card-badge--muted">{{ fleet.updatedAt[:16] }}</span>
+    {% else %}
+    <span class="pro-card-badge pro-card-badge--muted">待采集</span>
+    {% endif %}
+  </header>
+
+  <p class="pro-dash-hint muted fleet-hint">点击队伍编号查看该队 6 艘舰详情（后排 1–3 / 前排 4–6）。</p>
+
+  <div class="fleet-team-tabs" role="tablist" aria-label="选择舰队">
+    {% for team in fleet.teams %}
+    <button
+      type="button"
+      class="fleet-team-tab{% if loop.first %} is-active{% endif %}"
+      role="tab"
+      aria-selected="{{ 'true' if loop.first else 'false' }}"
+      aria-controls="fleet-panel-{{ team.team }}"
+      data-team="{{ team.team }}"
+    >第{{ team.team }}队</button>
+    {% endfor %}
+  </div>
+
+  {% for team in fleet.teams %}
+  <div
+    id="fleet-panel-{{ team.team }}"
+    class="fleet-team-panel{% if loop.first %} is-active{% endif %}"
+    role="tabpanel"
+    data-team-panel="{{ team.team }}"
+    {% if not loop.first %}hidden{% endif %}
+  >
+    <div class="fleet-team-meta">
+      <span class="fleet-meta-chip">后排 <strong class="pro-num">{{ team.backPower }}</strong></span>
+      <span class="fleet-meta-chip">前排 <strong class="pro-num">{{ team.frontPower }}</strong></span>
+      <span class="fleet-meta-chip fleet-meta-chip--sum">合计 <strong class="pro-num">{{ team.backPower + team.frontPower }}</strong></span>
+    </div>
+
+    <p class="fleet-section-label">后排（槽 1–3）</p>
+    <div class="fleet-ship-table-wrap">
+      <table class="fleet-ship-table">
+        <thead>
+          <tr>
+            <th>槽</th>
+            <th>舰名</th>
+            <th>耐久</th>
+            <th>消耗</th>
+            <th>综合性能</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for ship in team.ships if ship.slot <= 3 %}
+          <tr class="{% if ship.empty %}fleet-ship-row--empty{% endif %}">
+            <td class="fleet-td-slot">#{{ ship.slot }}</td>
+            <td class="fleet-td-name" title="{{ ship.name or '' }}">{{ ship.name or '（空）' }}</td>
+            <td>{{ fmt_num(ship.endurance) }}</td>
+            <td>{{ fmt_num(ship.consumption) }}</td>
+            <td class="pro-num">{{ fmt_num(ship.power) }}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+
+    <p class="fleet-section-label">前排（槽 4–6）</p>
+    <div class="fleet-ship-table-wrap">
+      <table class="fleet-ship-table">
+        <thead>
+          <tr>
+            <th>槽</th>
+            <th>舰名</th>
+            <th>耐久</th>
+            <th>消耗</th>
+            <th>综合性能</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for ship in team.ships if ship.slot >= 4 %}
+          <tr class="{% if ship.empty %}fleet-ship-row--empty{% endif %}">
+            <td class="fleet-td-slot">#{{ ship.slot }}</td>
+            <td class="fleet-td-name" title="{{ ship.name or '' }}">{{ ship.name or '（空）' }}</td>
+            <td>{{ fmt_num(ship.endurance) }}</td>
+            <td>{{ fmt_num(ship.consumption) }}</td>
+            <td class="pro-num">{{ fmt_num(ship.power) }}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+  {% endfor %}
+</article>

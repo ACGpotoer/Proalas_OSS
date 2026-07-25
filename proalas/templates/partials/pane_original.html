@@ -1,0 +1,26 @@
+<div class="original-pane">
+  <iframe
+    class="alas-iframe"
+    id="alas-iframe"
+    title="Alas · {{ device_id }}"
+    src="/alas/"
+    data-device-id="{{ device_id }}"
+  ></iframe>
+</div>
+<script>
+(function () {
+  var iframe = document.getElementById("alas-iframe");
+  if (!iframe) return;
+  function focusConfig() {
+    try {
+      iframe.contentWindow.postMessage({ type: "dap:focus-config" }, "*");
+    } catch (e) {}
+  }
+  iframe.addEventListener("load", function () {
+    focusConfig();
+    setTimeout(focusConfig, 200);
+    setTimeout(focusConfig, 800);
+  });
+  window.__dapFocusAlasConfig = focusConfig;
+})();
+</script>

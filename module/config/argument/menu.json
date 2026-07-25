@@ -107,5 +107,29 @@
       "AzurLaneUncensored",
       "GameManager"
     ]
+  },
+  "Proalas": {
+    "menu": "collapse",
+    "page": "setting",
+    "tasks": [
+      "ProalasAutoBreak",
+      "ProalasAutoEquip",
+      "ProalasAutoEventShop",
+      "ProalasAutoExpBook",
+      "ProalasAutoFleetChange",
+      "ProalasCollector",
+      "ProalasFleetStrength",
+      "ProalasResourceStats",
+      "ProalasSmartDispatch",
+      "ProalasScreenMonitor",
+      "ProalasTimerPlan",
+      "ProalasPlanCalendar",
+      "ProalasOpsiSchedule",
+      "ProalasCollectionFill",
+      "ProalasEventFormatFix",
+      "ProalasSpecialEvent",
+      "ProalasAiPlanner",
+      "ProalasAccount"
+    ]
   }
 }

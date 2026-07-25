@@ -1,4 +1,4 @@
-# --------------------
+﻿# --------------------
 # Define arguments.
 # --------------------
 
@@ -266,25 +266,16 @@ C124LargeLeveling:
     value: 3
     option: [ 3, 4, 5 ]
 GemsFarming:
-  ChangeFlagship:
-    value: ship
-    option: [ ship, ship_equip ]
   CommonCV:
     value: any
     option: [ any, langley, bogue, ranger, hermes ]
   ChangeVanguard:
     value: ship
-    option: [ disabled, ship, ship_equip ]
+    option: [ disabled, ship ]
   CommonDD:
     value: any
     option: [ any, favourite, aulick_or_foote , cassin_or_downes, z20_or_z21 ]
   CommissionLimit: true
-EquipmentCode:
-  ExportToConfig: true
-  Config:
-    type: textarea
-    mode: yaml
-    value: |-
 
 # ==================== Event ====================
 
@@ -315,8 +306,8 @@ MaritimeEscort:
   Enable: true
 Coalition:
   Mode:
-    value: tc3
-    option: [ tc1, tc2, tc3, sp, ex ]
+    value: hard
+    option: [ easy, normal, hard, sp ]
   Fleet:
     value: single
     option: [ single, multi ]
@@ -434,7 +425,6 @@ BuyFurniture:
 Meowfficer:
   BuyAmount: 1
   FortChoreMeowfficer: true
-  OverflowCoins: -1
 MeowfficerTrain:
   Enable: false
   Mode:
@@ -603,7 +593,300 @@ PrivateQuarters:
     TargetInteract: true
     TargetShip:
       value: anchorage
-      option: [ anchorage, noshiro, sirius, new_jersey, taihou, aegir, nakhimov ]
+      option: [ anchorage, noshiro, sirius, new_jersey, taihou, aegir ]
+# ==================== ProAlas ====================
+ProalasCollector:
+  ReadOilCoin: true
+  ReadEventPt: true
+  ReadBuildCube: true
+  ReadBoatDock: true
+  ReadBoatRate: true
+  WriteUserData: true
+  UserDataPath:
+    value: ''
+    valuetype: str
+    display: hide
+ProalasFleetStrength:
+  TeamScope:
+    value: all
+    option: [ all, team1, team2, team3, team4, team5, team6 ]
+  ProAlasRoot:
+    value: ''
+    valuetype: str
+    display: hide
+ProalasAutoBreak:
+  ShipRarity:
+    value: all
+    option: [ all, common, rare, elite, super_rare ]
+  ShipsPerRun:
+    value: 2
+    option: [ 1, 2, 3, 4, 5, 6, 7 ]
+  RunIntervalDays:
+    value: 1
+    option: [ 1, 2, 3, 4, 5, 6, 7 ]
+  ProAlasRoot:
+    value: ''
+    valuetype: str
+    display: hide
+ProalasAutoEquip:
+  EquipQuality:
+    value: purple
+    option: [ blue, purple, gold ]
+  ReplaceSurplusPurple: true
+  AllowCraft: false
+  CraftCoinLimit:
+    value: 300000
+    option: [ 100000, 150000, 200000, 300000, 500000 ]
+  WarehouseReserve:
+    value: 10
+    option: [ 5, 10, 15, 20, 30 ]
+  TeamNo:
+    value: 3
+    option: [ 1, 2, 3, 4, 5, 6 ]
+ProalasAutoExpBook:
+  ShipRarity:
+    value: all
+    option: [ all, common, rare, elite, super_rare, ultra ]
+  FeedRoundsPerRun:
+    value: 1
+    option: [ 1, 2, 3, 4, 5 ]
+  RunIntervalDays:
+    value: 7
+    option: [ 1, 2, 3, 4, 5, 6, 7 ]
+ProalasAutoEventShop:
+  ShopCount:
+    value: 1
+    option: [ 1, 2, 3 ]
+  PriorityMode:
+    value: ur_first
+    option: [ ur_first, custom ]
+  CustomPriority:
+    type: textarea
+    value: |-
+      2UR>UR>SSR_BOX>SSR_CAT>SSR_BOAT>XIN2>XIN1>SR_CAT>OTHER
+  TokenUrItem:
+    value: '—'
+    valuetype: str
+    display: disabled
+  TokenPt:
+    value: '—'
+    valuetype: str
+    display: disabled
+ProalasGetExpUseExp:
+  ExpBookType:
+    value: default
+    option: [ default ]
+  MaxGetPerDay: 1
+  RunUseExp: true
+  UseExpThreshold: 2000
+  ProAlasRoot:
+    value: ''
+    valuetype: str
+    display: hide
+ProalasBoatMessage:
+  UserDataPath:
+    value: ''
+    valuetype: str
+    display: hide
+ProalasSmartFleet34:
+  FleetChoice:
+    value: team34
+    option: [ team34 ]
+  FleetMode:
+    value: default
+    option: [ default ]
+  ProAlasRoot:
+    value: ''
+    valuetype: str
+    display: hide
+ProalasResourceStats:
+  UserDataPath:
+    value: ''
+    valuetype: str
+    display: hide
+  AlasLogPath:
+    value: './log'
+    valuetype: str
+  ChartOil: true
+  ChartMoney: true
+  ChartCube: true
+  ChartActPt: true
+  ChartRmb: true
+  ChartBoatRate: true
+  ChartBoatMax: false
+ProalasSmartDispatch:
+  EnableSmartDispatch: false
+  PreferRmb: true
+  PreferMoney: false
+ProalasAutoFleetChange:
+  Team1Type:
+    value: push
+    option: [ level, push, low_cost ]
+  Team1Quality:
+    value: none
+    option: [ R, SR, SSR, UR, none ]
+  Team2Type:
+    value: push
+    option: [ level, push, low_cost ]
+  Team2Quality:
+    value: none
+    option: [ R, SR, SSR, UR, none ]
+  Team3Type:
+    value: level
+    option: [ level, push, low_cost ]
+  Team3Quality:
+    value: none
+    option: [ R, SR, SSR, UR, none ]
+  Team4Type:
+    value: level
+    option: [ level, push, low_cost ]
+  Team4Quality:
+    value: none
+    option: [ R, SR, SSR, UR, none ]
+  Team5Type:
+    value: low_cost
+    option: [ level, push, low_cost ]
+  Team5Quality:
+    value: none
+    option: [ R, SR, SSR, UR, none ]
+  Team6Type:
+    value: low_cost
+    option: [ level, push, low_cost ]
+  Team6Quality:
+    value: none
+    option: [ R, SR, SSR, UR, none ]
+  EventTeam1Enable:
+    value: false
+  EventTeam2Enable:
+    value: false
+  RunIntervalDays:
+    value: 7
+    option: [ 1, 2, 3, 4, 5, 6, 7 ]
+  LevelTeamFaction:
+    value: all
+    option: [ all, eagle, royal, sakura, iron, dragon, sardegna, northern, iris, vichya, tulipa, pedreria, meta, tempesta, other ]
+ProalasAccount:
+  PlanType:
+    value: normal
+    option: [ normal, pro, pro_plus ]
+  ExpireAt:
+    value: 2099-12-31 23:59:59
+    valuetype: datetime
+  RenewalUrl:
+    value: ''
+    valuetype: str
+    display: hide
+ProalasScreenMonitor:
+  KeepCount: 10
+ProalasTimerPlan:
+  ExtraExclude:
+    value: ''
+    valuetype: str
+ProalasPlanCalendar:
+  EnableAi: false
+  SyncActivityOnRun: true
+ProalasActivitySync:
+  AllowManifestFallback: true
+  SyncGatewayEnable: true
+  SyncGatewayUrl:
+    value: 'http://192.168.2.107:22301'
+    valuetype: str
+  SyncGatewayToken:
+    value: 'test'
+    valuetype: str
+  PullPlanSchedule: true
+ProalasOpsiSchedule:
+  AdaptThreshold:
+    value: 400
+  DeferMeowAndHazard1: false
+  ShopUnlockDay:
+    value: 20
+    option: [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28 ]
+ProalasGachaCheck:
+  BootstrapNullTemplate: false
+ProalasCollectionFill:
+  Enable:
+    value: true
+  BuildEnable:
+    value: true
+  FarmEnable:
+    value: false
+  ResearchEnable:
+    value: true
+  ResearchIntervalDays:
+    value: 7
+    # 0=立刻（测试用，测完可注释掉 option 里的 0）
+    option: [ 0, 1, 2, 3, 4, 5, 6, 7, 14 ]
+  AutoGachaEnable:
+    value: false
+  CubeReserveMin:
+    value: 500
+    display: hide
+  CubeMaxPerRun:
+    value: 6
+    display: hide
+  CubeDailyMax:
+    value: 20
+    display: hide
+ProalasEventFormatFix:
+  EnableFix: true
+  Template:
+    value: T-HT
+    option: [ T-HT, AB-CD, SP-HSP ]
+  TargetTask:
+    value: Event
+    option: [ Event, Event2 ]
+  StopStage:
+    value: ''
+    valuetype: str
+  ForceThreeStar: false
+  AllCleared: false
+  AutoHardFleet: true
+# 活动期任务：Lifecycle 仅开发者改 argument/override 后推送；过期强制关 Scheduler.Enable
+ProalasSpecialEvent:
+  Enable: false
+  EventName:
+    value: Auction
+    option: [ Auction ]
+    display: disabled
+  GambleType:
+    value: LowYieldInterest
+    option: [ LowYieldInterest, ClaimQuestReward ]
+  VenueSelect:
+    value: Default
+    option: [ Default, A, B, S ]
+  QuestBidLevel:
+    value: '4'
+    option: [ '1', '2', '3', '4', '5', '6', '7', '8' ]
+  TargetWins:
+    value: 50
+  QuestWinBaseline:
+    value: -1
+    display: disabled
+  AuctionCoin:
+    value: 0
+    display: disabled
+  WinCount:
+    value: 0
+    display: disabled
+  QuestWinProgress:
+    value: 0
+    display: disabled
+  JoinCount:
+    value: 0
+    display: disabled
+  QuestBaselineLifecycle:
+    value: ''
+    valuetype: str
+    display: hide
+  Lifecycle:
+    value: '0723-0730'
+    valuetype: str
+    display: disabled
+ProalasAiPlanner:
+  Strategy: conservative
+  AutoApply: true
+  CustomEventMain: false
 # ==================== Daily ====================
 
 Daily:

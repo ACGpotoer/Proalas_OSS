@@ -1,0 +1,37 @@
+<section class="pro-dash-card pro-pause-window-card" id="pro-pause-window-card"
+  data-start="{{ schedule.start }}"
+  data-end="{{ schedule.end }}"
+  data-daily="{{ '1' if schedule.daily_enabled else '0' }}">
+  <header class="pro-card-header">
+    <h3 class="pro-dash-title">预约不运行时段</h3>
+    {% if pause_status.active %}
+    <span class="pro-card-badge pro-badge--warn">已暂停{% if pause_status.pause_until %} · 至 {{ pause_status.pause_until }}{% endif %}</span>
+    {% elif schedule.daily_enabled %}
+    <span class="pro-card-badge">每日 {{ schedule.start }}–{{ schedule.end }}</span>
+    {% endif %}
+  </header>
+
+  <p class="muted pro-pause-hint">拖动两端预约时段，再点下方按钮保存到本地（开源版不依赖 mmc）。</p>
+  <div class="pro-pause-track-wrap">
+    <div class="pro-pause-track" id="pro-pause-track" role="group" aria-label="不运行时间段">
+      <div class="pro-pause-range pro-pause-range--a" id="pro-pause-range-a"></div>
+      <div class="pro-pause-range pro-pause-range--b" id="pro-pause-range-b"></div>
+      <button type="button" class="pro-pause-thumb pro-pause-thumb--start" id="pro-pause-thumb-start" aria-label="开始时间"></button>
+      <button type="button" class="pro-pause-thumb pro-pause-thumb--end" id="pro-pause-thumb-end" aria-label="结束时间"></button>
+    </div>
+    <div class="pro-pause-labels">
+      <span id="pro-pause-start-label">{{ schedule.start }}</span>
+      <span id="pro-pause-end-label">{{ schedule.end }}</span>
+    </div>
+  </div>
+  <div class="pro-pause-actions">
+    <button type="button" class="btn-primary pro-pause-btn" id="pro-pause-today-btn">当日暂停</button>
+    <button type="button" class="btn-ghost pro-pause-btn" id="pro-pause-daily-btn">每天该时段暂停</button>
+    {% if schedule.daily_enabled %}
+    <button type="button" class="btn-ghost pro-pause-btn pro-pause-btn--cancel-daily" id="pro-pause-daily-cancel-btn">取消每日暂停</button>
+    {% endif %}
+  </div>
+  <p class="pro-pause-foot muted" id="pro-pause-message" hidden></p>
+  <p class="pro-pause-foot muted">「立刻暂停」已在开源版移除（需 mmc）。预约会写入本地 HostControl。</p>
+</section>
+{# 立刻暂停按钮已移除；JS 中对应 #pro-pause-now-btn 监听会自然空转 #}

@@ -1,0 +1,16 @@
+<article class="pro-dash-card pro-screen-card" aria-label="截图监控">
+  <header class="pro-card-header">
+    <h3 class="pro-dash-title">截图监控</h3>
+    <div class="pro-card-header-actions" style="display:flex;align-items:center;gap:8px;">
+      <span class="pro-card-badge{% if not monitor_on %} muted{% endif %}">
+        {% if monitor_on %}Scheduler 已开{% else %}Scheduler 未开{% endif %}
+      </span>
+    </div>
+  </header>
+  {% include "partials/pro_screen_monitor.html" %}
+  <p class="pro-card-hint muted">
+    本地读取 <code>img/{{ device_id }}/</code>
+    · 点击放大 · 每 5s 刷新
+    · 开源版不含云端远控；完整截图任务请在「Alas 原版」里配置
+  </p>
+</article>

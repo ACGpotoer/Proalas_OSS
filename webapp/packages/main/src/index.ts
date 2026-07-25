@@ -42,7 +42,7 @@ const createWindow = async () => {
     width: 1280,
     height: 880,
     show: false, // Use 'ready-to-show' event to show window
-    frame: false,
+    frame: true, // ProAlas OSS: DAP is top-level http; need native chrome
     icon: path.join(__dirname, './buildResources/icon.ico'),
     webPreferences: {
       nodeIntegration: true,
@@ -68,6 +68,12 @@ const createWindow = async () => {
     if (import.meta.env.MODE === 'development') {
       mainWindow?.webContents.openDevTools();
     }
+  });
+
+  mainWindow.on('close', () => {
+    try {
+      alas.kill(function () {});
+    } catch (e) {}
   });
 
   mainWindow.on('focus', function () {
@@ -151,14 +157,10 @@ if (!dpiScaling) {
 
 function loadURL() {
   /**
-   * URL for main window.
-   * Vite dev server for development.
-   * `file://../renderer/index.html` for production and test
+   * ProAlas OSS: load DAP as top-level http URL (not file:// Vue iframe).
+   * file:// + iframe blocks cookies → login appears broken.
    */
-  const pageUrl = import.meta.env.MODE === 'development' && import.meta.env.VITE_DEV_SERVER_URL !== undefined
-    ? import.meta.env.VITE_DEV_SERVER_URL
-    : new URL('../renderer/dist/index.html', 'file://' + __dirname).toString();
-
+  const pageUrl = `http://127.0.0.1:${webuiArgs[1]}/login`;
   mainWindow?.loadURL(pageUrl);
 }
 

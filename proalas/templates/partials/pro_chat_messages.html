@@ -1,0 +1,7 @@
+{% from "partials/_chat_rows.html" import chat_rows %}
+<span data-ai-remaining="{{ ai_limit - ai_used }}" hidden aria-hidden="true"></span>
+{% if messages %}
+{{ chat_rows(messages) }}
+{% else %}
+<div class="chat-empty">还没有消息。在下方输入需求后发送即可。</div>
+{% endif %}

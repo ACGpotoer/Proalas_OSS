@@ -148,15 +148,10 @@ class GeneratedConfig:
     C124LargeLeveling_PickupAmmo = 3  # 3, 4, 5
 
     # Group `GemsFarming`
-    GemsFarming_ChangeFlagship = 'ship'  # ship, ship_equip
     GemsFarming_CommonCV = 'any'  # any, langley, bogue, ranger, hermes
-    GemsFarming_ChangeVanguard = 'ship'  # disabled, ship, ship_equip
+    GemsFarming_ChangeVanguard = 'ship'  # disabled, ship
     GemsFarming_CommonDD = 'any'  # any, favourite, aulick_or_foote, cassin_or_downes, z20_or_z21
     GemsFarming_CommissionLimit = True
-
-    # Group `EquipmentCode`
-    EquipmentCode_ExportToConfig = True
-    EquipmentCode_Config = None
 
     # Group `EventGeneral`
     EventGeneral_PtLimit = 0
@@ -185,7 +180,7 @@ class GeneratedConfig:
     MaritimeEscort_Enable = True
 
     # Group `Coalition`
-    Coalition_Mode = 'tc3'  # tc1, tc2, tc3, sp, ex
+    Coalition_Mode = 'hard'  # easy, normal, hard, sp
     Coalition_Fleet = 'single'  # single, multi
 
     # Group `Commission`
@@ -230,7 +225,6 @@ class GeneratedConfig:
     # Group `Meowfficer`
     Meowfficer_BuyAmount = 1
     Meowfficer_FortChoreMeowfficer = True
-    Meowfficer_OverflowCoins = -1
 
     # Group `MeowfficerTrain`
     MeowfficerTrain_Enable = False
@@ -345,7 +339,165 @@ class GeneratedConfig:
     PrivateQuarters_BuyRoses = True
     PrivateQuarters_BuyCake = False
     PrivateQuarters_TargetInteract = True
-    PrivateQuarters_TargetShip = 'anchorage'  # anchorage, noshiro, sirius, new_jersey, taihou, aegir, nakhimov
+    PrivateQuarters_TargetShip = 'anchorage'  # anchorage, noshiro, sirius, new_jersey, taihou, aegir
+
+    # Group `ProalasCollector`
+    ProalasCollector_ReadOilCoin = True
+    ProalasCollector_ReadEventPt = True
+    ProalasCollector_ReadBuildCube = True
+    ProalasCollector_ReadBoatDock = True
+    ProalasCollector_ReadBoatRate = True
+    ProalasCollector_WriteUserData = True
+    ProalasCollector_UserDataPath = None
+
+    # Group `ProalasFleetStrength`
+    ProalasFleetStrength_TeamScope = 'all'  # all, team1, team2, team3, team4, team5, team6
+    ProalasFleetStrength_ProAlasRoot = None
+
+    # Group `ProalasAutoBreak`
+    ProalasAutoBreak_ShipRarity = 'all'  # all, common, rare, elite, super_rare
+    ProalasAutoBreak_ShipsPerRun = 2  # 1, 2, 3, 4, 5, 6, 7
+    ProalasAutoBreak_RunIntervalDays = 1  # 1, 2, 3, 4, 5, 6, 7
+    ProalasAutoBreak_ProAlasRoot = None
+
+    # Group `ProalasAutoEquip`
+    ProalasAutoEquip_EquipQuality = 'purple'  # blue, purple, gold
+    ProalasAutoEquip_ReplaceSurplusPurple = True
+    ProalasAutoEquip_AllowCraft = False
+    ProalasAutoEquip_CraftCoinLimit = 300000  # 100000, 150000, 200000, 300000, 500000
+    ProalasAutoEquip_WarehouseReserve = 10  # 5, 10, 15, 20, 30
+    ProalasAutoEquip_TeamNo = 3  # 1, 2, 3, 4, 5, 6
+
+    # Group `ProalasAutoExpBook`
+    ProalasAutoExpBook_ShipRarity = 'all'  # all, common, rare, elite, super_rare, ultra
+    ProalasAutoExpBook_FeedRoundsPerRun = 1  # 1, 2, 3, 4, 5
+    ProalasAutoExpBook_RunIntervalDays = 7  # 1, 2, 3, 4, 5, 6, 7
+
+    # Group `ProalasAutoEventShop`
+    ProalasAutoEventShop_ShopCount = 1  # 1, 2, 3
+    ProalasAutoEventShop_PriorityMode = 'ur_first'  # ur_first, custom
+    ProalasAutoEventShop_CustomPriority = '2UR>UR>SSR_BOX>SSR_CAT>SSR_BOAT>XIN2>XIN1>SR_CAT>OTHER'
+    ProalasAutoEventShop_TokenUrItem = '—'
+    ProalasAutoEventShop_TokenPt = '—'
+
+    # Group `ProalasGetExpUseExp`
+    ProalasGetExpUseExp_ExpBookType = 'default'  # default
+    ProalasGetExpUseExp_MaxGetPerDay = 1
+    ProalasGetExpUseExp_RunUseExp = True
+    ProalasGetExpUseExp_UseExpThreshold = 2000
+    ProalasGetExpUseExp_ProAlasRoot = None
+
+    # Group `ProalasBoatMessage`
+    ProalasBoatMessage_UserDataPath = None
+
+    # Group `ProalasSmartFleet34`
+    ProalasSmartFleet34_FleetChoice = 'team34'  # team34
+    ProalasSmartFleet34_FleetMode = 'default'  # default
+    ProalasSmartFleet34_ProAlasRoot = None
+
+    # Group `ProalasResourceStats`
+    ProalasResourceStats_UserDataPath = None
+    ProalasResourceStats_AlasLogPath = './log'
+    ProalasResourceStats_ChartOil = True
+    ProalasResourceStats_ChartMoney = True
+    ProalasResourceStats_ChartCube = True
+    ProalasResourceStats_ChartActPt = True
+    ProalasResourceStats_ChartRmb = True
+    ProalasResourceStats_ChartBoatRate = True
+    ProalasResourceStats_ChartBoatMax = False
+
+    # Group `ProalasSmartDispatch`
+    ProalasSmartDispatch_EnableSmartDispatch = False
+    ProalasSmartDispatch_PreferRmb = True
+    ProalasSmartDispatch_PreferMoney = False
+
+    # Group `ProalasAutoFleetChange`
+    ProalasAutoFleetChange_Team1Type = 'push'  # level, push, low_cost
+    ProalasAutoFleetChange_Team1Quality = 'none'  # R, SR, SSR, UR, none
+    ProalasAutoFleetChange_Team2Type = 'push'  # level, push, low_cost
+    ProalasAutoFleetChange_Team2Quality = 'none'  # R, SR, SSR, UR, none
+    ProalasAutoFleetChange_Team3Type = 'level'  # level, push, low_cost
+    ProalasAutoFleetChange_Team3Quality = 'none'  # R, SR, SSR, UR, none
+    ProalasAutoFleetChange_Team4Type = 'level'  # level, push, low_cost
+    ProalasAutoFleetChange_Team4Quality = 'none'  # R, SR, SSR, UR, none
+    ProalasAutoFleetChange_Team5Type = 'low_cost'  # level, push, low_cost
+    ProalasAutoFleetChange_Team5Quality = 'none'  # R, SR, SSR, UR, none
+    ProalasAutoFleetChange_Team6Type = 'low_cost'  # level, push, low_cost
+    ProalasAutoFleetChange_Team6Quality = 'none'  # R, SR, SSR, UR, none
+    ProalasAutoFleetChange_EventTeam1Enable = False
+    ProalasAutoFleetChange_EventTeam2Enable = False
+    ProalasAutoFleetChange_RunIntervalDays = 7  # 1, 2, 3, 4, 5, 6, 7
+    ProalasAutoFleetChange_LevelTeamFaction = 'all'  # all, eagle, royal, sakura, iron, dragon, sardegna, northern, iris, vichya, tulipa, pedreria, meta, tempesta, other
+
+    # Group `ProalasAccount`
+    ProalasAccount_PlanType = 'normal'  # normal, pro, pro_plus
+    ProalasAccount_ExpireAt = datetime.datetime(2099, 12, 31, 23, 59, 59)
+    ProalasAccount_RenewalUrl = None
+
+    # Group `ProalasScreenMonitor`
+    ProalasScreenMonitor_KeepCount = 10
+
+    # Group `ProalasTimerPlan`
+    ProalasTimerPlan_ExtraExclude = None
+
+    # Group `ProalasPlanCalendar`
+    ProalasPlanCalendar_EnableAi = False
+    ProalasPlanCalendar_SyncActivityOnRun = True
+
+    # Group `ProalasActivitySync`
+    ProalasActivitySync_AllowManifestFallback = True
+    ProalasActivitySync_SyncGatewayEnable = True
+    ProalasActivitySync_SyncGatewayUrl = 'http://192.168.2.107:22301'
+    ProalasActivitySync_SyncGatewayToken = 'test'
+    ProalasActivitySync_PullPlanSchedule = True
+
+    # Group `ProalasOpsiSchedule`
+    ProalasOpsiSchedule_AdaptThreshold = 400
+    ProalasOpsiSchedule_DeferMeowAndHazard1 = False
+    ProalasOpsiSchedule_ShopUnlockDay = 20  # 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28
+
+    # Group `ProalasGachaCheck`
+    ProalasGachaCheck_BootstrapNullTemplate = False
+
+    # Group `ProalasCollectionFill`
+    ProalasCollectionFill_Enable = True
+    ProalasCollectionFill_BuildEnable = True
+    ProalasCollectionFill_FarmEnable = False
+    ProalasCollectionFill_ResearchEnable = True
+    ProalasCollectionFill_ResearchIntervalDays = 7  # 0, 1, 2, 3, 4, 5, 6, 7, 14
+    ProalasCollectionFill_AutoGachaEnable = False
+    ProalasCollectionFill_CubeReserveMin = 500
+    ProalasCollectionFill_CubeMaxPerRun = 6
+    ProalasCollectionFill_CubeDailyMax = 20
+
+    # Group `ProalasEventFormatFix`
+    ProalasEventFormatFix_EnableFix = True
+    ProalasEventFormatFix_Template = 'T-HT'  # T-HT, AB-CD, SP-HSP
+    ProalasEventFormatFix_TargetTask = 'Event'  # Event, Event2
+    ProalasEventFormatFix_StopStage = None
+    ProalasEventFormatFix_ForceThreeStar = False
+    ProalasEventFormatFix_AllCleared = False
+    ProalasEventFormatFix_AutoHardFleet = True
+
+    # Group `ProalasSpecialEvent`
+    ProalasSpecialEvent_Enable = False
+    ProalasSpecialEvent_EventName = 'Auction'  # Auction
+    ProalasSpecialEvent_GambleType = 'LowYieldInterest'  # LowYieldInterest, ClaimQuestReward
+    ProalasSpecialEvent_VenueSelect = 'Default'  # Default, A, B, S
+    ProalasSpecialEvent_QuestBidLevel = '4'  # 1, 2, 3, 4, 5, 6, 7, 8
+    ProalasSpecialEvent_TargetWins = 50
+    ProalasSpecialEvent_QuestWinBaseline = -1
+    ProalasSpecialEvent_AuctionCoin = 0
+    ProalasSpecialEvent_WinCount = 0
+    ProalasSpecialEvent_QuestWinProgress = 0
+    ProalasSpecialEvent_JoinCount = 0
+    ProalasSpecialEvent_QuestBaselineLifecycle = None
+    ProalasSpecialEvent_Lifecycle = '0723-0730'
+
+    # Group `ProalasAiPlanner`
+    ProalasAiPlanner_Strategy = 'conservative'
+    ProalasAiPlanner_AutoApply = True
+    ProalasAiPlanner_CustomEventMain = False
 
     # Group `Daily`
     Daily_UseDailySkip = True

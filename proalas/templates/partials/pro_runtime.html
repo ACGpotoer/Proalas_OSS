@@ -1,0 +1,48 @@
+<article class="pro-dash-card pro-runtime-card" aria-label="运行快照">
+  <header class="pro-card-header">
+    <h3 class="pro-dash-title">运行快照</h3>
+    <span class="pro-card-badge muted">ProalasData</span>
+  </header>
+  <div class="pro-runtime-grid">
+    {% if auto_break %}
+    <div class="pro-runtime-block">
+      <h4 class="pro-runtime-head">AutoBreak</h4>
+      <ul class="pro-runtime-list">
+        <li>上次：{{ auto_break.get('lastRunAt') or '—' }}</li>
+        <li>今日次数：{{ auto_break.get('todayCount', '—') }} / 品质 {{ auto_break.get('starQuality') or '—' }}</li>
+        <li>可突破：{% if auto_break.get('canBreakthrough') %}是{% else %}否{% endif %}</li>
+      </ul>
+    </div>
+    {% endif %}
+    {% if auto_equip %}
+    <div class="pro-runtime-block">
+      <h4 class="pro-runtime-head">AutoEquip</h4>
+      <ul class="pro-runtime-list">
+        <li>上次：{{ auto_equip.get('lastRunAt') or '—' }}</li>
+        <li>队 {{ auto_equip.get('teamNo', '—') }} · 品质 {{ auto_equip.get('equipQuality') or '—' }}</li>
+        <li>换装 {{ auto_equip.get('equippedCount', 0) }} · 紫替 {{ auto_equip.get('replacedPurpleCount', 0) }}</li>
+      </ul>
+    </div>
+    {% endif %}
+    {% if exp_book %}
+    <div class="pro-runtime-block">
+      <h4 class="pro-runtime-head">ExpBook</h4>
+      <ul class="pro-runtime-list">
+        <li>上次：{{ exp_book.get('lastRunAt') or '—' }}</li>
+        <li>获得 {{ exp_book.get('expGot', '—') }} · 使用 {{ exp_book.get('expUsed', '—') }}</li>
+      </ul>
+    </div>
+    {% endif %}
+    {% if collector_meta %}
+    <div class="pro-runtime-block">
+      <h4 class="pro-runtime-head">CollectorMeta</h4>
+      <ul class="pro-runtime-list">
+        <li>采集：{{ collector_meta.get('lastRunAt') or '—' }}</li>
+      </ul>
+    </div>
+    {% endif %}
+    {% if not auto_break and not auto_equip and not exp_book and not collector_meta %}
+    <p class="muted">暂无 ProalasData 运行快照（采集/突破/换装任务跑过后会写入）</p>
+    {% endif %}
+  </div>
+</article>

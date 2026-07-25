@@ -1,0 +1,27 @@
+<div
+  class="pro-screen-monitor{% if not image_url %} pro-screen-monitor--empty{% endif %}"
+  {% if image_url %}role="button" tabindex="0" aria-label="设备 {{ device_id }} 监控画面，点击显示清晰原图"{% endif %}
+>
+  {% if image_url %}
+  <img
+    class="pro-screen-monitor-img"
+    src="{{ image_url }}"
+    alt="{{ device_id }} 监控 {{ shot_date or '' }}"
+    loading="lazy"
+    decoding="async"
+  />
+  <span class="pro-screen-monitor-hint">点击放大原图（3×）</span>
+  {% if shot_date %}
+  <span class="pro-screen-monitor-meta">{{ shot_date }}</span>
+  {% endif %}
+  {% else %}
+  <span class="pro-screen-monitor-empty">暂无运行截图</span>
+  <span class="pro-screen-monitor-meta muted">
+    {% if monitor_on is defined and not monitor_on %}
+    请在 Alas 高级 → ProAlas → 截图监控 中启用 Scheduler 并运行 Alas
+    {% else %}
+    启用截图监控任务后，画面将写入 img/{{ device_id }}/
+    {% endif %}
+  </span>
+  {% endif %}
+</div>

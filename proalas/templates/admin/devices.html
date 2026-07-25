@@ -1,0 +1,81 @@
+{% extends "base.html" %}
+{% block title %}设备管理{% endblock %}
+{% block body %}
+<div class="admin-wrap">
+  <header class="admin-header">
+    <h1>设备与用户管理</h1>
+    <div class="admin-header-actions">
+      {% include "_theme_select.html" %}
+      <a href="{{ url_for('admin.admin_logout') }}">退出管理</a>
+    </div>
+  </header>
+  <p class="muted admin-hint">
+    登录密码存于 SQLite；套餐与到期时间写入 <code>config/{设备}.json</code> 的 ProalasAccount。
+    用户密码仅可首次自行设置，遗忘请在此重置。
+  </p>
+  <section class="admin-card">
+    <h2>新增设备账户</h2>
+    <form method="post" action="{{ url_for('admin.device_add') }}" class="admin-form">
+      <input name="device_id" placeholder="设备ID（须与 config 下 json 名一致）" required />
+      <input name="password" placeholder="初始密码（留空=用户首次自设）" />
+      <input name="note" placeholder="备注" />
+      <button type="submit">保存</button>
+    </form>
+  </section>
+  <section class="admin-card">
+    <h2>已有账户</h2>
+    <p class="muted">配置目录中的文件：{{ config_devices | join(', ') }}</p>
+    <div class="admin-table-scroll">
+    <table class="admin-table admin-table--wide">
+      <thead>
+        <tr>
+          <th>设备</th>
+          <th>登录密码</th>
+          <th>套餐 / 到期</th>
+          <th>备注</th>
+          <th>操作</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for r in devices %}
+        <tr>
+          <td><strong>{{ r.device_id }}</strong><br />
+            <span class="muted small">{{ '已设密' if r.password_locked else '未设密' }}</span>
+          </td>
+          <td>
+            <form method="post" action="{{ url_for('admin.device_reset_password', device_id=r.device_id) }}" class="admin-inline-stack">
+              <input name="password" placeholder="重置密码（留空=恢复无密码）" />
+              <button type="submit">重置密码</button>
+            </form>
+          </td>
+          <td>
+            <form method="post" action="{{ url_for('admin.device_update_account', device_id=r.device_id) }}" class="admin-inline-stack">
+              <select name="plan_type">
+                <option value="normal" {% if r.plan == 'normal' %}selected{% endif %}>Normal</option>
+                <option value="pro" {% if r.plan == 'pro' %}selected{% endif %}>Pro</option>
+                <option value="pro_plus" {% if r.plan == 'pro_plus' %}selected{% endif %}>Pro+</option>
+              </select>
+              <input name="expire_at" value="{{ r.expire_at }}" placeholder="2099-12-31 23:59:59" />
+              <input name="renewal_url" value="{{ r.renewal_url }}" placeholder="续费链接（可选）" />
+              <button type="submit">保存套餐</button>
+            </form>
+          </td>
+          <td>
+            <form method="post" action="{{ url_for('admin.device_edit', device_id=r.device_id) }}" class="inline-form">
+              <input name="note" value="{{ r.note or '' }}" placeholder="备注" />
+              <button type="submit">更新备注</button>
+            </form>
+          </td>
+          <td>
+            <form method="post" action="{{ url_for('admin.device_delete', device_id=r.device_id) }}" onsubmit="return confirm('确定删除？');">
+              <button type="submit" class="danger">删除</button>
+            </form>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    </div>
+  </section>
+</div>
+{% endblock %}
