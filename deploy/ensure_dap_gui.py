@@ -51,16 +51,16 @@ def ensure_deploy_yaml():
     text = _read(path)
     orig = text
     text = re.sub(r"(AutoUpdate:\s*)true", r"\1false", text, count=1, flags=re.I)
-    # WebuiPort -> 8080 (DAP). Keep comment lines.
+    # Keep stock UI port (toolkit Python 3.7). DAP users set PROALAS_USE_DAP=1 + port 8080 manually.
     text = re.sub(
         r"(WebuiPort:\s*)\d+",
-        r"\g<1>8080",
+        r"\g<1>22267",
         text,
         count=1,
     )
     if text != orig:
         _write(path, text)
-        print("[ensure_dap] deploy.yaml: AutoUpdate=false, WebuiPort=8080")
+        print("[ensure_dap] deploy.yaml: AutoUpdate=false, WebuiPort=22267")
     else:
         print("[ensure_dap] deploy.yaml OK")
 

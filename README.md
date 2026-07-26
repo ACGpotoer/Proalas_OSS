@@ -7,7 +7,7 @@
 - 本仓库**不包含** `toolkit/` 运行时（体积大且被 `.gitignore` 忽略）。请自行准备 Alas 便携环境，或从已有安装目录拷贝 `toolkit` 后再运行。
 - 不包含私有功能：七日活动奖励领取、通用型活动剧情、MMC 模拟器控制等。
 
-建议：解压/克隆后若 Electron 白屏，将 `config/deploy.yaml` 的 `WebuiPort` 设为 `22267`，并设置环境变量 `PROALAS_USE_DAP=0` 使用原版界面。
+建议：解压/克隆后直接用自带 toolkit 启动即可（默认 `WebuiPort: 22267`，原版界面）。若 Electron 白屏，确认 `PROALAS_USE_DAP` 未设为 1，并用浏览器打开 `http://127.0.0.1:22267`。
 
 ---
 

@@ -69,13 +69,13 @@ def func(ev: threading.Event):
     logger.attr("Electron", args.electron)
     logger.attr("Reload", ev is not None)
 
-    # ===== ProAlas OSS: DAP shell (Alas.exe iframe -> DAP; stock UI under 高级) =====
-    # Set PROALAS_USE_DAP=0 to use stock PyWebIO only.
-    use_dap = os.environ.get("PROALAS_USE_DAP", "1").strip().lower() not in (
-        "0",
-        "false",
-        "no",
-        "off",
+    # ===== ProAlas OSS: optional DAP shell (needs Python>=3.8). Default OFF for toolkit 3.7. =====
+    # Set PROALAS_USE_DAP=1 to enable DAP login shell; stock PyWebIO otherwise.
+    use_dap = os.environ.get("PROALAS_USE_DAP", "0").strip().lower() in (
+        "1",
+        "true",
+        "yes",
+        "on",
     )
     if use_dap and not ssl:
         from module.webui.dap_shell import run_dap_shell
