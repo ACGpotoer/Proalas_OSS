@@ -573,7 +573,8 @@ class ProalasSpecialEvent(UI):
             _click_xy(self.device, A.DIGIT_XY[d], name=f'AUCTION_DIGIT_{d}')
             time.sleep(0.25)
         _click_xy(self.device, A.BID_SUBMIT, name='AUCTION_BID_SUBMIT')
-        time.sleep(0.6)
+        # 确认弹窗出现较慢，短于 1s 容易点空卡住
+        time.sleep(1.0)
         _click_xy(self.device, A.BID_CONFIRM, name='AUCTION_BID_CONFIRM')
         time.sleep(0.8)
 
