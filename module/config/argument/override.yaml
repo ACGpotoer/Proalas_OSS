@@ -441,6 +441,8 @@ ProalasCollector:
     ServerUpdate: 00:00
   ReadOilCoin: true
   ReadEventPt: true
+  ReadOsActionPoint: true
+  ReadOsCoins: true
   ReadBuildCube: true
   ReadBoatDock: true
   ReadBoatRate: true
@@ -584,7 +586,7 @@ ProalasSpecialEvent:
       value: Auction
       display: disabled
     Lifecycle:
-      value: '0723-0730'
+      value: '0723-0807'
       display: disabled
 
 ProalasAiPlanner:

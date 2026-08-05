@@ -344,6 +344,8 @@ class GeneratedConfig:
     # Group `ProalasCollector`
     ProalasCollector_ReadOilCoin = True
     ProalasCollector_ReadEventPt = True
+    ProalasCollector_ReadOsActionPoint = True
+    ProalasCollector_ReadOsCoins = True
     ProalasCollector_ReadBuildCube = True
     ProalasCollector_ReadBoatDock = True
     ProalasCollector_ReadBoatRate = True
@@ -492,7 +494,7 @@ class GeneratedConfig:
     ProalasSpecialEvent_QuestWinProgress = 0
     ProalasSpecialEvent_JoinCount = 0
     ProalasSpecialEvent_QuestBaselineLifecycle = None
-    ProalasSpecialEvent_Lifecycle = '0723-0730'
+    ProalasSpecialEvent_Lifecycle = '0723-0807'
 
     # Group `ProalasAiPlanner`
     ProalasAiPlanner_Strategy = 'conservative'

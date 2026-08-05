@@ -2,16 +2,16 @@
 """
 竞拍场（ProalasSpecialEvent / Auction）坐标与裁切模板。
 
-素材：assets/cn/proalas_auction/（备份 0723-0730/）
+素材：assets/cn/proalas_auction/（备份 0723-0807/）
 裁切图须 load_image(file, area=None) 再 matchTemplate，勿 ensure_template。
 """
 from module.base.button import Button
 
-LIFECYCLE = '0723-0730'
+LIFECYCLE = '0723-0807'
 EVENT_NAME = 'Auction'
 
 # 主界面 → 竞拍
-ENTER_CLICK_1 = (890, 120)
+ENTER_CLICK_1 = (1000, 125)
 ENTER_CLICK_2 = (1040, 650)
 ENTER_GAP_SEC = 1.0
 

@@ -10148,6 +10148,14 @@
         "type": "checkbox",
         "value": true
       },
+      "ReadOsActionPoint": {
+        "type": "checkbox",
+        "value": true
+      },
+      "ReadOsCoins": {
+        "type": "checkbox",
+        "value": true
+      },
       "ReadBuildCube": {
         "type": "checkbox",
         "value": true
@@ -11171,7 +11179,7 @@
       },
       "Lifecycle": {
         "type": "input",
-        "value": "0723-0730",
+        "value": "0723-0807",
         "valuetype": "str",
         "display": "disabled"
       }

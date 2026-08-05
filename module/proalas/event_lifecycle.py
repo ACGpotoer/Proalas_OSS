@@ -17,14 +17,14 @@ from module.logger import logger
 
 # 开发者改这里（并同步 argument/override 的 Lifecycle 默认值）后推送
 TASK_LIFECYCLE: dict[str, str] = {
-    'ProalasSpecialEvent': '0723-0730',
+    'ProalasSpecialEvent': '0723-0807',
 }
 
 # 用户不可改的字段：每次读配置时写回开发者值
 TASK_LOCKED_FIELDS: dict[str, dict[str, Any]] = {
     'ProalasSpecialEvent': {
         'EventName': 'Auction',
-        'Lifecycle': '0723-0730',
+        'Lifecycle': '0723-0807',
     },
 }
 

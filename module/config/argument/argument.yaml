@@ -598,6 +598,8 @@ PrivateQuarters:
 ProalasCollector:
   ReadOilCoin: true
   ReadEventPt: true
+  ReadOsActionPoint: true
+  ReadOsCoins: true
   ReadBuildCube: true
   ReadBoatDock: true
   ReadBoatRate: true
@@ -880,7 +882,7 @@ ProalasSpecialEvent:
     valuetype: str
     display: hide
   Lifecycle:
-    value: '0723-0730'
+    value: '0723-0807'
     valuetype: str
     display: disabled
 ProalasAiPlanner:
