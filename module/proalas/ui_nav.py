@@ -20,6 +20,8 @@ class FleetUiNav:
     def _tap(self, xy: tuple[int, int], *, delay: float | None = None) -> None:
         d = A._AFTER_CLICK if delay is None else delay
         self.device.click_adb(*xy)
+        # click_adb 不走 handle_control_check，多舰采集会超过 stuck_timer(60s) 误报 GameStuckError
+        self.device.stuck_record_clear()
         self.device.sleep(max(float(d), A.MIN_CLICK_INTERVAL))
 
     def _appear(self, button) -> bool:

@@ -164,6 +164,7 @@ class ProalasFleetStrength(UI):
         if not teams:
             return False
 
+        self.device.stuck_record_clear()
         nav = FleetUiNav(self)
         if not nav.goto_formation_list():
             nav.abort_to_main('进入编队列表失败')
@@ -182,6 +183,7 @@ class ProalasFleetStrength(UI):
             if not 1 <= team_no <= 6:
                 continue
             if i > 0:
+                self.device.stuck_record_clear()
                 if not nav.switch_team_on_detail(team_no):
                     nav.abort_to_main(f'切队失败 team={team_no}')
                     return ok
@@ -202,6 +204,7 @@ class ProalasFleetStrength(UI):
                 config=self.config,
             )
             ok = True
+            self.device.stuck_record_clear()
 
         nav.goto_main()
         return ok
@@ -213,6 +216,7 @@ class ProalasFleetStrength(UI):
 
         from module.proalas.auto_equip import ProalasAutoEquip
 
+        self.device.stuck_record_clear()
         equip = ProalasAutoEquip(config=self.config, device=self.device)
         nav = FleetUiNav(self)
         if not nav.goto_formation_list():
@@ -232,6 +236,7 @@ class ProalasFleetStrength(UI):
             if not 1 <= team_no <= 6:
                 continue
             if i > 0:
+                self.device.stuck_record_clear()
                 if not nav.switch_team_on_detail(team_no):
                     nav.abort_to_main(f'切队失败 team={team_no}')
                     return ok
@@ -258,6 +263,7 @@ class ProalasFleetStrength(UI):
                 config=self.config,
             )
             ok = True
+            self.device.stuck_record_clear()
 
         nav.goto_main()
         return ok
