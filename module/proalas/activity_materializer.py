@@ -408,6 +408,15 @@ def materialize_activity(
     if no_event:
         result.details.append('ProalasData.SkipEventPt=True')
 
+    # 无活动日关掉 PT 采集开关；有活动日重新打开（与计划同步）
+    _ensure_task_bucket(data, 'ProalasCollector')
+    read_pt = not no_event
+    cur_read_pt = deep_get(data, ['ProalasCollector', 'ReadEventPt'], None)
+    if cur_read_pt is not read_pt:
+        deep_set(data, keys=['ProalasCollector', 'ReadEventPt'], value=read_pt)
+        result.details.append(f'ProalasCollector.ReadEventPt={read_pt}')
+        result.applied += 1
+
     result.applied += _apply_scheduler_enable(data, merged_sched, result.details)
     result.applied += _apply_gacha_meta(data, blue_patches.get('gacha') or {}, result.details)
     if not no_event:
