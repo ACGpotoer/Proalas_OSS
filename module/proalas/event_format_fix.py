@@ -24,14 +24,27 @@ from module.proalas.feature_gate import gate_task_or_skip
 
 class ProalasEventFormatFix(CampaignRun):
     def _event_folder(self) -> str | None:
-        for task in ('Event', 'Event2'):
+        found = []
+        for task in ('Coalition', 'Event', 'Event2'):
             folder = self.config.cross_get(f'{task}.Campaign.Event')
-            if folder:
-                return str(folder).strip() or None
+            if folder and str(folder).strip() not in ('', 'campaign_main'):
+                found.append(str(folder).strip())
         folder = getattr(self.config, 'Campaign_Event', None)
-        if folder:
-            return str(folder).strip() or None
-        return None
+        if folder and str(folder).strip() not in ('', 'campaign_main'):
+            found.append(str(folder).strip())
+        # 共斗优先，避免 Event 仍挂着旧主线活动时进错分支
+        for f in found:
+            if str(f).startswith('coalition_'):
+                return f
+        return found[0] if found else None
+
+    def _run_coalition_format_fix(self, event_folder: str) -> None:
+        from module.coalition.coalition import Coalition
+        from module.proalas.event_coalition_format_fix import CoalitionHorrorFormatFix
+
+        # 复用当前 device；不 init_task，避免切走 EventFormatFix 绑定
+        coalition = Coalition(config=self.config, device=self.device)
+        CoalitionHorrorFormatFix(coalition).run(event_folder)
 
     def _set_all_cleared(self, value: bool) -> None:
         with self.config.multi_set():
@@ -138,16 +151,50 @@ class ProalasEventFormatFix(CampaignRun):
             self.config.task_delay(server_update=True)
             return
 
+        # 计划表无活动时禁止开荒写回（避免把共斗/Event 又打开）
+        try:
+            from datetime import datetime
+
+            from module.proalas.event_campaign_orchestrator import is_event_day_blue
+            from module.proalas.plan_quadrant_view import get_blue_payload
+
+            device_id = str(getattr(self.config, 'config_name', '') or 'alas')
+            blue = get_blue_payload(device_id, datetime.now().strftime('%Y-%m-%d'))
+            if not is_event_day_blue(blue):
+                logger.info(
+                    'EventFormatFix skip — not_event_day mode=%s fmt=%s',
+                    (blue or {}).get('mode') if isinstance(blue, dict) else None,
+                    (blue or {}).get('event_format') if isinstance(blue, dict) else None,
+                )
+                with self.config.multi_set():
+                    self.config.cross_set('ProalasEventFormatFix.Scheduler.Enable', False)
+                    self.config.cross_set('Event.Scheduler.Enable', False)
+                    self.config.cross_set('Event2.Scheduler.Enable', False)
+                    self.config.cross_set('Coalition.Scheduler.Enable', False)
+                self.config.task_delay(server_update=True)
+                return
+        except Exception as e:
+            logger.warning('EventFormatFix event-day guard failed: %s', e)
+
+        event_folder = self._event_folder()
+        if not event_folder or str(event_folder).strip() == 'campaign_main':
+            logger.info('EventFormatFix no active event folder — disable and skip')
+            with self.config.multi_set():
+                self.config.cross_set('ProalasEventFormatFix.Scheduler.Enable', False)
+            self.config.task_delay(server_update=True)
+            return
+
+        from module.proalas.event_coalition_format_fix import is_coalition_event
+
+        if is_coalition_event(event_folder):
+            logger.info('EventFormatFix coalition branch event=%s', event_folder)
+            self._run_coalition_format_fix(event_folder)
+            return
+
         template = str(getattr(self.config, 'ProalasEventFormatFix_Template', 'T-HT') or 'T-HT')
         if template != 'T-HT':
             logger.warning('EventFormatFix template %r not implemented yet, skip', template)
             self.config.task_delay(server_update=True)
-            return
-
-        event_folder = self._event_folder()
-        if not event_folder:
-            logger.error('EventFormatFix missing Event.Campaign.Event')
-            self.config.task_delay(minute=(30, 60))
             return
 
         logger.info('EventFormatFix template=%s event=%s', template, event_folder)

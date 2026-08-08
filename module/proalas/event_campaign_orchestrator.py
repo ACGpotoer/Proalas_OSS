@@ -46,24 +46,37 @@ def _today_str() -> str:
 
 
 def is_event_day_blue(blue: dict[str, Any] | None) -> bool:
+    """蓝区是否为活动日。空蓝区 / mode=none → 否（勿因 FormatFix 残留判为活动日）。"""
     if not isinstance(blue, dict) or not blue:
         return False
     mode = str(blue.get('mode') or '').strip().lower()
+    if mode == 'none':
+        return False
     if mode == 'event':
         return True
+    fmt = str(blue.get('event_format') or '').strip().upper()
+    if fmt and fmt not in ('NONE',):
+        return True
+    campaigns = blue.get('campaign_events') or {}
+    if isinstance(campaigns, dict):
+        for val in campaigns.values():
+            text = str(val or '').strip()
+            if text and text != 'campaign_main':
+                return True
     sched = blue.get('scheduler_enable') or {}
     if not isinstance(sched, dict):
         return False
-    for key in (THT_EVENT_TASK, THT_EVENT2_TASK, 'EventA', 'EventB'):
+    # 不含 ProalasEventFormatFix：检测任务开关不能单独定义「活动日」
+    for key in (THT_EVENT_TASK, THT_EVENT2_TASK, 'EventA', 'EventB', 'Coalition', 'Raid', 'RaidDaily'):
         if sched.get(key):
             return True
     return False
 
 
 def _event_format_template(config_data: dict[str, Any]) -> str:
-    tpl = deep_get(config_data, ['ProalasEventFormatFix', 'ProalasEventFormatFix', 'Template'], '')
+    tpl = deep_get(config_data, ['ProalasData', 'EventFormat', 'template'], '')
     if not tpl:
-        tpl = deep_get(config_data, ['ProalasData', 'EventFormat', 'template'], '')
+        tpl = deep_get(config_data, ['ProalasEventFormatFix', 'ProalasEventFormatFix', 'Template'], '')
     return str(tpl or '').strip().upper()
 
 
@@ -129,6 +142,24 @@ def orchestrate_event_campaign(
         return result
 
     template = _event_format_template(config_data)
+    if template == 'COALITION':
+        # 共斗：只关主线，不做 T-HT 推图写入
+        patches = []
+        for main_task in ('Main', 'Main2'):
+            sched = deep_get(config_data, [main_task, 'Scheduler', 'Enable'], None)
+            if sched is not False:
+                deep_set(config_data, keys=[main_task, 'Scheduler', 'Enable'], value=False)
+                patches.append(f'{main_task}.Scheduler.Enable=false')
+        result.applied = len(patches)
+        result.details = patches
+        result.phase = 'coalition'
+        if dry_run:
+            return result
+        if patches:
+            write_file(filepath_config(device_id), config_data)
+        logger.info('EventOrchestrator coalition day device=%s applied=%s', device_id, result.applied)
+        return result
+
     if template and template != 'T-HT':
         result.skipped = True
         result.reason = f'unsupported_template:{template}'

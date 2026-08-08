@@ -13,7 +13,7 @@ from module.config.utils import filepath_config, read_file, write_file
 from module.logger import logger
 from module.proalas.plan_server_quadrants import get_server_quadrants
 
-# 无活动时：关 Event/Gacha/活动修正/UP检测等；**不**强制关 ProalasAutoEventShop（商店兑换可继续）
+# 无活动时：关 Event/共斗/Gacha/活动检测等；**不**强制关 ProalasAutoEventShop（商店兑换可继续）
 _NONE_SCHEDULER_DEFAULTS: dict[str, bool] = {
     'Event': False,
     'Event2': False,
@@ -24,6 +24,7 @@ _NONE_SCHEDULER_DEFAULTS: dict[str, bool] = {
     'EventSp': False,
     'Raid': False,
     'RaidDaily': False,
+    'Coalition': False,
     'Gacha': False,
     'Main': True,
     'Main2': True,
@@ -32,6 +33,36 @@ _NONE_SCHEDULER_DEFAULTS: dict[str, bool] = {
     'ProalasGachaCheck': False,
     'ProalasEventFormatFix': False,
     'ProalasCollectionFill': False,
+}
+
+# mode=none 时这些任务禁止被蓝区 scheduler_enable 残留重新打开
+_EVENT_RELATED_FORCE_OFF: tuple[str, ...] = (
+    'Event',
+    'Event2',
+    'EventA',
+    'EventB',
+    'EventC',
+    'EventD',
+    'EventSp',
+    'Raid',
+    'RaidDaily',
+    'Coalition',
+    'Gacha',
+    'ProalasGachaCheck',
+    'ProalasEventFormatFix',
+    'ProalasCollectionFill',
+)
+
+# 无活动时把活动目录写回主线，避免活动检测仍读到旧 coalition_/event_
+_NONE_CAMPAIGN_RESET: dict[str, str] = {
+    'Event': 'campaign_main',
+    'Event2': 'campaign_main',
+    'EventA': 'campaign_main',
+    'EventB': 'campaign_main',
+    'EventC': 'campaign_main',
+    'EventD': 'campaign_main',
+    'EventSp': 'campaign_main',
+    'Coalition': 'campaign_main',
 }
 
 _NONE_SCHEDULER_GEM: dict[str, bool] = {
@@ -195,18 +226,23 @@ def _apply_green_meta(data: dict[str, Any], green: dict[str, Any], details: list
     return 1
 
 
-_EVENT_FORMAT_ALAS = frozenset({'T-HT', 'AB-CD', 'SP-HSP'})
+_EVENT_FORMAT_ALAS = frozenset({'T-HT', 'AB-CD', 'SP-HSP', 'COALITION', 'NONE'})
 
 
 def _apply_event_format(data: dict[str, Any], event_format: str, details: list[str]) -> int:
-    fmt = str(event_format or '').strip()
-    if not fmt or fmt == 'NONE':
+    fmt = str(event_format or '').strip().upper()
+    if not fmt:
         return 0
     if fmt not in _EVENT_FORMAT_ALAS:
         logger.warning('ActivityMaterializer skip unknown event_format=%r', fmt)
         return 0
     _ensure_task_bucket(data, 'ProalasEventFormatFix')
-    deep_set(data, keys=['ProalasEventFormatFix', 'ProalasEventFormatFix', 'Template'], value=fmt)
+    # UI Template 选项暂无 COALITION/NONE：共斗以 Campaign.Event=coalition_* + ProalasData.EventFormat 为准
+    if fmt not in ('COALITION', 'NONE'):
+        deep_set(data, keys=['ProalasEventFormatFix', 'ProalasEventFormatFix', 'Template'], value=fmt)
+    if fmt == 'NONE':
+        deep_set(data, keys=['ProalasEventFormatFix', 'ProalasEventFormatFix', 'AllCleared'], value=False)
+        deep_set(data, keys=['ProalasEventFormatFix', 'ProalasEventFormatFix', 'StopStage'], value='')
     proalas = deep_get(data, ['ProalasData'], {}) or {}
     if not isinstance(proalas, dict):
         proalas = {}
@@ -216,13 +252,60 @@ def _apply_event_format(data: dict[str, Any], event_format: str, details: list[s
         'sourceDate': _today_str(),
     }
     deep_set(data, keys=['ProalasData'], value=proalas)
-    details.append(f'ProalasEventFormatFix.Template={fmt}')
+    details.append(f'ProalasData.EventFormat={fmt}')
     return 1
+
+
+def _apply_none_campaign_reset(data: dict[str, Any], details: list[str]) -> int:
+    """无活动日：活动任务 Campaign.Event 写回 campaign_main。"""
+    count = 0
+    for task, event_id in _NONE_CAMPAIGN_RESET.items():
+        cur = str(deep_get(data, [task, 'Campaign', 'Event'], '') or '').strip()
+        if cur in ('', event_id):
+            continue
+        _ensure_task_bucket(data, task)
+        deep_set(data, keys=[task, 'Campaign', 'Event'], value=event_id)
+        details.append(f'Campaign.Event {task}={event_id} (none-day reset)')
+        count += 1
+    return count
+
+
+def _blue_is_event_payload(blue: dict[str, Any] | None) -> bool:
+    """蓝区是否表示「有活动」。空蓝区 / 无 mode / mode=none → 否。"""
+    if not isinstance(blue, dict) or not blue:
+        return False
+    mode = str(blue.get('mode') or '').strip().lower()
+    if mode == 'event':
+        return True
+    if mode == 'none':
+        return False
+    fmt = str(blue.get('event_format') or '').strip().upper()
+    if fmt and fmt not in ('NONE',):
+        return True
+    campaigns = blue.get('campaign_events') or {}
+    if isinstance(campaigns, dict) and any(str(v or '').strip() for v in campaigns.values()):
+        return True
+    sched = blue.get('scheduler_enable') or {}
+    if isinstance(sched, dict):
+        for key in _EVENT_RELATED_FORCE_OFF:
+            if key in ('ProalasGachaCheck', 'ProalasEventFormatFix', 'ProalasCollectionFill', 'Gacha'):
+                continue
+            if sched.get(key):
+                return True
+    return False
 
 
 def build_patches_from_blue(blue: dict[str, Any]) -> dict[str, Any]:
     """纯函数：蓝色 payload → 待写入片段（供 HostAgent 复用）。"""
-    mode = str(blue.get('mode') or 'event').lower()
+    blue = blue if isinstance(blue, dict) else {}
+    # 空蓝区 / 未写 mode → 按无活动处理（旧逻辑默认 event 会导致残留活动开关永不清理）
+    if not blue or not str(blue.get('mode') or '').strip():
+        mode = 'none' if not _blue_is_event_payload(blue) else 'event'
+    else:
+        mode = str(blue.get('mode') or '').strip().lower()
+        if mode not in ('event', 'none'):
+            mode = 'event' if _blue_is_event_payload(blue) else 'none'
+
     scheduler = dict(blue.get('scheduler_enable') or {})
     campaigns = dict(blue.get('campaign_events') or {})
     gacha = dict(blue.get('gacha') or {}) if isinstance(blue.get('gacha'), dict) else {}
@@ -230,8 +313,17 @@ def build_patches_from_blue(blue: dict[str, Any]) -> dict[str, Any]:
 
     if mode == 'none':
         base = dict(_NONE_SCHEDULER_DEFAULTS)
-        base.update(scheduler)
+        # 允许蓝区覆盖 Main/Gems 等日常开关，但活动相关一律强制关
+        for k, v in scheduler.items():
+            if k in _EVENT_RELATED_FORCE_OFF:
+                continue
+            base[str(k)] = bool(v)
+        for k in _EVENT_RELATED_FORCE_OFF:
+            base[k] = False
         scheduler = base
+        campaigns = {}
+        gacha = {}
+        event_format = 'NONE'
     return {
         'mode': mode,
         'campaign_events': campaigns,
@@ -262,11 +354,11 @@ def materialize_activity(
     yellow = quads.get('yellow') or {}
     green = quads.get('green') or {}
 
-    result = MaterializeResult(device_id=device_id, date=date_str, blue=blue, dry_run=dry_run)
+    result = MaterializeResult(device_id=device_id, date=date_str, blue=blue if isinstance(blue, dict) else {}, dry_run=dry_run)
 
-    if not blue and not yellow.get('scheduler_enable') and not green:
-        result.details.append('no server quadrant payload (blue/yellow/green)')
-        return result
+    # 无任何象限时仍按「无活动」落盘清理，避免共斗/活动检测残留一直开着
+    if not blue and not (isinstance(yellow, dict) and yellow) and not (isinstance(green, dict) and green):
+        result.details.append('no server quadrant payload — treat as mode=none teardown')
 
     path = filepath_config(device_id)
     data = read_file(path)
@@ -279,22 +371,35 @@ def materialize_activity(
     yellow_sched = dict(yellow.get('scheduler_enable') or {}) if isinstance(yellow, dict) else {}
     merged_sched = merge_scheduler_maps(yellow_sched, blue_patches.get('scheduler_enable') or {})
 
-    if blue_patches.get('mode') == 'none':
+    mode = str(blue_patches.get('mode', 'none'))
+    no_event = mode == 'none' or not _blue_is_event_payload(blue or {})
+
+    if no_event:
+        # 黄区合并后再次强制关掉活动相关，防止黄区误带 Event=true
+        for k in _EVENT_RELATED_FORCE_OFF:
+            merged_sched[k] = False
         pref = str(deep_get(data, ['ProalasData', 'ResourcePreference'], 'material') or 'material').lower().strip()
         if pref == 'gem':
             merged_sched = merge_scheduler_maps(merged_sched, _NONE_SCHEDULER_GEM)
             result.details.append('ResourcePreference=gem (GemsFarming on, Main off)')
         else:
+            merged_sched.setdefault('Main', True)
+            merged_sched.setdefault('Main2', True)
+            merged_sched['GemsFarming'] = False
             result.details.append('ResourcePreference=material (Main on, GemsFarming off)')
+        blue_patches['event_format'] = 'NONE'
+        blue_patches['campaign_events'] = {}
+        blue_patches['gacha'] = {}
 
     valid_ids = _load_valid_event_ids()
-    result.applied += _apply_campaign_events(
-        data, blue_patches.get('campaign_events') or {}, result.details,
-        valid_event_ids=valid_ids,
-    )
+    if no_event:
+        result.applied += _apply_none_campaign_reset(data, result.details)
+    else:
+        result.applied += _apply_campaign_events(
+            data, blue_patches.get('campaign_events') or {}, result.details,
+            valid_event_ids=valid_ids,
+        )
 
-    mode = str(blue_patches.get('mode', 'event'))
-    no_event = mode == 'none' or not blue_patches.get('campaign_events')
     proalas_data = deep_get(data, ['ProalasData'], {}) or {}
     if not isinstance(proalas_data, dict):
         proalas_data = {}
@@ -305,7 +410,8 @@ def materialize_activity(
 
     result.applied += _apply_scheduler_enable(data, merged_sched, result.details)
     result.applied += _apply_gacha_meta(data, blue_patches.get('gacha') or {}, result.details)
-    result.applied += _apply_farm_meta(data, blue or {}, result.details)
+    if not no_event:
+        result.applied += _apply_farm_meta(data, blue or {}, result.details)
     result.applied += _apply_event_format(data, blue_patches.get('event_format') or '', result.details)
     result.applied += _apply_green_meta(data, green, result.details)
 

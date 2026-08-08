@@ -63,7 +63,12 @@ def run_timer_plan_bundle(config, device) -> None:
         elif orch.reason and not orch.skipped:
             logger.warning('TimerPlan event orchestrate device=%s reason=%s', device_id, orch.reason)
     else:
-        logger.info('TimerPlan skip event orchestrate — not_event_day mode=%s', (mat.blue or {}).get('mode'))
+        logger.info(
+            'TimerPlan not_event_day — materialize should close Event/Coalition/FormatFix and restore Main; '
+            'mode=%s applied=%s',
+            (mat.blue or {}).get('mode') if isinstance(mat.blue, dict) else None,
+            mat.applied,
+        )
 
     config.load()
     config.bind('ProalasTimerPlan')
